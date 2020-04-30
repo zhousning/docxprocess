@@ -1,0 +1,13 @@
+F:\ProgramFiles\visualstudiowork\Docx\bin\Debug\Docx.exe.config
+F:\ProgramFiles\visualstudiowork\Docx\bin\Debug\Docx.exe
+F:\ProgramFiles\visualstudiowork\Docx\bin\Debug\Docx.pdb
+F:\ProgramFiles\visualstudiowork\Docx\obj\Debug\Docx.csprojAssemblyReference.cache
+F:\ProgramFiles\visualstudiowork\Docx\obj\Debug\Docx.Properties.Resources.resources
+F:\ProgramFiles\visualstudiowork\Docx\obj\Debug\Docx.csproj.GenerateResource.cache
+F:\ProgramFiles\visualstudiowork\Docx\obj\Debug\Docx.csproj.CoreCompileInputs.cache
+F:\ProgramFiles\visualstudiowork\Docx\obj\Debug\Docx.exe
+F:\ProgramFiles\visualstudiowork\Docx\obj\Debug\Docx.pdb
+F:\ProgramFiles\visualstudiowork\Docx\obj\Debug\Docx.MainForm.resources
+F:\ProgramFiles\visualstudiowork\Docx\bin\Debug\Xceed.Document.NET.dll
+F:\ProgramFiles\visualstudiowork\Docx\bin\Debug\Xceed.Words.NET.dll
+F:\ProgramFiles\visualstudiowork\Docx\obj\Debug\Docx.csproj.CopyComplete
