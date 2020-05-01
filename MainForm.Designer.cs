@@ -38,7 +38,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.todoTask = new System.Windows.Forms.ListBox();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.tabcontrol1 = new System.Windows.Forms.TabControl();
+            this.tabcontrol = new System.Windows.Forms.TabControl();
             this.pageSettingTab = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.pageSetOrientation = new System.Windows.Forms.ComboBox();
@@ -70,6 +70,7 @@
             this.pageNumberComBox = new System.Windows.Forms.ComboBox();
             this.label19 = new System.Windows.Forms.Label();
             this.footerGroupBox = new System.Windows.Forms.GroupBox();
+            this.footerLine = new System.Windows.Forms.CheckBox();
             this.clearFooterImageBtn = new System.Windows.Forms.Button();
             this.footerImageBtn = new System.Windows.Forms.Button();
             this.footerImagePath = new System.Windows.Forms.TextBox();
@@ -86,6 +87,7 @@
             this.pageFooter = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.headerGroupBox = new System.Windows.Forms.GroupBox();
+            this.headerLine = new System.Windows.Forms.CheckBox();
             this.clearHeaderImage = new System.Windows.Forms.Button();
             this.headerImageBtn = new System.Windows.Forms.Button();
             this.headerImagePath = new System.Windows.Forms.TextBox();
@@ -101,6 +103,20 @@
             this.label10 = new System.Windows.Forms.Label();
             this.pageHeader = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.docInfoTab = new System.Windows.Forms.TabPage();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.DocDescription = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.DocCategory = new System.Windows.Forms.TextBox();
+            this.DocVersion = new System.Windows.Forms.TextBox();
+            this.类别 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.DocSubject = new System.Windows.Forms.TextBox();
+            this.DocCreator = new System.Windows.Forms.TextBox();
+            this.主题 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.DocTitle = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
             this.fileGrid = new System.Windows.Forms.DataGridView();
             this.filename = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.filepath = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -112,14 +128,24 @@
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.outPutFolder = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.headerFontDialog = new System.Windows.Forms.FontDialog();
             this.footerFontDialog = new System.Windows.Forms.FontDialog();
             this.headerColorDialog = new System.Windows.Forms.ColorDialog();
             this.footerColorDialog = new System.Windows.Forms.ColorDialog();
             this.headerImageDialog = new System.Windows.Forms.OpenFileDialog();
             this.footerImageDialog = new System.Windows.Forms.OpenFileDialog();
-            this.headerLine = new System.Windows.Forms.CheckBox();
-            this.footerLine = new System.Windows.Forms.CheckBox();
+            this.pageInfoToTask = new System.Windows.Forms.CheckBox();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.DocUpdateTime = new System.Windows.Forms.DateTimePicker();
+            this.DocCreateTime = new System.Windows.Forms.DateTimePicker();
+            this.CreateTimeCheckBox = new System.Windows.Forms.CheckBox();
+            this.UpdateTimeCheckBox = new System.Windows.Forms.CheckBox();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.DocEditPrctCheckBox = new System.Windows.Forms.CheckBox();
+            this.DocEditPassword = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -129,7 +155,7 @@
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
-            this.tabcontrol1.SuspendLayout();
+            this.tabcontrol.SuspendLayout();
             this.pageSettingTab.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -139,9 +165,13 @@
             this.groupBox4.SuspendLayout();
             this.footerGroupBox.SuspendLayout();
             this.headerGroupBox.SuspendLayout();
+            this.docInfoTab.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fileGrid)).BeginInit();
             this.tabControl2.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
+            this.groupBox7.SuspendLayout();
+            this.groupBox8.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -244,7 +274,7 @@
             // 
             // splitContainer2.Panel1
             // 
-            this.splitContainer2.Panel1.Controls.Add(this.tabcontrol1);
+            this.splitContainer2.Panel1.Controls.Add(this.tabcontrol);
             this.splitContainer2.Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.SplitContainer2_Panel1_Paint);
             // 
             // splitContainer2.Panel2
@@ -256,15 +286,16 @@
             this.splitContainer2.SplitterDistance = 302;
             this.splitContainer2.TabIndex = 0;
             // 
-            // tabcontrol1
+            // tabcontrol
             // 
-            this.tabcontrol1.Controls.Add(this.pageSettingTab);
-            this.tabcontrol1.Controls.Add(this.headerFooterTab);
-            this.tabcontrol1.Location = new System.Drawing.Point(0, 0);
-            this.tabcontrol1.Name = "tabcontrol1";
-            this.tabcontrol1.SelectedIndex = 0;
-            this.tabcontrol1.Size = new System.Drawing.Size(1023, 301);
-            this.tabcontrol1.TabIndex = 0;
+            this.tabcontrol.Controls.Add(this.pageSettingTab);
+            this.tabcontrol.Controls.Add(this.headerFooterTab);
+            this.tabcontrol.Controls.Add(this.docInfoTab);
+            this.tabcontrol.Location = new System.Drawing.Point(0, 0);
+            this.tabcontrol.Name = "tabcontrol";
+            this.tabcontrol.SelectedIndex = 0;
+            this.tabcontrol.Size = new System.Drawing.Size(1023, 301);
+            this.tabcontrol.TabIndex = 0;
             // 
             // pageSettingTab
             // 
@@ -622,6 +653,16 @@
             this.footerGroupBox.TabStop = false;
             this.footerGroupBox.Text = "页脚";
             // 
+            // footerLine
+            // 
+            this.footerLine.AutoSize = true;
+            this.footerLine.Location = new System.Drawing.Point(18, 223);
+            this.footerLine.Name = "footerLine";
+            this.footerLine.Size = new System.Drawing.Size(72, 16);
+            this.footerLine.TabIndex = 30;
+            this.footerLine.Text = "页脚横线";
+            this.footerLine.UseVisualStyleBackColor = true;
+            // 
             // clearFooterImageBtn
             // 
             this.clearFooterImageBtn.Location = new System.Drawing.Point(233, 185);
@@ -786,6 +827,17 @@
             this.headerGroupBox.TabIndex = 26;
             this.headerGroupBox.TabStop = false;
             this.headerGroupBox.Text = "页眉";
+            this.headerGroupBox.Enter += new System.EventHandler(this.HeaderGroupBox_Enter);
+            // 
+            // headerLine
+            // 
+            this.headerLine.AutoSize = true;
+            this.headerLine.Location = new System.Drawing.Point(18, 223);
+            this.headerLine.Name = "headerLine";
+            this.headerLine.Size = new System.Drawing.Size(72, 16);
+            this.headerLine.TabIndex = 30;
+            this.headerLine.Text = "页眉横线";
+            this.headerLine.UseVisualStyleBackColor = true;
             // 
             // clearHeaderImage
             // 
@@ -927,6 +979,147 @@
             this.label8.TabIndex = 30;
             this.label8.Text = "页眉";
             // 
+            // docInfoTab
+            // 
+            this.docInfoTab.Controls.Add(this.pageInfoToTask);
+            this.docInfoTab.Controls.Add(this.groupBox8);
+            this.docInfoTab.Controls.Add(this.groupBox7);
+            this.docInfoTab.Controls.Add(this.groupBox6);
+            this.docInfoTab.Location = new System.Drawing.Point(4, 22);
+            this.docInfoTab.Name = "docInfoTab";
+            this.docInfoTab.Padding = new System.Windows.Forms.Padding(3);
+            this.docInfoTab.Size = new System.Drawing.Size(1015, 275);
+            this.docInfoTab.TabIndex = 2;
+            this.docInfoTab.Text = "文档信息";
+            this.docInfoTab.UseVisualStyleBackColor = true;
+            this.docInfoTab.Click += new System.EventHandler(this.TabPage1_Click_1);
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.DocDescription);
+            this.groupBox6.Controls.Add(this.label16);
+            this.groupBox6.Controls.Add(this.DocCategory);
+            this.groupBox6.Controls.Add(this.DocVersion);
+            this.groupBox6.Controls.Add(this.类别);
+            this.groupBox6.Controls.Add(this.label18);
+            this.groupBox6.Controls.Add(this.DocSubject);
+            this.groupBox6.Controls.Add(this.DocCreator);
+            this.groupBox6.Controls.Add(this.主题);
+            this.groupBox6.Controls.Add(this.label17);
+            this.groupBox6.Controls.Add(this.DocTitle);
+            this.groupBox6.Controls.Add(this.label20);
+            this.groupBox6.Location = new System.Drawing.Point(16, 8);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(298, 196);
+            this.groupBox6.TabIndex = 27;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "文档属性";
+            this.groupBox6.Enter += new System.EventHandler(this.GroupBox6_Enter_1);
+            // 
+            // DocDescription
+            // 
+            this.DocDescription.Location = new System.Drawing.Point(47, 102);
+            this.DocDescription.Name = "DocDescription";
+            this.DocDescription.Size = new System.Drawing.Size(231, 21);
+            this.DocDescription.TabIndex = 33;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(12, 107);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(29, 12);
+            this.label16.TabIndex = 32;
+            this.label16.Text = "备注";
+            // 
+            // DocCategory
+            // 
+            this.DocCategory.Location = new System.Drawing.Point(47, 75);
+            this.DocCategory.Name = "DocCategory";
+            this.DocCategory.Size = new System.Drawing.Size(231, 21);
+            this.DocCategory.TabIndex = 33;
+            this.DocCategory.TextChanged += new System.EventHandler(this.TextBox3_TextChanged);
+            // 
+            // DocVersion
+            // 
+            this.DocVersion.Location = new System.Drawing.Point(47, 159);
+            this.DocVersion.Name = "DocVersion";
+            this.DocVersion.Size = new System.Drawing.Size(231, 21);
+            this.DocVersion.TabIndex = 31;
+            this.DocVersion.TextChanged += new System.EventHandler(this.DocVersion_TextChanged);
+            // 
+            // 类别
+            // 
+            this.类别.AutoSize = true;
+            this.类别.Location = new System.Drawing.Point(12, 78);
+            this.类别.Name = "类别";
+            this.类别.Size = new System.Drawing.Size(29, 12);
+            this.类别.TabIndex = 32;
+            this.类别.Text = "类别";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(12, 162);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(29, 12);
+            this.label18.TabIndex = 30;
+            this.label18.Text = "版本";
+            this.label18.Click += new System.EventHandler(this.主题_Click);
+            // 
+            // DocSubject
+            // 
+            this.DocSubject.Location = new System.Drawing.Point(47, 48);
+            this.DocSubject.Name = "DocSubject";
+            this.DocSubject.Size = new System.Drawing.Size(231, 21);
+            this.DocSubject.TabIndex = 31;
+            this.DocSubject.TextChanged += new System.EventHandler(this.Subject_TextChanged);
+            // 
+            // DocCreator
+            // 
+            this.DocCreator.Location = new System.Drawing.Point(47, 132);
+            this.DocCreator.Name = "DocCreator";
+            this.DocCreator.Size = new System.Drawing.Size(231, 21);
+            this.DocCreator.TabIndex = 31;
+            // 
+            // 主题
+            // 
+            this.主题.AutoSize = true;
+            this.主题.Location = new System.Drawing.Point(12, 51);
+            this.主题.Name = "主题";
+            this.主题.Size = new System.Drawing.Size(29, 12);
+            this.主题.TabIndex = 30;
+            this.主题.Text = "主题";
+            this.主题.Click += new System.EventHandler(this.主题_Click);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(12, 135);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(29, 12);
+            this.label17.TabIndex = 30;
+            this.label17.Text = "作者";
+            this.label17.Click += new System.EventHandler(this.Label20_Click);
+            // 
+            // DocTitle
+            // 
+            this.DocTitle.Location = new System.Drawing.Point(47, 21);
+            this.DocTitle.Name = "DocTitle";
+            this.DocTitle.Size = new System.Drawing.Size(231, 21);
+            this.DocTitle.TabIndex = 31;
+            this.DocTitle.TextChanged += new System.EventHandler(this.Title_TextChanged);
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(12, 24);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(29, 12);
+            this.label20.TabIndex = 30;
+            this.label20.Text = "标题";
+            this.label20.Click += new System.EventHandler(this.Label20_Click);
+            // 
             // fileGrid
             // 
             this.fileGrid.AllowUserToAddRows = false;
@@ -1014,6 +1207,7 @@
             this.flowLayoutPanel1.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.flowLayoutPanel1.Controls.Add(this.outPutFolder);
             this.flowLayoutPanel1.Controls.Add(this.button2);
+            this.flowLayoutPanel1.Controls.Add(this.button1);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 28);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(1226, 29);
@@ -1038,6 +1232,16 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.Button2_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(307, 3);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.Button1_Click_2);
+            // 
             // headerImageDialog
             // 
             this.headerImageDialog.FileName = "headerImageDialog";
@@ -1047,25 +1251,124 @@
             this.footerImageDialog.FileName = "footerImageDialog";
             this.footerImageDialog.Filter = "图片文件|*.jpg|*.jpeg|*.png";
             // 
-            // headerLine
+            // pageInfoToTask
             // 
-            this.headerLine.AutoSize = true;
-            this.headerLine.Location = new System.Drawing.Point(18, 223);
-            this.headerLine.Name = "headerLine";
-            this.headerLine.Size = new System.Drawing.Size(72, 16);
-            this.headerLine.TabIndex = 30;
-            this.headerLine.Text = "页眉横线";
-            this.headerLine.UseVisualStyleBackColor = true;
+            this.pageInfoToTask.AutoSize = true;
+            this.pageInfoToTask.Location = new System.Drawing.Point(884, 11);
+            this.pageInfoToTask.Name = "pageInfoToTask";
+            this.pageInfoToTask.Size = new System.Drawing.Size(120, 16);
+            this.pageInfoToTask.TabIndex = 30;
+            this.pageInfoToTask.Text = "添加到待处理任务";
+            this.pageInfoToTask.UseVisualStyleBackColor = true;
+            this.pageInfoToTask.CheckedChanged += new System.EventHandler(this.PageInfoToTask_CheckedChanged);
             // 
-            // footerLine
+            // groupBox7
             // 
-            this.footerLine.AutoSize = true;
-            this.footerLine.Location = new System.Drawing.Point(18, 223);
-            this.footerLine.Name = "footerLine";
-            this.footerLine.Size = new System.Drawing.Size(72, 16);
-            this.footerLine.TabIndex = 30;
-            this.footerLine.Text = "页脚横线";
-            this.footerLine.UseVisualStyleBackColor = true;
+            this.groupBox7.Controls.Add(this.UpdateTimeCheckBox);
+            this.groupBox7.Controls.Add(this.CreateTimeCheckBox);
+            this.groupBox7.Controls.Add(this.DocUpdateTime);
+            this.groupBox7.Controls.Add(this.DocCreateTime);
+            this.groupBox7.Location = new System.Drawing.Point(329, 8);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(298, 90);
+            this.groupBox7.TabIndex = 27;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "文档时间";
+            this.groupBox7.Enter += new System.EventHandler(this.GroupBox6_Enter_1);
+            // 
+            // DocUpdateTime
+            // 
+            this.DocUpdateTime.CustomFormat = "yyyy-MM-dd HH:mm:ss";
+            this.DocUpdateTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.DocUpdateTime.Location = new System.Drawing.Point(94, 51);
+            this.DocUpdateTime.Name = "DocUpdateTime";
+            this.DocUpdateTime.Size = new System.Drawing.Size(188, 21);
+            this.DocUpdateTime.TabIndex = 28;
+            this.DocUpdateTime.ValueChanged += new System.EventHandler(this.DateTimePicker1_ValueChanged);
+            // 
+            // DocCreateTime
+            // 
+            this.DocCreateTime.CustomFormat = "yyyy-MM-dd HH:mm:ss";
+            this.DocCreateTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.DocCreateTime.Location = new System.Drawing.Point(94, 21);
+            this.DocCreateTime.Name = "DocCreateTime";
+            this.DocCreateTime.Size = new System.Drawing.Size(188, 21);
+            this.DocCreateTime.TabIndex = 28;
+            this.DocCreateTime.ValueChanged += new System.EventHandler(this.DateTimePicker2_ValueChanged);
+            // 
+            // CreateTimeCheckBox
+            // 
+            this.CreateTimeCheckBox.AutoSize = true;
+            this.CreateTimeCheckBox.Location = new System.Drawing.Point(16, 23);
+            this.CreateTimeCheckBox.Name = "CreateTimeCheckBox";
+            this.CreateTimeCheckBox.Size = new System.Drawing.Size(72, 16);
+            this.CreateTimeCheckBox.TabIndex = 29;
+            this.CreateTimeCheckBox.Text = "创建时间";
+            this.CreateTimeCheckBox.UseVisualStyleBackColor = true;
+            this.CreateTimeCheckBox.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
+            // 
+            // UpdateTimeCheckBox
+            // 
+            this.UpdateTimeCheckBox.AutoSize = true;
+            this.UpdateTimeCheckBox.Location = new System.Drawing.Point(16, 53);
+            this.UpdateTimeCheckBox.Name = "UpdateTimeCheckBox";
+            this.UpdateTimeCheckBox.Size = new System.Drawing.Size(72, 16);
+            this.UpdateTimeCheckBox.TabIndex = 30;
+            this.UpdateTimeCheckBox.Text = "修改时间";
+            this.UpdateTimeCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.label21);
+            this.groupBox8.Controls.Add(this.DocEditPassword);
+            this.groupBox8.Controls.Add(this.checkBox1);
+            this.groupBox8.Controls.Add(this.DocEditPrctCheckBox);
+            this.groupBox8.Location = new System.Drawing.Point(329, 114);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(298, 90);
+            this.groupBox8.TabIndex = 27;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "文档保护";
+            this.groupBox8.Enter += new System.EventHandler(this.GroupBox6_Enter_1);
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(16, 53);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(72, 16);
+            this.checkBox1.TabIndex = 30;
+            this.checkBox1.Text = "修改时间";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // DocEditPrctCheckBox
+            // 
+            this.DocEditPrctCheckBox.AutoSize = true;
+            this.DocEditPrctCheckBox.Location = new System.Drawing.Point(16, 23);
+            this.DocEditPrctCheckBox.Name = "DocEditPrctCheckBox";
+            this.DocEditPrctCheckBox.Size = new System.Drawing.Size(48, 16);
+            this.DocEditPrctCheckBox.TabIndex = 29;
+            this.DocEditPrctCheckBox.Text = "加密";
+            this.DocEditPrctCheckBox.UseVisualStyleBackColor = true;
+            this.DocEditPrctCheckBox.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
+            // 
+            // DocEditPassword
+            // 
+            this.DocEditPassword.Location = new System.Drawing.Point(137, 20);
+            this.DocEditPassword.Name = "DocEditPassword";
+            this.DocEditPassword.Size = new System.Drawing.Size(145, 21);
+            this.DocEditPassword.TabIndex = 33;
+            this.DocEditPassword.TextChanged += new System.EventHandler(this.TextBox1_TextChanged_2);
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(102, 24);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(29, 12);
+            this.label21.TabIndex = 34;
+            this.label21.Text = "密码";
+            this.label21.Click += new System.EventHandler(this.Label21_Click);
             // 
             // MainForm
             // 
@@ -1091,7 +1394,7 @@
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
-            this.tabcontrol1.ResumeLayout(false);
+            this.tabcontrol.ResumeLayout(false);
             this.pageSettingTab.ResumeLayout(false);
             this.pageSettingTab.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -1109,10 +1412,18 @@
             this.footerGroupBox.PerformLayout();
             this.headerGroupBox.ResumeLayout(false);
             this.headerGroupBox.PerformLayout();
+            this.docInfoTab.ResumeLayout(false);
+            this.docInfoTab.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fileGrid)).EndInit();
             this.tabControl2.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1126,7 +1437,7 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.ListBox todoTask;
         private System.Windows.Forms.SplitContainer splitContainer2;
-        private System.Windows.Forms.TabControl tabcontrol1;
+        private System.Windows.Forms.TabControl tabcontrol;
         private System.Windows.Forms.TabPage pageSettingTab;
         private System.Windows.Forms.TabPage headerFooterTab;
         private System.Windows.Forms.TabControl tabControl2;
@@ -1212,5 +1523,31 @@
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.CheckBox footerLine;
         private System.Windows.Forms.CheckBox headerLine;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TabPage docInfoTab;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.TextBox DocDescription;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox DocCategory;
+        private System.Windows.Forms.Label 类别;
+        private System.Windows.Forms.TextBox DocSubject;
+        private System.Windows.Forms.Label 主题;
+        private System.Windows.Forms.TextBox DocTitle;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.TextBox DocVersion;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.TextBox DocCreator;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.CheckBox pageInfoToTask;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.DateTimePicker DocUpdateTime;
+        private System.Windows.Forms.DateTimePicker DocCreateTime;
+        private System.Windows.Forms.CheckBox UpdateTimeCheckBox;
+        private System.Windows.Forms.CheckBox CreateTimeCheckBox;
+        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox DocEditPrctCheckBox;
+        private System.Windows.Forms.TextBox DocEditPassword;
+        private System.Windows.Forms.Label label21;
     }
 }

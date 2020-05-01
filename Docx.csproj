@@ -67,9 +67,12 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\ConstData.cs" />
+    <Compile Include="src\docxprocess\DocInfoSetting.cs" />
     <Compile Include="src\docxprocess\HeaderFooterSetting.cs" />
     <Compile Include="src\docxprocess\PageSetting.cs" />
+    <Compile Include="src\model\DocInfoOption.cs" />
     <Compile Include="src\model\HeaderFooterOption.cs" />
+    <Compile Include="src\services\DocInfoService.cs" />
     <Compile Include="src\services\HeaderFooterService.cs" />
     <Compile Include="src\services\PageSettingService.cs" />
     <EmbeddedResource Include="MainForm.resx">

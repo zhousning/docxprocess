@@ -21,11 +21,13 @@ namespace Docx
     {
         private PageSettingService pageSettingService;
         private HeaderFooterService headerFooterService;
+        private DocInfoService docInfoService;
         public MainForm()
         {
             InitializeComponent();
             this.pageSettingService = new PageSettingService();
             this.headerFooterService = new HeaderFooterService();
+            this.docInfoService = new DocInfoService();
         }
 
         private void 打开ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -93,6 +95,7 @@ namespace Docx
                 return;
             }
 
+            startProcess.Text = "处理中...";
             startProcess.Enabled = false;
             string outputDirectory = outPutFolder.Text;
             if (string.IsNullOrEmpty(outputDirectory))
@@ -130,8 +133,17 @@ namespace Docx
                                 {
                                     HeaderFooterSet(document);
                                 }
+                                else if (title == docInfoTab.Text)
+                                {
+                                    DocInfoSet(document);
+                                }
                             }
+                            
                             document.SaveAs(targetFile);
+                            if (tasks.Contains(docInfoTab.Text)){
+                                this.docInfoService.UpdateFileTime(targetFile, CreateTimeCheckBox.Checked, DocCreateTime.Value, UpdateTimeCheckBox.Checked, DocUpdateTime.Value);
+                               
+                            }
                             result = ConstData.SUCCESS;
                         }
                     }
@@ -157,11 +169,13 @@ namespace Docx
             }
             ds.Tables.Add(dt);
             fileGrid.DataSource = ds.Tables[0];
+            startProcess.Text = "开始处理";
             startProcess.Enabled = true;
             //MessageBox.Show("处理完毕", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
         }
 
+        
         private void PageSet(DocX document)
         {
             pageSettingService.marginSetting(document, notSetMargin.Checked, topMargin.Text, bottomMargin.Text, leftMargin.Text, rightMargin.Text);
@@ -193,8 +207,7 @@ namespace Docx
                 string evenHeaderText = evenHeader.Text;
                 string headerImage = headerImagePath.Text;
                 Boolean headerLineBool = headerLine.Checked;
-                
-                
+                                
                 HeaderFooterOption headerOption = new HeaderFooterOption(headerFont, headerColor, headerAlign, pageHeaderText, firstHeaderText, oddHeaderText, evenHeaderText, headerImage, "", headerLineBool);
 
                 headerFooterService.addHeaders(document, headerOption, firstOption, oddEvenOption);
@@ -217,6 +230,24 @@ namespace Docx
                 headerFooterService.addFooters(document, footerOption, firstOption, oddEvenOption);
             }
         }
+
+        private void DocInfoSet(DocX document)
+        {
+            string title = DocTitle.Text;
+            string subject = DocSubject.Text;
+            string category = DocCategory.Text;
+            string description = DocDescription.Text;
+            string creator = DocCreator.Text;
+            string version = DocVersion.Text;
+            Boolean editProtect = DocEditPrctCheckBox.Checked;
+            string editPassword = DocEditPassword.Text;
+
+            DocInfoOption option = new DocInfoOption(subject, title, creator, "", description, "", "", category, version, "", "");
+            this.docInfoService.addCoreProperties(document, option);
+            this.docInfoService.DocProtect(document, editProtect, editPassword);
+        }
+
+   
 
         private void Button2_Click(object sender, EventArgs e)
         {
@@ -249,14 +280,7 @@ namespace Docx
 
         private void PageAddToTask_CheckedChanged(object sender, EventArgs e)
         {
-            if (pageAddToTask.Checked)
-            {
-                todoTask.Items.Add(pageSettingTab.Text);
-            }
-            else
-            {
-                todoTask.Items.Remove(pageSettingTab.Text);
-            }
+            addToTaskCheck(pageAddToTask);
         }
 
         private void TextBox1_TextChanged(object sender, EventArgs e)
@@ -370,15 +394,10 @@ namespace Docx
 
         private void headerFooterToTask_CheckedChanged(object sender, EventArgs e)
         {
-            if (headerFooterToTask.Checked)
-            {
-                todoTask.Items.Add(headerFooterTab.Text);
-            }
-            else
-            {
-                todoTask.Items.Remove(headerFooterTab.Text);
-            }
+            addToTaskCheck(headerFooterToTask);
         }
+
+        
 
         private void CheckBox5_CheckedChanged(object sender, EventArgs e)
         {
@@ -413,6 +432,18 @@ namespace Docx
                 oddFooter.Enabled = false;
                 evenHeader.Enabled = false;
                 evenFooter.Enabled = false;
+            }
+        }
+
+        private void addToTaskCheck(CheckBox checkBox)
+        {
+            if (checkBox.Checked)
+            {
+                todoTask.Items.Add(checkBox.Parent.Text);
+            }
+            else
+            {
+                todoTask.Items.Remove(checkBox.Parent.Text);
             }
         }
 
@@ -524,10 +555,6 @@ namespace Docx
             }
         }
 
-        private void OpenFileDialog1_FileOk(object sender, CancelEventArgs e)
-        {
-
-        }
 
         private void ClearHeaderImage_Click(object sender, EventArgs e)
         {
@@ -558,57 +585,141 @@ namespace Docx
             pageNumberComBox.SelectedIndex = 0;
         }
 
-        private void Button1_Click_1(object sender, EventArgs e)
+        private void Button1_Click_2(object sender, EventArgs e)
         {
-            
-                Console.WriteLine("\tInsertHorizontalLine()");
+            Console.WriteLine("\tAddPasswordProtection()");
 
-                using (var document = DocX.Create(@"C:\Users\周宁\Desktop\新建文件夹 (2)\InsertHorizontalLine.docx"))
-                {
-                    // Add a title
-                    document.InsertParagraph("Adding top or bottom Horizontal lines").FontSize(15d).SpacingAfter(50d).Alignment = Xceed.Document.NET.Alignment.center;
+            // Create a new document.
+            using (var document = DocX.Create(@"C:\Users\周宁\Desktop\新建文件夹 (2)\AddPasswordProtection.docx"))
+            {
+                // Add a title
+                document.InsertParagraph("Document protection using password").FontSize(15d).SpacingAfter(50d);
 
-                    // Add a paragraph with a single line.
-                    var p = document.InsertParagraph();
-                    p.Append("This is a paragraph with a single bottom line.").Font(new Xceed.Document.NET.Font("Arial")).FontSize(15);
-                    p.InsertHorizontalLine(Xceed.Document.NET.HorizontalBorderPosition.bottom, Xceed.Document.NET.BorderStyle.Tcbs_single);
-                    p.SpacingAfter(20);
+                // Insert a Paragraph into this document.
+                var p = document.InsertParagraph();
 
-                    // Add a paragraph with a double green line.
-                    var p2 = document.InsertParagraph();
-                    p2.Append("This is a paragraph with a double bottom colored line.").Font(new Xceed.Document.NET.Font("Arial")).FontSize(15);
-                    p2.InsertHorizontalLine(Xceed.Document.NET.HorizontalBorderPosition.bottom, Xceed.Document.NET.BorderStyle.Tcbs_double, 6, 1, Color.Green);
-                    p2.SpacingAfter(20);
+                // Append some text and add formatting.
+                p.Append("This document is protected and can only be edited by stopping its protection with a valid password(\"xceed\").")
+                .Font(new Xceed.Document.NET.Font("Arial"))
+                .FontSize(25)
+                .Color(Color.Blue)
+                .Bold();
 
-                    // Add a paragraph with a triple red line.
-                    var p3 = document.InsertParagraph();
-                    p3.Append("This is a paragraph with a triple bottom colored line.").Font(new Xceed.Document.NET.Font("Arial")).FontSize(15);
-                    p3.InsertHorizontalLine(Xceed.Document.NET.HorizontalBorderPosition.bottom, Xceed.Document.NET.BorderStyle.Tcbs_triple, 6, 1, Color.Red);
-                    p3.SpacingAfter(20);
+                // Set the document as read only and add a password to unlock it.
+                document.AddPasswordProtection(Xceed.Document.NET.EditRestrictions.forms, "form");
+                document.AddPasswordProtection(Xceed.Document.NET.EditRestrictions.comments, "comment");
+                document.AddPasswordProtection(Xceed.Document.NET.EditRestrictions.trackedChanges, "track");
+                //document.AddPasswordProtection(Xceed.Document.NET.EditRestrictions.readOnly, "1");
 
-                    // Add a paragraph with a single spaced line.
-                    var p4 = document.InsertParagraph();
-                    p4.Append("This is a paragraph with a spaced bottom line.").Font(new Xceed.Document.NET.Font("Arial")).FontSize(15);
-                    p4.InsertHorizontalLine(Xceed.Document.NET.HorizontalBorderPosition.bottom, Xceed.Document.NET.BorderStyle.Tcbs_single, 6, 12);
-                    p4.SpacingAfter(20);
-
-                    // Add a paragraph with a single large line.
-                    var p5 = document.InsertParagraph();
-                    p5.Append("This is a paragraph with a large bottom line.").Font(new Xceed.Document.NET.Font("Arial")).FontSize(15);
-                    p5.InsertHorizontalLine(Xceed.Document.NET.HorizontalBorderPosition.bottom, Xceed.Document.NET.BorderStyle.Tcbs_single, 25);
-                    p5.SpacingAfter(60);
-
-                    // Add a paragraph with a wave blue top line.
-                    var p6 = document.InsertParagraph();
-                    p6.Append("This is a paragraph with a wave blue top line.").Font(new Xceed.Document.NET.Font("Arial")).FontSize(15);
-                    p6.InsertHorizontalLine(Xceed.Document.NET.HorizontalBorderPosition.top, Xceed.Document.NET.BorderStyle.Tcbs_wave, 6, 1, Color.FromArgb(0, 0, 255));
-                    p5.SpacingAfter(20);
-
-                    document.Save();
-                    Console.WriteLine("\tCreated: InsertHorizontalLine.docx\n");
-                }
-            
+                // Save this document to disk.
+                document.Save();
+                Console.WriteLine("\tCreated: AddPasswordProtection.docx\n");
+            }
         }
+
+        private void TabPage1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+
+        private void HeaderGroupBox_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+
+        private void Label20_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TextBox3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void 主题_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void GroupBox6_Enter_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Title_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Subject_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void PageInfoToTask_CheckedChanged(object sender, EventArgs e)
+        {
+            addToTaskCheck(pageInfoToTask);
+        }
+
+        private void DocVersion_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Label26_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TextBox1_TextChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Label24_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DateTimePicker2_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Label25_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Label23_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CheckBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TextBox1_TextChanged_2(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Label21_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
 
         /* todoTask listbox 多选右键删除，暂时先不用
         private void 删除ToolStripMenuItem_Click(object sender, EventArgs e)

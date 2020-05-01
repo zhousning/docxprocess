@@ -19,6 +19,7 @@ namespace Docx.src.docxprocess
             Header evenHeader = document.Headers.Even;
             Paragraph evenHeaderP = headerFirstParagraph(evenHeader);
 
+
             headerSet(document, evenHeaderP, option.PageText, option);
             headerSet(document, oddHeaderP, option.PageText, option);
         }
