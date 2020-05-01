@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Docx.src;
@@ -22,12 +23,14 @@ namespace Docx
         private PageSettingService pageSettingService;
         private HeaderFooterService headerFooterService;
         private DocInfoService docInfoService;
+        private TextReplaceService textReplaceService;
         public MainForm()
         {
             InitializeComponent();
             this.pageSettingService = new PageSettingService();
             this.headerFooterService = new HeaderFooterService();
             this.docInfoService = new DocInfoService();
+            this.textReplaceService = new TextReplaceService();
         }
 
         private void 打开ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -78,8 +81,8 @@ namespace Docx
             headerAlignComBox.SelectedIndex = 1;
             footerAlignComBox.SelectedIndex = 1;
             //(*.jpg,*.png,*.jpeg,*.bmp,*.gif)|*.jgp;*.png;*.jpeg;*.bmp;*.gif|All files(*.*)|*.*
-            headerImageDialog.Filter= "(*.jpg,*.png,*.jpeg)|*.jpg;*.png;*.jpeg";
-            footerImageDialog.Filter= "(*.jpg,*.png,*.jpeg)|*.jpg;*.png;*.jpeg";
+            headerImageDialog.Filter = "(*.jpg,*.png,*.jpeg)|*.jpg;*.png;*.jpeg";
+            footerImageDialog.Filter = "(*.jpg,*.png,*.jpeg)|*.jpg;*.png;*.jpeg";
 
             PageNumberComBox_Load();
         }
@@ -137,12 +140,17 @@ namespace Docx
                                 {
                                     DocInfoSet(document);
                                 }
+                                else if (title == textReplaceTab.Text)
+                                {
+                                    TextReplaceSet(document);
+                                }
                             }
-                            
+
                             document.SaveAs(targetFile);
-                            if (tasks.Contains(docInfoTab.Text)){
+                            if (tasks.Contains(docInfoTab.Text))
+                            {
                                 this.docInfoService.UpdateFileTime(targetFile, CreateTimeCheckBox.Checked, DocCreateTime.Value, UpdateTimeCheckBox.Checked, DocUpdateTime.Value);
-                               
+
                             }
                             result = ConstData.SUCCESS;
                         }
@@ -175,7 +183,21 @@ namespace Docx
 
         }
 
-        
+        private void TextReplaceSet(DocX document)
+        {
+            Dictionary<string, string> lists = new Dictionary<string, string>();
+            foreach(DataGridViewRow row in ReplaceTextGridView.Rows)
+            {
+                string source = row.Cells[0].Value == null? "" : row.Cells[0].Value.ToString();
+                string target = row.Cells[1].Value == null ? "" : row.Cells[1].Value.ToString();
+                if (source.Length == 0 && target.Length == 0)
+                {
+                    continue;
+                }
+                lists.Add(source, target);
+            }
+            this.textReplaceService.TextReplaceSet(document, lists);
+        }
         private void PageSet(DocX document)
         {
             pageSettingService.marginSetting(document, notSetMargin.Checked, topMargin.Text, bottomMargin.Text, leftMargin.Text, rightMargin.Text);
@@ -207,7 +229,7 @@ namespace Docx
                 string evenHeaderText = evenHeader.Text;
                 string headerImage = headerImagePath.Text;
                 Boolean headerLineBool = headerLine.Checked;
-                                
+
                 HeaderFooterOption headerOption = new HeaderFooterOption(headerFont, headerColor, headerAlign, pageHeaderText, firstHeaderText, oddHeaderText, evenHeaderText, headerImage, "", headerLineBool);
 
                 headerFooterService.addHeaders(document, headerOption, firstOption, oddEvenOption);
@@ -240,14 +262,22 @@ namespace Docx
             string creator = DocCreator.Text;
             string version = DocVersion.Text;
             Boolean editProtect = DocEditPrctCheckBox.Checked;
+            Boolean removeEditPrct = DocEditPrctRemove.Checked;
             string editPassword = DocEditPassword.Text;
 
             DocInfoOption option = new DocInfoOption(subject, title, creator, "", description, "", "", category, version, "", "");
             this.docInfoService.addCoreProperties(document, option);
-            this.docInfoService.DocProtect(document, editProtect, editPassword);
+            if (removeEditPrct)
+            {
+                this.docInfoService.DocRemoveProtect(document, removeEditPrct);
+            }
+            else if (editProtect)
+            {
+                this.docInfoService.DocProtect(document, editProtect, editPassword);
+            }
         }
 
-   
+
 
         private void Button2_Click(object sender, EventArgs e)
         {
@@ -397,7 +427,7 @@ namespace Docx
             addToTaskCheck(headerFooterToTask);
         }
 
-        
+
 
         private void CheckBox5_CheckedChanged(object sender, EventArgs e)
         {
@@ -587,35 +617,10 @@ namespace Docx
 
         private void Button1_Click_2(object sender, EventArgs e)
         {
-            Console.WriteLine("\tAddPasswordProtection()");
-
-            // Create a new document.
-            using (var document = DocX.Create(@"C:\Users\周宁\Desktop\新建文件夹 (2)\AddPasswordProtection.docx"))
-            {
-                // Add a title
-                document.InsertParagraph("Document protection using password").FontSize(15d).SpacingAfter(50d);
-
-                // Insert a Paragraph into this document.
-                var p = document.InsertParagraph();
-
-                // Append some text and add formatting.
-                p.Append("This document is protected and can only be edited by stopping its protection with a valid password(\"xceed\").")
-                .Font(new Xceed.Document.NET.Font("Arial"))
-                .FontSize(25)
-                .Color(Color.Blue)
-                .Bold();
-
-                // Set the document as read only and add a password to unlock it.
-                document.AddPasswordProtection(Xceed.Document.NET.EditRestrictions.forms, "form");
-                document.AddPasswordProtection(Xceed.Document.NET.EditRestrictions.comments, "comment");
-                document.AddPasswordProtection(Xceed.Document.NET.EditRestrictions.trackedChanges, "track");
-                //document.AddPasswordProtection(Xceed.Document.NET.EditRestrictions.readOnly, "1");
-
-                // Save this document to disk.
-                document.Save();
-                Console.WriteLine("\tCreated: AddPasswordProtection.docx\n");
-            }
+           
         }
+
+        
 
         private void TabPage1_Click_1(object sender, EventArgs e)
         {
@@ -674,35 +679,12 @@ namespace Docx
 
         }
 
-        private void Label26_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TextBox1_TextChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Label24_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void DateTimePicker2_ValueChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void Label25_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Label23_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void CheckBox1_CheckedChanged(object sender, EventArgs e)
         {
@@ -718,6 +700,29 @@ namespace Docx
         {
 
         }
+
+        private void Tabcontrol_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DocPrct_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
+        private void TextReplaceTab_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TextReplacetoTask_CheckedChanged(object sender, EventArgs e)
+        {
+            addToTaskCheck(textReplacetoTask);
+        }
+
+
 
 
 

@@ -104,6 +104,17 @@
             this.pageHeader = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.docInfoTab = new System.Windows.Forms.TabPage();
+            this.pageInfoToTask = new System.Windows.Forms.CheckBox();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.DocEditPrctRemove = new System.Windows.Forms.CheckBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.DocEditPassword = new System.Windows.Forms.TextBox();
+            this.DocEditPrctCheckBox = new System.Windows.Forms.CheckBox();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.UpdateTimeCheckBox = new System.Windows.Forms.CheckBox();
+            this.CreateTimeCheckBox = new System.Windows.Forms.CheckBox();
+            this.DocUpdateTime = new System.Windows.Forms.DateTimePicker();
+            this.DocCreateTime = new System.Windows.Forms.DateTimePicker();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.DocDescription = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
@@ -117,6 +128,10 @@
             this.label17 = new System.Windows.Forms.Label();
             this.DocTitle = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
+            this.textReplaceTab = new System.Windows.Forms.TabPage();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.ReplaceTextGridView = new System.Windows.Forms.DataGridView();
             this.fileGrid = new System.Windows.Forms.DataGridView();
             this.filename = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.filepath = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -135,17 +150,9 @@
             this.footerColorDialog = new System.Windows.Forms.ColorDialog();
             this.headerImageDialog = new System.Windows.Forms.OpenFileDialog();
             this.footerImageDialog = new System.Windows.Forms.OpenFileDialog();
-            this.pageInfoToTask = new System.Windows.Forms.CheckBox();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.DocUpdateTime = new System.Windows.Forms.DateTimePicker();
-            this.DocCreateTime = new System.Windows.Forms.DateTimePicker();
-            this.CreateTimeCheckBox = new System.Windows.Forms.CheckBox();
-            this.UpdateTimeCheckBox = new System.Windows.Forms.CheckBox();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.DocEditPrctCheckBox = new System.Windows.Forms.CheckBox();
-            this.DocEditPassword = new System.Windows.Forms.TextBox();
-            this.label21 = new System.Windows.Forms.Label();
+            this.sourceText = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.targetText = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.textReplacetoTask = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -166,12 +173,16 @@
             this.footerGroupBox.SuspendLayout();
             this.headerGroupBox.SuspendLayout();
             this.docInfoTab.SuspendLayout();
+            this.groupBox8.SuspendLayout();
+            this.groupBox7.SuspendLayout();
             this.groupBox6.SuspendLayout();
+            this.textReplaceTab.SuspendLayout();
+            this.groupBox9.SuspendLayout();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ReplaceTextGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fileGrid)).BeginInit();
             this.tabControl2.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
-            this.groupBox7.SuspendLayout();
-            this.groupBox8.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -291,11 +302,13 @@
             this.tabcontrol.Controls.Add(this.pageSettingTab);
             this.tabcontrol.Controls.Add(this.headerFooterTab);
             this.tabcontrol.Controls.Add(this.docInfoTab);
+            this.tabcontrol.Controls.Add(this.textReplaceTab);
             this.tabcontrol.Location = new System.Drawing.Point(0, 0);
             this.tabcontrol.Name = "tabcontrol";
             this.tabcontrol.SelectedIndex = 0;
             this.tabcontrol.Size = new System.Drawing.Size(1023, 301);
             this.tabcontrol.TabIndex = 0;
+            this.tabcontrol.SelectedIndexChanged += new System.EventHandler(this.Tabcontrol_SelectedIndexChanged);
             // 
             // pageSettingTab
             // 
@@ -994,6 +1007,125 @@
             this.docInfoTab.UseVisualStyleBackColor = true;
             this.docInfoTab.Click += new System.EventHandler(this.TabPage1_Click_1);
             // 
+            // pageInfoToTask
+            // 
+            this.pageInfoToTask.AutoSize = true;
+            this.pageInfoToTask.Location = new System.Drawing.Point(884, 11);
+            this.pageInfoToTask.Name = "pageInfoToTask";
+            this.pageInfoToTask.Size = new System.Drawing.Size(120, 16);
+            this.pageInfoToTask.TabIndex = 30;
+            this.pageInfoToTask.Text = "添加到待处理任务";
+            this.pageInfoToTask.UseVisualStyleBackColor = true;
+            this.pageInfoToTask.CheckedChanged += new System.EventHandler(this.PageInfoToTask_CheckedChanged);
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.DocEditPrctRemove);
+            this.groupBox8.Controls.Add(this.label21);
+            this.groupBox8.Controls.Add(this.DocEditPassword);
+            this.groupBox8.Controls.Add(this.DocEditPrctCheckBox);
+            this.groupBox8.Location = new System.Drawing.Point(329, 114);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(298, 90);
+            this.groupBox8.TabIndex = 27;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "文档保护";
+            this.groupBox8.Enter += new System.EventHandler(this.GroupBox6_Enter_1);
+            // 
+            // DocEditPrctRemove
+            // 
+            this.DocEditPrctRemove.AutoSize = true;
+            this.DocEditPrctRemove.Location = new System.Drawing.Point(16, 55);
+            this.DocEditPrctRemove.Name = "DocEditPrctRemove";
+            this.DocEditPrctRemove.Size = new System.Drawing.Size(96, 16);
+            this.DocEditPrctRemove.TabIndex = 35;
+            this.DocEditPrctRemove.Text = "清除编辑密码";
+            this.DocEditPrctRemove.UseVisualStyleBackColor = true;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(102, 24);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(29, 12);
+            this.label21.TabIndex = 34;
+            this.label21.Text = "密码";
+            this.label21.Click += new System.EventHandler(this.Label21_Click);
+            // 
+            // DocEditPassword
+            // 
+            this.DocEditPassword.Location = new System.Drawing.Point(137, 20);
+            this.DocEditPassword.Name = "DocEditPassword";
+            this.DocEditPassword.Size = new System.Drawing.Size(145, 21);
+            this.DocEditPassword.TabIndex = 33;
+            this.DocEditPassword.TextChanged += new System.EventHandler(this.TextBox1_TextChanged_2);
+            // 
+            // DocEditPrctCheckBox
+            // 
+            this.DocEditPrctCheckBox.AutoSize = true;
+            this.DocEditPrctCheckBox.Location = new System.Drawing.Point(16, 23);
+            this.DocEditPrctCheckBox.Name = "DocEditPrctCheckBox";
+            this.DocEditPrctCheckBox.Size = new System.Drawing.Size(72, 16);
+            this.DocEditPrctCheckBox.TabIndex = 29;
+            this.DocEditPrctCheckBox.Text = "编辑加密";
+            this.DocEditPrctCheckBox.UseVisualStyleBackColor = true;
+            this.DocEditPrctCheckBox.CheckedChanged += new System.EventHandler(this.DocPrct_CheckedChanged);
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.UpdateTimeCheckBox);
+            this.groupBox7.Controls.Add(this.CreateTimeCheckBox);
+            this.groupBox7.Controls.Add(this.DocUpdateTime);
+            this.groupBox7.Controls.Add(this.DocCreateTime);
+            this.groupBox7.Location = new System.Drawing.Point(329, 8);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(298, 90);
+            this.groupBox7.TabIndex = 27;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "文档时间";
+            this.groupBox7.Enter += new System.EventHandler(this.GroupBox6_Enter_1);
+            // 
+            // UpdateTimeCheckBox
+            // 
+            this.UpdateTimeCheckBox.AutoSize = true;
+            this.UpdateTimeCheckBox.Location = new System.Drawing.Point(16, 53);
+            this.UpdateTimeCheckBox.Name = "UpdateTimeCheckBox";
+            this.UpdateTimeCheckBox.Size = new System.Drawing.Size(72, 16);
+            this.UpdateTimeCheckBox.TabIndex = 30;
+            this.UpdateTimeCheckBox.Text = "修改时间";
+            this.UpdateTimeCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // CreateTimeCheckBox
+            // 
+            this.CreateTimeCheckBox.AutoSize = true;
+            this.CreateTimeCheckBox.Location = new System.Drawing.Point(16, 23);
+            this.CreateTimeCheckBox.Name = "CreateTimeCheckBox";
+            this.CreateTimeCheckBox.Size = new System.Drawing.Size(72, 16);
+            this.CreateTimeCheckBox.TabIndex = 29;
+            this.CreateTimeCheckBox.Text = "创建时间";
+            this.CreateTimeCheckBox.UseVisualStyleBackColor = true;
+            this.CreateTimeCheckBox.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
+            // 
+            // DocUpdateTime
+            // 
+            this.DocUpdateTime.CustomFormat = "yyyy-MM-dd HH:mm:ss";
+            this.DocUpdateTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.DocUpdateTime.Location = new System.Drawing.Point(94, 51);
+            this.DocUpdateTime.Name = "DocUpdateTime";
+            this.DocUpdateTime.Size = new System.Drawing.Size(188, 21);
+            this.DocUpdateTime.TabIndex = 28;
+            this.DocUpdateTime.ValueChanged += new System.EventHandler(this.DateTimePicker1_ValueChanged);
+            // 
+            // DocCreateTime
+            // 
+            this.DocCreateTime.CustomFormat = "yyyy-MM-dd HH:mm:ss";
+            this.DocCreateTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.DocCreateTime.Location = new System.Drawing.Point(94, 21);
+            this.DocCreateTime.Name = "DocCreateTime";
+            this.DocCreateTime.Size = new System.Drawing.Size(188, 21);
+            this.DocCreateTime.TabIndex = 28;
+            this.DocCreateTime.ValueChanged += new System.EventHandler(this.DateTimePicker2_ValueChanged);
+            // 
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.DocDescription);
@@ -1119,6 +1251,53 @@
             this.label20.TabIndex = 30;
             this.label20.Text = "标题";
             this.label20.Click += new System.EventHandler(this.Label20_Click);
+            // 
+            // textReplaceTab
+            // 
+            this.textReplaceTab.Controls.Add(this.textReplacetoTask);
+            this.textReplaceTab.Controls.Add(this.groupBox9);
+            this.textReplaceTab.Location = new System.Drawing.Point(4, 22);
+            this.textReplaceTab.Name = "textReplaceTab";
+            this.textReplaceTab.Padding = new System.Windows.Forms.Padding(3);
+            this.textReplaceTab.Size = new System.Drawing.Size(1015, 275);
+            this.textReplaceTab.TabIndex = 3;
+            this.textReplaceTab.Text = "文字替换";
+            this.textReplaceTab.UseVisualStyleBackColor = true;
+            this.textReplaceTab.Click += new System.EventHandler(this.TextReplaceTab_Click);
+            // 
+            // groupBox9
+            // 
+            this.groupBox9.Controls.Add(this.panel2);
+            this.groupBox9.Location = new System.Drawing.Point(8, 8);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(357, 261);
+            this.groupBox9.TabIndex = 2;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "文字替换";
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.ReplaceTextGridView);
+            this.panel2.Location = new System.Drawing.Point(6, 20);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(345, 235);
+            this.panel2.TabIndex = 3;
+            // 
+            // ReplaceTextGridView
+            // 
+            this.ReplaceTextGridView.AllowUserToOrderColumns = true;
+            this.ReplaceTextGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.ReplaceTextGridView.BackgroundColor = System.Drawing.SystemColors.Window;
+            this.ReplaceTextGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.ReplaceTextGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.sourceText,
+            this.targetText});
+            this.ReplaceTextGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ReplaceTextGridView.Location = new System.Drawing.Point(0, 0);
+            this.ReplaceTextGridView.Name = "ReplaceTextGridView";
+            this.ReplaceTextGridView.RowTemplate.Height = 23;
+            this.ReplaceTextGridView.Size = new System.Drawing.Size(345, 235);
+            this.ReplaceTextGridView.TabIndex = 0;
             // 
             // fileGrid
             // 
@@ -1251,124 +1430,28 @@
             this.footerImageDialog.FileName = "footerImageDialog";
             this.footerImageDialog.Filter = "图片文件|*.jpg|*.jpeg|*.png";
             // 
-            // pageInfoToTask
+            // sourceText
             // 
-            this.pageInfoToTask.AutoSize = true;
-            this.pageInfoToTask.Location = new System.Drawing.Point(884, 11);
-            this.pageInfoToTask.Name = "pageInfoToTask";
-            this.pageInfoToTask.Size = new System.Drawing.Size(120, 16);
-            this.pageInfoToTask.TabIndex = 30;
-            this.pageInfoToTask.Text = "添加到待处理任务";
-            this.pageInfoToTask.UseVisualStyleBackColor = true;
-            this.pageInfoToTask.CheckedChanged += new System.EventHandler(this.PageInfoToTask_CheckedChanged);
+            this.sourceText.DataPropertyName = "sourceText";
+            this.sourceText.HeaderText = "文字";
+            this.sourceText.Name = "sourceText";
             // 
-            // groupBox7
+            // targetText
             // 
-            this.groupBox7.Controls.Add(this.UpdateTimeCheckBox);
-            this.groupBox7.Controls.Add(this.CreateTimeCheckBox);
-            this.groupBox7.Controls.Add(this.DocUpdateTime);
-            this.groupBox7.Controls.Add(this.DocCreateTime);
-            this.groupBox7.Location = new System.Drawing.Point(329, 8);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(298, 90);
-            this.groupBox7.TabIndex = 27;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "文档时间";
-            this.groupBox7.Enter += new System.EventHandler(this.GroupBox6_Enter_1);
+            this.targetText.DataPropertyName = "targetText";
+            this.targetText.HeaderText = "替换为";
+            this.targetText.Name = "targetText";
             // 
-            // DocUpdateTime
+            // textReplacetoTask
             // 
-            this.DocUpdateTime.CustomFormat = "yyyy-MM-dd HH:mm:ss";
-            this.DocUpdateTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.DocUpdateTime.Location = new System.Drawing.Point(94, 51);
-            this.DocUpdateTime.Name = "DocUpdateTime";
-            this.DocUpdateTime.Size = new System.Drawing.Size(188, 21);
-            this.DocUpdateTime.TabIndex = 28;
-            this.DocUpdateTime.ValueChanged += new System.EventHandler(this.DateTimePicker1_ValueChanged);
-            // 
-            // DocCreateTime
-            // 
-            this.DocCreateTime.CustomFormat = "yyyy-MM-dd HH:mm:ss";
-            this.DocCreateTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.DocCreateTime.Location = new System.Drawing.Point(94, 21);
-            this.DocCreateTime.Name = "DocCreateTime";
-            this.DocCreateTime.Size = new System.Drawing.Size(188, 21);
-            this.DocCreateTime.TabIndex = 28;
-            this.DocCreateTime.ValueChanged += new System.EventHandler(this.DateTimePicker2_ValueChanged);
-            // 
-            // CreateTimeCheckBox
-            // 
-            this.CreateTimeCheckBox.AutoSize = true;
-            this.CreateTimeCheckBox.Location = new System.Drawing.Point(16, 23);
-            this.CreateTimeCheckBox.Name = "CreateTimeCheckBox";
-            this.CreateTimeCheckBox.Size = new System.Drawing.Size(72, 16);
-            this.CreateTimeCheckBox.TabIndex = 29;
-            this.CreateTimeCheckBox.Text = "创建时间";
-            this.CreateTimeCheckBox.UseVisualStyleBackColor = true;
-            this.CreateTimeCheckBox.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
-            // 
-            // UpdateTimeCheckBox
-            // 
-            this.UpdateTimeCheckBox.AutoSize = true;
-            this.UpdateTimeCheckBox.Location = new System.Drawing.Point(16, 53);
-            this.UpdateTimeCheckBox.Name = "UpdateTimeCheckBox";
-            this.UpdateTimeCheckBox.Size = new System.Drawing.Size(72, 16);
-            this.UpdateTimeCheckBox.TabIndex = 30;
-            this.UpdateTimeCheckBox.Text = "修改时间";
-            this.UpdateTimeCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // groupBox8
-            // 
-            this.groupBox8.Controls.Add(this.label21);
-            this.groupBox8.Controls.Add(this.DocEditPassword);
-            this.groupBox8.Controls.Add(this.checkBox1);
-            this.groupBox8.Controls.Add(this.DocEditPrctCheckBox);
-            this.groupBox8.Location = new System.Drawing.Point(329, 114);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(298, 90);
-            this.groupBox8.TabIndex = 27;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "文档保护";
-            this.groupBox8.Enter += new System.EventHandler(this.GroupBox6_Enter_1);
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(16, 53);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(72, 16);
-            this.checkBox1.TabIndex = 30;
-            this.checkBox1.Text = "修改时间";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // DocEditPrctCheckBox
-            // 
-            this.DocEditPrctCheckBox.AutoSize = true;
-            this.DocEditPrctCheckBox.Location = new System.Drawing.Point(16, 23);
-            this.DocEditPrctCheckBox.Name = "DocEditPrctCheckBox";
-            this.DocEditPrctCheckBox.Size = new System.Drawing.Size(48, 16);
-            this.DocEditPrctCheckBox.TabIndex = 29;
-            this.DocEditPrctCheckBox.Text = "加密";
-            this.DocEditPrctCheckBox.UseVisualStyleBackColor = true;
-            this.DocEditPrctCheckBox.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
-            // 
-            // DocEditPassword
-            // 
-            this.DocEditPassword.Location = new System.Drawing.Point(137, 20);
-            this.DocEditPassword.Name = "DocEditPassword";
-            this.DocEditPassword.Size = new System.Drawing.Size(145, 21);
-            this.DocEditPassword.TabIndex = 33;
-            this.DocEditPassword.TextChanged += new System.EventHandler(this.TextBox1_TextChanged_2);
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(102, 24);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(29, 12);
-            this.label21.TabIndex = 34;
-            this.label21.Text = "密码";
-            this.label21.Click += new System.EventHandler(this.Label21_Click);
+            this.textReplacetoTask.AutoSize = true;
+            this.textReplacetoTask.Location = new System.Drawing.Point(873, 11);
+            this.textReplacetoTask.Name = "textReplacetoTask";
+            this.textReplacetoTask.Size = new System.Drawing.Size(120, 16);
+            this.textReplacetoTask.TabIndex = 31;
+            this.textReplacetoTask.Text = "添加到待处理任务";
+            this.textReplacetoTask.UseVisualStyleBackColor = true;
+            this.textReplacetoTask.CheckedChanged += new System.EventHandler(this.TextReplacetoTask_CheckedChanged);
             // 
             // MainForm
             // 
@@ -1414,16 +1497,21 @@
             this.headerGroupBox.PerformLayout();
             this.docInfoTab.ResumeLayout(false);
             this.docInfoTab.PerformLayout();
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
+            this.textReplaceTab.ResumeLayout(false);
+            this.textReplaceTab.PerformLayout();
+            this.groupBox9.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ReplaceTextGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.fileGrid)).EndInit();
             this.tabControl2.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
-            this.groupBox7.ResumeLayout(false);
-            this.groupBox7.PerformLayout();
-            this.groupBox8.ResumeLayout(false);
-            this.groupBox8.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1545,9 +1633,16 @@
         private System.Windows.Forms.CheckBox UpdateTimeCheckBox;
         private System.Windows.Forms.CheckBox CreateTimeCheckBox;
         private System.Windows.Forms.GroupBox groupBox8;
-        private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.CheckBox DocEditPrctCheckBox;
         private System.Windows.Forms.TextBox DocEditPassword;
         private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.CheckBox DocEditPrctRemove;
+        private System.Windows.Forms.TabPage textReplaceTab;
+        private System.Windows.Forms.GroupBox groupBox9;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.DataGridView ReplaceTextGridView;
+        private System.Windows.Forms.DataGridViewTextBoxColumn sourceText;
+        private System.Windows.Forms.DataGridViewTextBoxColumn targetText;
+        private System.Windows.Forms.CheckBox textReplacetoTask;
     }
 }
