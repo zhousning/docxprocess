@@ -12,27 +12,27 @@ namespace Docx.src.docxprocess
     {
         public void addCoreProperties(DocX document, DocInfoOption option)
         {
-            if (!string.IsNullOrEmpty(option.Subject))
+            if (!string.IsNullOrWhiteSpace(option.Subject))
             {
                 document.AddCoreProperty("subject", option.Subject);
             }
-            if (!string.IsNullOrEmpty(option.Title))
+            if (!string.IsNullOrWhiteSpace(option.Title))
             {
                 document.AddCoreProperty("title", option.Title);
             }
-            if (!string.IsNullOrEmpty(option.Creator))
+            if (!string.IsNullOrWhiteSpace(option.Creator))
             {
                 document.AddCoreProperty("creator", option.Creator);
             }
-            if (!string.IsNullOrEmpty(option.Description))
+            if (!string.IsNullOrWhiteSpace(option.Description))
             {
                 document.AddCoreProperty("description", option.Description);
             }
-            if (!string.IsNullOrEmpty(option.Category))
+            if (!string.IsNullOrWhiteSpace(option.Category))
             {
                 document.AddCoreProperty("category", option.Category);
             }
-            if (!string.IsNullOrEmpty(option.Version))
+            if (!string.IsNullOrWhiteSpace(option.Version))
             {
                 document.AddCoreProperty("version", option.Version);
             }

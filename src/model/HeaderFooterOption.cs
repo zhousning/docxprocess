@@ -8,7 +8,7 @@ using Xceed.Document.NET;
 
 namespace Docx.src.model
 {
-    class HeaderFooterOption
+    class HeaderFooterOption:BaseOption
     {
         private System.Drawing.Font font;
         private Color color;
@@ -50,21 +50,7 @@ namespace Docx.src.model
             this.italic = font.Italic;
             this.underlineStyle = font.Underline ? UnderlineStyle.singleLine : UnderlineStyle.none;
             this.strikeThrough = font.Strikeout ? StrikeThrough.strike : StrikeThrough.none;
-            switch (alignmentString)
-            {
-                case ConstData.ALIGNLEFT:
-                    this.alignment = Alignment.left;
-                    break;
-                case ConstData.ALIGNCENTER:
-                    this.alignment = Alignment.center;
-                    break;
-                case ConstData.ALIGNRIGHT:
-                    this.alignment = Alignment.right;
-                    break;
-                case ConstData.ALIGNBOTH:
-                    this.alignment = Alignment.both;
-                    break;
-            }
+            this.alignment = setAlignment(alignmentString);
         }
 
         public string FontName { get => fontName; set => fontName = value; }

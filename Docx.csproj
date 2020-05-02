@@ -70,12 +70,15 @@
     <Compile Include="src\docxprocess\DocInfoSetting.cs" />
     <Compile Include="src\docxprocess\HeaderFooterSetting.cs" />
     <Compile Include="src\docxprocess\PageSetting.cs" />
+    <Compile Include="src\model\BaseOption.cs" />
     <Compile Include="src\model\DocInfoOption.cs" />
     <Compile Include="src\model\HeaderFooterOption.cs" />
+    <Compile Include="src\model\ParagraphOption.cs" />
     <Compile Include="src\model\TextReplaceOption.cs" />
     <Compile Include="src\services\DocInfoService.cs" />
     <Compile Include="src\services\HeaderFooterService.cs" />
     <Compile Include="src\services\PageSettingService.cs" />
+    <Compile Include="src\services\ParagraphService.cs" />
     <Compile Include="src\services\TextReplaceService.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

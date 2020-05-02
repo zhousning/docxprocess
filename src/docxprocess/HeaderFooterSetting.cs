@@ -216,7 +216,7 @@ namespace Docx.src.docxprocess
 
         private void PAppendImage(DocX document, Paragraph paragraph, HeaderFooterOption option)
         {
-            if (!string.IsNullOrEmpty(option.Image))
+            if (!string.IsNullOrWhiteSpace(option.Image))
             {
                 paragraph.AppendPicture(document.AddImage(@option.Image).CreatePicture());
             }

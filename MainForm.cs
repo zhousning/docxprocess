@@ -24,6 +24,7 @@ namespace Docx
         private HeaderFooterService headerFooterService;
         private DocInfoService docInfoService;
         private TextReplaceService textReplaceService;
+        private ParagraphService paragraphService;
         public MainForm()
         {
             InitializeComponent();
@@ -31,6 +32,7 @@ namespace Docx
             this.headerFooterService = new HeaderFooterService();
             this.docInfoService = new DocInfoService();
             this.textReplaceService = new TextReplaceService();
+            this.paragraphService = new ParagraphService();
         }
 
         private void 打开ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -101,7 +103,7 @@ namespace Docx
             startProcess.Text = "处理中...";
             startProcess.Enabled = false;
             string outputDirectory = outPutFolder.Text;
-            if (string.IsNullOrEmpty(outputDirectory))
+            if (string.IsNullOrWhiteSpace(outputDirectory))
             {
                 MessageBox.Show("请选择输出目录", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 startProcess.Enabled = true;
@@ -121,7 +123,7 @@ namespace Docx
                 string result = "";
                 try
                 {
-                    if (!String.IsNullOrEmpty(filepath) && File.Exists(filepath))
+                    if (!String.IsNullOrWhiteSpace(filepath) && File.Exists(filepath))
                     {
                         string targetFile = outputDirectory + @"\" + filename;
                         using (var document = DocX.Load(filepath))
@@ -143,6 +145,10 @@ namespace Docx
                                 else if (title == textReplaceTab.Text)
                                 {
                                     TextReplaceSet(document);
+                                }
+                                else if (title == paragraphTab.Text)
+                                {
+                                    ParagraphSet(document);
                                 }
                             }
 
@@ -181,6 +187,12 @@ namespace Docx
             startProcess.Enabled = true;
             //MessageBox.Show("处理完毕", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+        }
+
+        private void ParagraphSet(DocX document)
+        {
+            this.paragraphService.Set(document, SpaceBefore, SpaceAfter, SpaceLineVal, IndentationSpecialVal, IndentationBefore, IndentationAfter, TextSpace
+                ,ParagraphAlign, SpaceLineType, IndentationSpecial);
         }
 
         private void TextReplaceSet(DocX document)
@@ -569,7 +581,7 @@ namespace Docx
         {
             DialogResult dr = headerImageDialog.ShowDialog();
             string filename = headerImageDialog.FileName;
-            if (dr == System.Windows.Forms.DialogResult.OK && !string.IsNullOrEmpty(filename))
+            if (dr == System.Windows.Forms.DialogResult.OK && !string.IsNullOrWhiteSpace(filename))
             {
                 headerImagePath.Text = filename;
             }
@@ -579,7 +591,7 @@ namespace Docx
         {
             DialogResult dr = footerImageDialog.ShowDialog();
             string filename = footerImageDialog.FileName;
-            if (dr == System.Windows.Forms.DialogResult.OK && !string.IsNullOrEmpty(filename))
+            if (dr == System.Windows.Forms.DialogResult.OK && !string.IsNullOrWhiteSpace(filename))
             {
                 footerImagePath.Text = filename;
             }
@@ -617,7 +629,7 @@ namespace Docx
 
         private void Button1_Click_2(object sender, EventArgs e)
         {
-           
+            this.pageSettingService.test();
         }
 
         
@@ -720,6 +732,60 @@ namespace Docx
         private void TextReplacetoTask_CheckedChanged(object sender, EventArgs e)
         {
             addToTaskCheck(textReplacetoTask);
+        }
+
+        private void GroupBox10_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TextBox1_TextChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Label24_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TabPage1_Click_2(object sender, EventArgs e)
+        {
+
+        }
+
+        private void GroupBox10_Enter_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TextBox3_TextChanged_1(object sender, EventArgs e)
+        {
+                    }
+
+        private void TextBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ParagraphCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            addToTaskCheck(ParagraphToTask);
+        }
+
+        private void IndentationSpecial_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SpaceBefore_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
 

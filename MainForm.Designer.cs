@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.打开ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -129,9 +130,12 @@
             this.DocTitle = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
             this.textReplaceTab = new System.Windows.Forms.TabPage();
+            this.textReplacetoTask = new System.Windows.Forms.CheckBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.ReplaceTextGridView = new System.Windows.Forms.DataGridView();
+            this.sourceText = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.targetText = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fileGrid = new System.Windows.Forms.DataGridView();
             this.filename = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.filepath = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -150,9 +154,33 @@
             this.footerColorDialog = new System.Windows.Forms.ColorDialog();
             this.headerImageDialog = new System.Windows.Forms.OpenFileDialog();
             this.footerImageDialog = new System.Windows.Forms.OpenFileDialog();
-            this.sourceText = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.targetText = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.textReplacetoTask = new System.Windows.Forms.CheckBox();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.paragraphTab = new System.Windows.Forms.TabPage();
+            this.ParagraphGeneric = new System.Windows.Forms.GroupBox();
+            this.ParagraphAlign = new System.Windows.Forms.ComboBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.IndentationBefore = new System.Windows.Forms.TextBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.IndentationAfter = new System.Windows.Forms.TextBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.IndentationSpecial = new System.Windows.Forms.ComboBox();
+            this.IndentationSpecialVal = new System.Windows.Forms.TextBox();
+            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.SpaceLineVal = new System.Windows.Forms.TextBox();
+            this.SpaceLineType = new System.Windows.Forms.ComboBox();
+            this.SpaceAfter = new System.Windows.Forms.TextBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.SpaceBefore = new System.Windows.Forms.TextBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.ParagraphToTask = new System.Windows.Forms.CheckBox();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.label31 = new System.Windows.Forms.Label();
+            this.TextSpace = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -183,6 +211,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.fileGrid)).BeginInit();
             this.tabControl2.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
+            this.paragraphTab.SuspendLayout();
+            this.ParagraphGeneric.SuspendLayout();
+            this.groupBox10.SuspendLayout();
+            this.groupBox11.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -303,6 +335,7 @@
             this.tabcontrol.Controls.Add(this.headerFooterTab);
             this.tabcontrol.Controls.Add(this.docInfoTab);
             this.tabcontrol.Controls.Add(this.textReplaceTab);
+            this.tabcontrol.Controls.Add(this.paragraphTab);
             this.tabcontrol.Location = new System.Drawing.Point(0, 0);
             this.tabcontrol.Name = "tabcontrol";
             this.tabcontrol.SelectedIndex = 0;
@@ -1265,6 +1298,17 @@
             this.textReplaceTab.UseVisualStyleBackColor = true;
             this.textReplaceTab.Click += new System.EventHandler(this.TextReplaceTab_Click);
             // 
+            // textReplacetoTask
+            // 
+            this.textReplacetoTask.AutoSize = true;
+            this.textReplacetoTask.Location = new System.Drawing.Point(873, 11);
+            this.textReplacetoTask.Name = "textReplacetoTask";
+            this.textReplacetoTask.Size = new System.Drawing.Size(120, 16);
+            this.textReplacetoTask.TabIndex = 31;
+            this.textReplacetoTask.Text = "添加到待处理任务";
+            this.textReplacetoTask.UseVisualStyleBackColor = true;
+            this.textReplacetoTask.CheckedChanged += new System.EventHandler(this.TextReplacetoTask_CheckedChanged);
+            // 
             // groupBox9
             // 
             this.groupBox9.Controls.Add(this.panel2);
@@ -1298,6 +1342,18 @@
             this.ReplaceTextGridView.RowTemplate.Height = 23;
             this.ReplaceTextGridView.Size = new System.Drawing.Size(345, 235);
             this.ReplaceTextGridView.TabIndex = 0;
+            // 
+            // sourceText
+            // 
+            this.sourceText.DataPropertyName = "sourceText";
+            this.sourceText.HeaderText = "文字";
+            this.sourceText.Name = "sourceText";
+            // 
+            // targetText
+            // 
+            this.targetText.DataPropertyName = "targetText";
+            this.targetText.HeaderText = "替换为";
+            this.targetText.Name = "targetText";
             // 
             // fileGrid
             // 
@@ -1430,28 +1486,274 @@
             this.footerImageDialog.FileName = "footerImageDialog";
             this.footerImageDialog.Filter = "图片文件|*.jpg|*.jpeg|*.png";
             // 
-            // sourceText
+            // paragraphTab
             // 
-            this.sourceText.DataPropertyName = "sourceText";
-            this.sourceText.HeaderText = "文字";
-            this.sourceText.Name = "sourceText";
+            this.paragraphTab.Controls.Add(this.ParagraphToTask);
+            this.paragraphTab.Controls.Add(this.groupBox11);
+            this.paragraphTab.Controls.Add(this.groupBox10);
+            this.paragraphTab.Controls.Add(this.ParagraphGeneric);
+            this.paragraphTab.Location = new System.Drawing.Point(4, 22);
+            this.paragraphTab.Name = "paragraphTab";
+            this.paragraphTab.Padding = new System.Windows.Forms.Padding(3);
+            this.paragraphTab.Size = new System.Drawing.Size(1015, 275);
+            this.paragraphTab.TabIndex = 4;
+            this.paragraphTab.Text = "段落格式";
+            this.paragraphTab.UseVisualStyleBackColor = true;
+            this.paragraphTab.Click += new System.EventHandler(this.TabPage1_Click_2);
             // 
-            // targetText
+            // ParagraphGeneric
             // 
-            this.targetText.DataPropertyName = "targetText";
-            this.targetText.HeaderText = "替换为";
-            this.targetText.Name = "targetText";
+            this.ParagraphGeneric.Controls.Add(this.TextSpace);
+            this.ParagraphGeneric.Controls.Add(this.label31);
+            this.ParagraphGeneric.Controls.Add(this.label22);
+            this.ParagraphGeneric.Controls.Add(this.ParagraphAlign);
+            this.ParagraphGeneric.Location = new System.Drawing.Point(19, 159);
+            this.ParagraphGeneric.Name = "ParagraphGeneric";
+            this.ParagraphGeneric.Size = new System.Drawing.Size(200, 90);
+            this.ParagraphGeneric.TabIndex = 0;
+            this.ParagraphGeneric.TabStop = false;
+            this.ParagraphGeneric.Text = "常规";
+            this.ParagraphGeneric.Enter += new System.EventHandler(this.GroupBox10_Enter);
             // 
-            // textReplacetoTask
+            // ParagraphAlign
             // 
-            this.textReplacetoTask.AutoSize = true;
-            this.textReplacetoTask.Location = new System.Drawing.Point(873, 11);
-            this.textReplacetoTask.Name = "textReplacetoTask";
-            this.textReplacetoTask.Size = new System.Drawing.Size(120, 16);
-            this.textReplacetoTask.TabIndex = 31;
-            this.textReplacetoTask.Text = "添加到待处理任务";
-            this.textReplacetoTask.UseVisualStyleBackColor = true;
-            this.textReplacetoTask.CheckedChanged += new System.EventHandler(this.TextReplacetoTask_CheckedChanged);
+            this.ParagraphAlign.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ParagraphAlign.FormattingEnabled = true;
+            this.ParagraphAlign.Items.AddRange(new object[] {
+            "左对齐",
+            "居中",
+            "右对齐",
+            "两端对齐",
+            "不设置"});
+            this.ParagraphAlign.Location = new System.Drawing.Point(81, 25);
+            this.ParagraphAlign.Name = "ParagraphAlign";
+            this.ParagraphAlign.Size = new System.Drawing.Size(87, 20);
+            this.ParagraphAlign.TabIndex = 37;
+            this.ParagraphAlign.SelectedIndexChanged += new System.EventHandler(this.ComboBox1_SelectedIndexChanged);
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(28, 28);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(29, 12);
+            this.label22.TabIndex = 38;
+            this.label22.Text = "对齐";
+            // 
+            // groupBox10
+            // 
+            this.groupBox10.Controls.Add(this.IndentationSpecialVal);
+            this.groupBox10.Controls.Add(this.IndentationSpecial);
+            this.groupBox10.Controls.Add(this.IndentationAfter);
+            this.groupBox10.Controls.Add(this.label27);
+            this.groupBox10.Controls.Add(this.label26);
+            this.groupBox10.Controls.Add(this.label24);
+            this.groupBox10.Controls.Add(this.IndentationBefore);
+            this.groupBox10.Controls.Add(this.label23);
+            this.groupBox10.Location = new System.Drawing.Point(19, 11);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(200, 132);
+            this.groupBox10.TabIndex = 39;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "缩进";
+            this.groupBox10.Enter += new System.EventHandler(this.GroupBox10_Enter_1);
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(10, 26);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(59, 12);
+            this.label23.TabIndex = 0;
+            this.label23.Text = "左侧(行）";
+            // 
+            // IndentationBefore
+            // 
+            this.IndentationBefore.Location = new System.Drawing.Point(81, 20);
+            this.IndentationBefore.Name = "IndentationBefore";
+            this.IndentationBefore.Size = new System.Drawing.Size(100, 21);
+            this.IndentationBefore.TabIndex = 1;
+            this.IndentationBefore.TextChanged += new System.EventHandler(this.TextBox1_TextChanged_1);
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(10, 53);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(59, 12);
+            this.label24.TabIndex = 0;
+            this.label24.Text = "右侧(行）";
+            this.label24.Click += new System.EventHandler(this.Label24_Click);
+            // 
+            // IndentationAfter
+            // 
+            this.IndentationAfter.Location = new System.Drawing.Point(81, 47);
+            this.IndentationAfter.Name = "IndentationAfter";
+            this.IndentationAfter.Size = new System.Drawing.Size(100, 21);
+            this.IndentationAfter.TabIndex = 1;
+            this.IndentationAfter.TextChanged += new System.EventHandler(this.TextBox1_TextChanged_1);
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(16, 80);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(29, 12);
+            this.label26.TabIndex = 0;
+            this.label26.Text = "特殊";
+            this.label26.Click += new System.EventHandler(this.Label24_Click);
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(109, 80);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(41, 12);
+            this.label27.TabIndex = 0;
+            this.label27.Text = "缩进值";
+            this.label27.Click += new System.EventHandler(this.Label24_Click);
+            // 
+            // IndentationSpecial
+            // 
+            this.IndentationSpecial.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.IndentationSpecial.FormattingEnabled = true;
+            this.IndentationSpecial.Items.AddRange(new object[] {
+            "(无)",
+            "首行",
+            "悬挂"});
+            this.IndentationSpecial.Location = new System.Drawing.Point(6, 95);
+            this.IndentationSpecial.Name = "IndentationSpecial";
+            this.IndentationSpecial.Size = new System.Drawing.Size(69, 20);
+            this.IndentationSpecial.TabIndex = 38;
+            this.IndentationSpecial.SelectedIndexChanged += new System.EventHandler(this.IndentationSpecial_SelectedIndexChanged);
+            // 
+            // IndentationSpecialVal
+            // 
+            this.IndentationSpecialVal.Location = new System.Drawing.Point(94, 95);
+            this.IndentationSpecialVal.Name = "IndentationSpecialVal";
+            this.IndentationSpecialVal.Size = new System.Drawing.Size(74, 21);
+            this.IndentationSpecialVal.TabIndex = 2;
+            this.IndentationSpecialVal.TextChanged += new System.EventHandler(this.TextBox2_TextChanged);
+            // 
+            // groupBox11
+            // 
+            this.groupBox11.Controls.Add(this.SpaceLineVal);
+            this.groupBox11.Controls.Add(this.SpaceLineType);
+            this.groupBox11.Controls.Add(this.SpaceAfter);
+            this.groupBox11.Controls.Add(this.label25);
+            this.groupBox11.Controls.Add(this.label28);
+            this.groupBox11.Controls.Add(this.label29);
+            this.groupBox11.Controls.Add(this.SpaceBefore);
+            this.groupBox11.Controls.Add(this.label30);
+            this.groupBox11.Location = new System.Drawing.Point(258, 11);
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.Size = new System.Drawing.Size(200, 132);
+            this.groupBox11.TabIndex = 40;
+            this.groupBox11.TabStop = false;
+            this.groupBox11.Text = "间距";
+            // 
+            // SpaceLineVal
+            // 
+            this.SpaceLineVal.Location = new System.Drawing.Point(94, 95);
+            this.SpaceLineVal.Name = "SpaceLineVal";
+            this.SpaceLineVal.Size = new System.Drawing.Size(74, 21);
+            this.SpaceLineVal.TabIndex = 2;
+            // 
+            // SpaceLineType
+            // 
+            this.SpaceLineType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.SpaceLineType.FormattingEnabled = true;
+            this.SpaceLineType.Items.AddRange(new object[] {
+            "无",
+            "首行",
+            "悬挂"});
+            this.SpaceLineType.Location = new System.Drawing.Point(6, 95);
+            this.SpaceLineType.Name = "SpaceLineType";
+            this.SpaceLineType.Size = new System.Drawing.Size(69, 20);
+            this.SpaceLineType.TabIndex = 38;
+            // 
+            // SpaceAfter
+            // 
+            this.SpaceAfter.Location = new System.Drawing.Point(81, 47);
+            this.SpaceAfter.Name = "SpaceAfter";
+            this.SpaceAfter.Size = new System.Drawing.Size(100, 21);
+            this.SpaceAfter.TabIndex = 1;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(109, 80);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(41, 12);
+            this.label25.TabIndex = 0;
+            this.label25.Text = "设置值";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(16, 80);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(29, 12);
+            this.label28.TabIndex = 0;
+            this.label28.Text = "行距";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(10, 53);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(59, 12);
+            this.label29.TabIndex = 0;
+            this.label29.Text = "段后(磅）";
+            // 
+            // SpaceBefore
+            // 
+            this.SpaceBefore.Location = new System.Drawing.Point(81, 20);
+            this.SpaceBefore.Name = "SpaceBefore";
+            this.SpaceBefore.Size = new System.Drawing.Size(100, 21);
+            this.SpaceBefore.TabIndex = 1;
+            this.SpaceBefore.TextChanged += new System.EventHandler(this.SpaceBefore_TextChanged);
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(10, 26);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(59, 12);
+            this.label30.TabIndex = 0;
+            this.label30.Text = "段前(磅）";
+            // 
+            // ParagraphToTask
+            // 
+            this.ParagraphToTask.AutoSize = true;
+            this.ParagraphToTask.Location = new System.Drawing.Point(874, 21);
+            this.ParagraphToTask.Name = "ParagraphToTask";
+            this.ParagraphToTask.Size = new System.Drawing.Size(120, 16);
+            this.ParagraphToTask.TabIndex = 41;
+            this.ParagraphToTask.Text = "添加到待处理任务";
+            this.ParagraphToTask.UseVisualStyleBackColor = true;
+            this.ParagraphToTask.CheckedChanged += new System.EventHandler(this.ParagraphCheckBox_CheckedChanged);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(4, 62);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(53, 12);
+            this.label31.TabIndex = 38;
+            this.label31.Text = "文字间距";
+            // 
+            // TextSpace
+            // 
+            this.TextSpace.Location = new System.Drawing.Point(81, 59);
+            this.TextSpace.Name = "TextSpace";
+            this.TextSpace.Size = new System.Drawing.Size(87, 21);
+            this.TextSpace.TabIndex = 39;
             // 
             // MainForm
             // 
@@ -1512,6 +1814,14 @@
             this.tabControl2.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
+            this.paragraphTab.ResumeLayout(false);
+            this.paragraphTab.PerformLayout();
+            this.ParagraphGeneric.ResumeLayout(false);
+            this.ParagraphGeneric.PerformLayout();
+            this.groupBox10.ResumeLayout(false);
+            this.groupBox10.PerformLayout();
+            this.groupBox11.ResumeLayout(false);
+            this.groupBox11.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1644,5 +1954,32 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn sourceText;
         private System.Windows.Forms.DataGridViewTextBoxColumn targetText;
         private System.Windows.Forms.CheckBox textReplacetoTask;
+        private System.Windows.Forms.TabPage paragraphTab;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.GroupBox ParagraphGeneric;
+        private System.Windows.Forms.ComboBox ParagraphAlign;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.GroupBox groupBox10;
+        private System.Windows.Forms.TextBox IndentationBefore;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.TextBox IndentationAfter;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.ComboBox IndentationSpecial;
+        private System.Windows.Forms.TextBox IndentationSpecialVal;
+        private System.Windows.Forms.GroupBox groupBox11;
+        private System.Windows.Forms.TextBox SpaceLineVal;
+        private System.Windows.Forms.ComboBox SpaceLineType;
+        private System.Windows.Forms.TextBox SpaceAfter;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.TextBox SpaceBefore;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.CheckBox ParagraphToTask;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.TextBox TextSpace;
+        private System.Windows.Forms.Label label31;
     }
 }

@@ -27,5 +27,11 @@ namespace Docx.src
         internal const string PAGENUMBER6 = "Ⅰ/Ⅴ";
         internal const string PAGENUMBER7 = "第Ⅰ页";
         internal const string PAGENUMBER8 = "第Ⅰ页 共Ⅴ页";
+        internal const double DOUBLE_INIT = -1000d;
+        internal const float FLOAT_INIT = -1000f;
+        internal const string INDENT_NONE = "(无)";
+        internal const string INDENT_FIRST = "首行";
+        internal const string INDENT_HANG = "悬挂";
+        internal const string NOT_SET = "不设置";
     }
 }
