@@ -25,6 +25,7 @@ namespace Docx
         private DocInfoService docInfoService;
         private TextReplaceService textReplaceService;
         private ParagraphService paragraphService;
+        private ImageService imageService;
         public MainForm()
         {
             InitializeComponent();
@@ -33,6 +34,7 @@ namespace Docx
             this.docInfoService = new DocInfoService();
             this.textReplaceService = new TextReplaceService();
             this.paragraphService = new ParagraphService();
+            this.imageService = new ImageService();
         }
 
         private void 打开ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -150,6 +152,10 @@ namespace Docx
                                 {
                                     ParagraphSet(document);
                                 }
+                                else if (title == imageTab.Text)
+                                {
+                                    ImageSet(document, targetFile);
+                                }
                             }
 
                             document.SaveAs(targetFile);
@@ -187,6 +193,12 @@ namespace Docx
             startProcess.Enabled = true;
             //MessageBox.Show("处理完毕", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+        }
+
+        private void ImageSet(DocX document, string output)
+        {
+            this.imageService.ImageSet(document, output, ExtractImageCheckBox);
+            
         }
 
         private void ParagraphSet(DocX document)
@@ -786,6 +798,11 @@ namespace Docx
         private void SpaceBefore_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void ImageToTask_CheckedChanged(object sender, EventArgs e)
+        {
+            addToTaskCheck(ImageToTask);
         }
 
 

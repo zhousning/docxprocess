@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,7 +35,16 @@ namespace Docx.src.services
 
             ParagraphOption paragraphOption = new ParagraphOption(indentationSpecial, indentationSpecialVal, indentationBefore, indentationAfter, spacing, spacingAfter, spacingBefore, spacingLine, alignmentString);
 
-            var sections = document.GetSections();
+            
+            var paragraphs = document.Paragraphs;
+            for (int j = 0; j < paragraphs.Count; j++)
+            {
+                var p = paragraphs[j];
+                GenericSet(p, paragraphOption);
+                IndentationSet(p, paragraphOption);
+                SpaceSet(p, paragraphOption);
+            }
+            /*var sections = document.GetSections();
             for (int i = 0; i < sections.Count; ++i)
             {
                 var section = sections[i];
@@ -46,7 +56,7 @@ namespace Docx.src.services
                     IndentationSet(p, paragraphOption);
                     SpaceSet(p, paragraphOption);
                 }
-            }
+            }*/
             
         }
 
@@ -60,6 +70,15 @@ namespace Docx.src.services
 
         public void IndentationSet(Paragraph p, ParagraphOption option)
         {
+            /*
+            Debug.WriteLine(p.Text);
+            Debug.WriteLine("indentBefore:" + p.IndentationBefore);
+            Debug.WriteLine("IndentationAfter:" + p.IndentationAfter);
+            Debug.WriteLine("IndentationFirstLine:" + p.IndentationFirstLine);
+            Debug.WriteLine("IndentationHanging:" + p.IndentationHanging);
+            Debug.WriteLine("_________________");*/
+
+
             float indentBefore = option.IndentationBefore;
             float indentAfter = option.IndentationAfter;
             string indentSpec = option.IndentationSpecial;

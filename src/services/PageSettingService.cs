@@ -9,6 +9,8 @@ using Xceed.Words.NET;
 using System.Drawing;
 using Docx.src.model;
 using Xceed.Document.NET;
+using System.IO;
+using System.Drawing.Imaging;
 
 namespace Docx.src.services
 {
@@ -49,74 +51,48 @@ namespace Docx.src.services
 
         public void test()
         {
-            using (var document = DocX.Create(@"C:\Users\周宁\Desktop\新建文件夹 (2)\SimpleFormattedParagraphs.docx"))
+            using (var document = DocX.Load(@"C:\Users\周宁\Desktop\新建文件夹 (3)\最终版 28版.docx"))
             {
-                document.SetDefaultFont(new Xceed.Document.NET.Font("Arial"), 15d, Color.Green);
-                document.PageBackground = Color.LightGray;
-                document.PageBorders = new Borders(new Border(Xceed.Document.NET.BorderStyle.Tcbs_double, BorderSize.five, 20, Color.Blue));
-
                 // Add a title
-                document.InsertParagraph("Formatted paragraphs").FontSize(15d).SpacingAfter(50d).Alignment = Alignment.center;
+                document.InsertParagraph(0, "Modifying Image by adding text/circle into the following image", false).FontSize(15d).SpacingAfter(50d).Alignment = Alignment.center;
 
-                // Insert a Paragraph into this document.
-                var p = document.InsertParagraph();
+                var images = document.Images;
+                for(int i=0; i<images.Count; i++)
+                {
+                    Bitmap bitmap;
 
-                // Append some text and add formatting.
-                p.Append("IndentationHanging This is a simple formatted red bold paragraph")
-                .Font(new Xceed.Document.NET.Font("Arial"))
-                .FontSize(25)
-                .Color(Color.Red)
-                .Bold()
-                .Append(" containing a blue italic text.").Font(new Xceed.Document.NET.Font("Times New Roman")).Color(Color.Blue).Italic()
-              
-                .Spacing(30)//字符间距，对append的内容进行设置
-                .SpacingLine(20);//多倍行距 10是0.83，对段落整体设置
-                p.IndentationHanging = 2f;
-                
-                /*p.IndentationFirstLine = 2f;
-                p.IndentationBefore = 3f;
-                p.IndentationAfter = 4f;
-                p.LineSpacing = 5f;
-                p.LineSpacingAfter = 6f;
-                p.LineSpacingBefore = 7f;*/
+                    using (var stream = images[i].GetStream(FileMode.Open, FileAccess.ReadWrite))
+                    {
+                        bitmap = new Bitmap(stream);
+                        bitmap.Save(@"C:\Users\周宁\Desktop\新建文件夹 (3)\" + i + ".png", ImageFormat.Png);
+                    }
+                }
+                // Get the first image in the document.
+                /*var image = document.Images.FirstOrDefault();
+                if (image != null)
+                {
+                    // Create a bitmap from the image.
+                    Bitmap bitmap;
+                    using (var stream = image.GetStream(FileMode.Open, FileAccess.ReadWrite))
+                    {
+                        bitmap = new Bitmap(stream);
+                    }
+                    // Get the graphic from the bitmap to be able to draw in it.
+                    var graphic = Graphics.FromImage(bitmap);
+                    if (graphic != null)
+                    {
+                        // Draw a string with a specific font, font size and color at (0,10) from top left of the image.
+                        graphic.DrawString("@copyright", new System.Drawing.Font("Arial Bold", 12), Brushes.Red, new PointF(0f, 10f));
+                        // Draw a blue circle of 10x10 at (30, 5) from the top left of the image.
+                        graphic.FillEllipse(Brushes.Blue, 30, 5, 10, 10);
 
-                // Insert another Paragraph into this document.
-                var p2 = document.InsertParagraph();
+                        // Save this Bitmap back into the document using a Create\Write stream.
+                        bitmap.Save(image.GetStream(FileMode.Create, FileAccess.Write), ImageFormat.Png);
+                    }
+                }*/
+                //document.SaveAs(@"C:\Users\周宁\Desktop\新建文件夹 (2)\最终版 29版.docx");
 
-                // Append some text and add formatting.
-                p2.Append("IndentationFirstLine This is a formatted paragraph using spacing, line spacing, ")
-                .Font(new Xceed.Document.NET.Font("Courier New"))
-                .FontSize(10)
-                .Italic()
-                .Spacing(5)
-                .Append("highlight").Highlight(Highlight.yellow).UnderlineColor(Color.Blue).CapsStyle(CapsStyle.caps)
-                .Append(" and strike through.").StrikeThrough(StrikeThrough.strike)
-                .IndentationFirstLine = 1.0f;
-                p2.LineSpacingBefore = 5f;
-                p2.LineSpacingAfter = 15f;
-                p2.LineSpacing = 10f;
-
-                // Insert another Paragraph into this document.
-                var p3 = document.InsertParagraph();
-
-                // Append some text with 2 TabStopPositions.
-                p3.InsertTabStopPosition(Alignment.center, 216f, TabStopPositionLeader.dot)
-                .InsertTabStopPosition(Alignment.right, 432f, TabStopPositionLeader.dot)
-                .Append("IndentationAfter Text with TabStopPositions on Left\tMiddle\tand Right")
-                .FontSize(11d)
-                .SpacingAfter(40)
-                .IndentationAfter = 1f;
-                p3.LineSpacing = 1f;
-
-                // Insert another Paragraph into this document.
-                var p4 = document.InsertParagraph();
-                p4.Append("IndentationBefore This document is using an Arial green default font of size 15. It's also using a double blue page borders and light gray page background.")
-                  .SpacingAfter(40)
-                .IndentationBefore = 3f;
-
-                // Save this document to disk.
-                document.Save();
-                Console.WriteLine("\tCreated: SimpleFormattedParagraphs.docx\n");
+                Console.WriteLine("\tCreated: ModifyImage.docx\n");
             }
         }
 

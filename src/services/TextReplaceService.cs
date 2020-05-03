@@ -23,7 +23,10 @@ namespace Docx.src.services
                 source = source.Substring(0, source.Length - 1);
                 source += ")";
                 this._replacePatterns = lists;
-                document.ReplaceText(source, ReplaceTextHandler);
+                if (document.FindUniqueByPattern(@source, RegexOptions.IgnoreCase).Count > 0)
+                {
+                    document.ReplaceText(source, ReplaceTextHandler);
+                }
             }
         }
 
