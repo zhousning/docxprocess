@@ -11,7 +11,7 @@ using Xceed.Words.NET;
 
 namespace Docx.src.services
 {
-    class ImageService
+    class ImageService:BaseService
     {
         public void ImageSet(DocX document, string output, CheckBox ExtractImageCheckBox)
         {
@@ -36,15 +36,6 @@ namespace Docx.src.services
             }
         }
 
-        public string makedir(string path)
-        {
-            bool flag = Directory.Exists(@path);
-            string imagefolder = @path + "images";
-            if (!flag)
-            {
-                Directory.CreateDirectory(imagefolder);
-            }
-            return imagefolder + @"\";
-        }
+        
     }
 }

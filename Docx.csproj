@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Office.Interop.Word, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Office.Interop.Word.15.0.4797.1003\lib\net20\Microsoft.Office.Interop.Word.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -75,11 +79,16 @@
     <Compile Include="src\model\HeaderFooterOption.cs" />
     <Compile Include="src\model\ParagraphOption.cs" />
     <Compile Include="src\model\TextReplaceOption.cs" />
+    <Compile Include="src\services\BaseService.cs" />
     <Compile Include="src\services\DocInfoService.cs" />
     <Compile Include="src\services\HeaderFooterService.cs" />
+    <Compile Include="src\services\HyperLinkService.cs" />
     <Compile Include="src\services\ImageService.cs" />
+    <Compile Include="src\services\MainFormService.cs" />
     <Compile Include="src\services\PageSettingService.cs" />
     <Compile Include="src\services\ParagraphService.cs" />
+    <Compile Include="src\services\PdfService.cs" />
+    <Compile Include="src\services\TableService.cs" />
     <Compile Include="src\services\TextReplaceService.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

@@ -29,13 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.打开ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.布局ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.页面设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.startProcess = new System.Windows.Forms.Button();
+            this.PdfExportBtn = new System.Windows.Forms.Button();
+            this.TaskProcessBtn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.todoTask = new System.Windows.Forms.ListBox();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
@@ -130,6 +126,11 @@
             this.DocTitle = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
             this.textReplaceTab = new System.Windows.Forms.TabPage();
+            this.LinkReplacegroupBox = new System.Windows.Forms.GroupBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.ReplaceLinkGridView = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.textReplacetoTask = new System.Windows.Forms.CheckBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -161,15 +162,18 @@
             this.label31 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.ParagraphAlign = new System.Windows.Forms.ComboBox();
+            this.extractTab = new System.Windows.Forms.TabPage();
+            this.ExtractTable = new System.Windows.Forms.CheckBox();
+            this.ExtractHyperLinkCheckBox = new System.Windows.Forms.CheckBox();
+            this.ImageToTask = new System.Windows.Forms.CheckBox();
+            this.ExtractImageCheckBox = new System.Windows.Forms.CheckBox();
             this.fileGrid = new System.Windows.Forms.DataGridView();
-            this.filename = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.filepath = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.filesize = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.result = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.inputFolder = new System.Windows.Forms.TextBox();
+            this.inputFolderBtn = new System.Windows.Forms.Button();
             this.outPutFolder = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
@@ -181,10 +185,11 @@
             this.footerImageDialog = new System.Windows.Forms.OpenFileDialog();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.imageTab = new System.Windows.Forms.TabPage();
-            this.ExtractImageCheckBox = new System.Windows.Forms.CheckBox();
-            this.ImageToTask = new System.Windows.Forms.CheckBox();
-            this.menuStrip1.SuspendLayout();
+            this.filename = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.filepath = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.filesize = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.result = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PressImgCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -208,6 +213,9 @@
             this.groupBox7.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.textReplaceTab.SuspendLayout();
+            this.LinkReplacegroupBox.SuspendLayout();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ReplaceLinkGridView)).BeginInit();
             this.groupBox9.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ReplaceTextGridView)).BeginInit();
@@ -215,61 +223,21 @@
             this.groupBox11.SuspendLayout();
             this.groupBox10.SuspendLayout();
             this.ParagraphGeneric.SuspendLayout();
+            this.extractTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fileGrid)).BeginInit();
             this.tabControl2.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
-            this.imageTab.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.文件ToolStripMenuItem,
-            this.布局ToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1223, 25);
-            this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // 文件ToolStripMenuItem
-            // 
-            this.文件ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.打开ToolStripMenuItem});
-            this.文件ToolStripMenuItem.Name = "文件ToolStripMenuItem";
-            this.文件ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
-            this.文件ToolStripMenuItem.Text = "文件";
-            // 
-            // 打开ToolStripMenuItem
-            // 
-            this.打开ToolStripMenuItem.Name = "打开ToolStripMenuItem";
-            this.打开ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
-            this.打开ToolStripMenuItem.Text = "添加";
-            this.打开ToolStripMenuItem.Click += new System.EventHandler(this.打开ToolStripMenuItem_Click);
-            // 
-            // 布局ToolStripMenuItem
-            // 
-            this.布局ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.页面设置ToolStripMenuItem});
-            this.布局ToolStripMenuItem.Name = "布局ToolStripMenuItem";
-            this.布局ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
-            this.布局ToolStripMenuItem.Text = "布局";
-            // 
-            // 页面设置ToolStripMenuItem
-            // 
-            this.页面设置ToolStripMenuItem.Name = "页面设置ToolStripMenuItem";
-            this.页面设置ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-            this.页面设置ToolStripMenuItem.Text = "页面设置";
-            this.页面设置ToolStripMenuItem.Click += new System.EventHandler(this.页面设置ToolStripMenuItem_Click);
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Location = new System.Drawing.Point(0, 63);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 50);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.startProcess);
+            this.splitContainer1.Panel1.Controls.Add(this.PdfExportBtn);
+            this.splitContainer1.Panel1.Controls.Add(this.TaskProcessBtn);
             this.splitContainer1.Panel1.Controls.Add(this.label1);
             this.splitContainer1.Panel1.Controls.Add(this.todoTask);
             this.splitContainer1.Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.SplitContainer1_Panel1_Paint_1);
@@ -278,19 +246,29 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
             this.splitContainer1.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.SplitContainer1_Panel2_Paint_1);
-            this.splitContainer1.Size = new System.Drawing.Size(1244, 628);
+            this.splitContainer1.Size = new System.Drawing.Size(1244, 641);
             this.splitContainer1.SplitterDistance = 199;
             this.splitContainer1.TabIndex = 2;
             // 
-            // startProcess
+            // PdfExportBtn
             // 
-            this.startProcess.Location = new System.Drawing.Point(4, 585);
-            this.startProcess.Name = "startProcess";
-            this.startProcess.Size = new System.Drawing.Size(191, 36);
-            this.startProcess.TabIndex = 2;
-            this.startProcess.Text = "开始处理";
-            this.startProcess.UseVisualStyleBackColor = true;
-            this.startProcess.Click += new System.EventHandler(this.Button1_Click);
+            this.PdfExportBtn.Location = new System.Drawing.Point(4, 522);
+            this.PdfExportBtn.Name = "PdfExportBtn";
+            this.PdfExportBtn.Size = new System.Drawing.Size(191, 36);
+            this.PdfExportBtn.TabIndex = 3;
+            this.PdfExportBtn.Text = "转换PDF";
+            this.PdfExportBtn.UseVisualStyleBackColor = true;
+            this.PdfExportBtn.Click += new System.EventHandler(this.PdfExportBtn_Click);
+            // 
+            // TaskProcessBtn
+            // 
+            this.TaskProcessBtn.Location = new System.Drawing.Point(4, 480);
+            this.TaskProcessBtn.Name = "TaskProcessBtn";
+            this.TaskProcessBtn.Size = new System.Drawing.Size(191, 36);
+            this.TaskProcessBtn.TabIndex = 2;
+            this.TaskProcessBtn.Text = "开始处理";
+            this.TaskProcessBtn.UseVisualStyleBackColor = true;
+            this.TaskProcessBtn.Click += new System.EventHandler(this.Button1_Click);
             // 
             // label1
             // 
@@ -308,7 +286,7 @@
             this.todoTask.ItemHeight = 12;
             this.todoTask.Location = new System.Drawing.Point(4, 33);
             this.todoTask.Name = "todoTask";
-            this.todoTask.Size = new System.Drawing.Size(191, 544);
+            this.todoTask.Size = new System.Drawing.Size(191, 436);
             this.todoTask.TabIndex = 0;
             this.todoTask.SelectedIndexChanged += new System.EventHandler(this.TodoTask_SelectedIndexChanged);
             // 
@@ -329,8 +307,8 @@
             this.splitContainer2.Panel2.Controls.Add(this.fileGrid);
             this.splitContainer2.Panel2.Controls.Add(this.tabControl2);
             this.splitContainer2.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.SplitContainer2_Panel2_Paint);
-            this.splitContainer2.Size = new System.Drawing.Size(1041, 628);
-            this.splitContainer2.SplitterDistance = 302;
+            this.splitContainer2.Size = new System.Drawing.Size(1041, 641);
+            this.splitContainer2.SplitterDistance = 308;
             this.splitContainer2.TabIndex = 0;
             // 
             // tabcontrol
@@ -340,7 +318,7 @@
             this.tabcontrol.Controls.Add(this.docInfoTab);
             this.tabcontrol.Controls.Add(this.textReplaceTab);
             this.tabcontrol.Controls.Add(this.paragraphTab);
-            this.tabcontrol.Controls.Add(this.imageTab);
+            this.tabcontrol.Controls.Add(this.extractTab);
             this.tabcontrol.Location = new System.Drawing.Point(0, 0);
             this.tabcontrol.Name = "tabcontrol";
             this.tabcontrol.SelectedIndex = 0;
@@ -1292,6 +1270,7 @@
             // 
             // textReplaceTab
             // 
+            this.textReplaceTab.Controls.Add(this.LinkReplacegroupBox);
             this.textReplaceTab.Controls.Add(this.textReplacetoTask);
             this.textReplaceTab.Controls.Add(this.groupBox9);
             this.textReplaceTab.Location = new System.Drawing.Point(4, 22);
@@ -1302,6 +1281,53 @@
             this.textReplaceTab.Text = "文字替换";
             this.textReplaceTab.UseVisualStyleBackColor = true;
             this.textReplaceTab.Click += new System.EventHandler(this.TextReplaceTab_Click);
+            // 
+            // LinkReplacegroupBox
+            // 
+            this.LinkReplacegroupBox.Controls.Add(this.panel1);
+            this.LinkReplacegroupBox.Location = new System.Drawing.Point(393, 8);
+            this.LinkReplacegroupBox.Name = "LinkReplacegroupBox";
+            this.LinkReplacegroupBox.Size = new System.Drawing.Size(357, 261);
+            this.LinkReplacegroupBox.TabIndex = 32;
+            this.LinkReplacegroupBox.TabStop = false;
+            this.LinkReplacegroupBox.Text = "超链接添加或替换";
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.ReplaceLinkGridView);
+            this.panel1.Location = new System.Drawing.Point(6, 20);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(345, 235);
+            this.panel1.TabIndex = 3;
+            // 
+            // ReplaceLinkGridView
+            // 
+            this.ReplaceLinkGridView.AllowUserToOrderColumns = true;
+            this.ReplaceLinkGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.ReplaceLinkGridView.BackgroundColor = System.Drawing.SystemColors.Window;
+            this.ReplaceLinkGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.ReplaceLinkGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2});
+            this.ReplaceLinkGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ReplaceLinkGridView.Location = new System.Drawing.Point(0, 0);
+            this.ReplaceLinkGridView.Name = "ReplaceLinkGridView";
+            this.ReplaceLinkGridView.RowTemplate.Height = 23;
+            this.ReplaceLinkGridView.Size = new System.Drawing.Size(345, 235);
+            this.ReplaceLinkGridView.TabIndex = 0;
+            this.ReplaceLinkGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ReplaceLinkGridView_CellContentClick);
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "LinkSourceText";
+            this.dataGridViewTextBoxColumn1.HeaderText = "文字";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "LinkTargetText";
+            this.dataGridViewTextBoxColumn2.HeaderText = "超链接";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
             // textReplacetoTask
             // 
@@ -1624,6 +1650,62 @@
             this.ParagraphAlign.TabIndex = 37;
             this.ParagraphAlign.SelectedIndexChanged += new System.EventHandler(this.ComboBox1_SelectedIndexChanged);
             // 
+            // extractTab
+            // 
+            this.extractTab.Controls.Add(this.ExtractTable);
+            this.extractTab.Controls.Add(this.ExtractHyperLinkCheckBox);
+            this.extractTab.Controls.Add(this.ImageToTask);
+            this.extractTab.Controls.Add(this.ExtractImageCheckBox);
+            this.extractTab.Location = new System.Drawing.Point(4, 22);
+            this.extractTab.Name = "extractTab";
+            this.extractTab.Padding = new System.Windows.Forms.Padding(3);
+            this.extractTab.Size = new System.Drawing.Size(1015, 275);
+            this.extractTab.TabIndex = 5;
+            this.extractTab.Text = "文档内容提取";
+            this.extractTab.UseVisualStyleBackColor = true;
+            // 
+            // ExtractTable
+            // 
+            this.ExtractTable.AutoSize = true;
+            this.ExtractTable.Location = new System.Drawing.Point(35, 165);
+            this.ExtractTable.Name = "ExtractTable";
+            this.ExtractTable.Size = new System.Drawing.Size(72, 16);
+            this.ExtractTable.TabIndex = 44;
+            this.ExtractTable.Text = "提取表格";
+            this.ExtractTable.UseVisualStyleBackColor = true;
+            this.ExtractTable.CheckedChanged += new System.EventHandler(this.ExtractTable_CheckedChanged);
+            // 
+            // ExtractHyperLinkCheckBox
+            // 
+            this.ExtractHyperLinkCheckBox.AutoSize = true;
+            this.ExtractHyperLinkCheckBox.Location = new System.Drawing.Point(35, 95);
+            this.ExtractHyperLinkCheckBox.Name = "ExtractHyperLinkCheckBox";
+            this.ExtractHyperLinkCheckBox.Size = new System.Drawing.Size(108, 16);
+            this.ExtractHyperLinkCheckBox.TabIndex = 43;
+            this.ExtractHyperLinkCheckBox.Text = "提取文档超链接";
+            this.ExtractHyperLinkCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // ImageToTask
+            // 
+            this.ImageToTask.AutoSize = true;
+            this.ImageToTask.Location = new System.Drawing.Point(865, 21);
+            this.ImageToTask.Name = "ImageToTask";
+            this.ImageToTask.Size = new System.Drawing.Size(120, 16);
+            this.ImageToTask.TabIndex = 42;
+            this.ImageToTask.Text = "添加到待处理任务";
+            this.ImageToTask.UseVisualStyleBackColor = true;
+            this.ImageToTask.CheckedChanged += new System.EventHandler(this.ImageToTask_CheckedChanged);
+            // 
+            // ExtractImageCheckBox
+            // 
+            this.ExtractImageCheckBox.AutoSize = true;
+            this.ExtractImageCheckBox.Location = new System.Drawing.Point(35, 35);
+            this.ExtractImageCheckBox.Name = "ExtractImageCheckBox";
+            this.ExtractImageCheckBox.Size = new System.Drawing.Size(96, 16);
+            this.ExtractImageCheckBox.TabIndex = 0;
+            this.ExtractImageCheckBox.Text = "提取文档图片";
+            this.ExtractImageCheckBox.UseVisualStyleBackColor = true;
+            // 
             // fileGrid
             // 
             this.fileGrid.AllowUserToAddRows = false;
@@ -1636,45 +1718,18 @@
             this.filename,
             this.filepath,
             this.filesize,
-            this.result});
+            this.result,
+            this.PressImgCol});
             this.fileGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fileGrid.Location = new System.Drawing.Point(0, 0);
             this.fileGrid.Name = "fileGrid";
             this.fileGrid.ReadOnly = true;
             this.fileGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.fileGrid.RowTemplate.Height = 23;
-            this.fileGrid.Size = new System.Drawing.Size(1041, 322);
+            this.fileGrid.Size = new System.Drawing.Size(1041, 329);
             this.fileGrid.TabIndex = 1;
             this.fileGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.FileGrid_CellContentClick);
             this.fileGrid.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.FileGrid_CellPainting);
-            // 
-            // filename
-            // 
-            this.filename.DataPropertyName = "filename";
-            this.filename.HeaderText = "文件名";
-            this.filename.Name = "filename";
-            this.filename.ReadOnly = true;
-            // 
-            // filepath
-            // 
-            this.filepath.DataPropertyName = "filepath";
-            this.filepath.HeaderText = "路径";
-            this.filepath.Name = "filepath";
-            this.filepath.ReadOnly = true;
-            // 
-            // filesize
-            // 
-            this.filesize.DataPropertyName = "filesize";
-            this.filesize.HeaderText = "大小";
-            this.filesize.Name = "filesize";
-            this.filesize.ReadOnly = true;
-            // 
-            // result
-            // 
-            this.result.DataPropertyName = "result";
-            this.result.HeaderText = "结果";
-            this.result.Name = "result";
-            this.result.ReadOnly = true;
             // 
             // tabControl2
             // 
@@ -1709,18 +1764,38 @@
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.flowLayoutPanel1.Controls.Add(this.inputFolder);
+            this.flowLayoutPanel1.Controls.Add(this.inputFolderBtn);
             this.flowLayoutPanel1.Controls.Add(this.outPutFolder);
             this.flowLayoutPanel1.Controls.Add(this.button2);
             this.flowLayoutPanel1.Controls.Add(this.button1);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 28);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, -2);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1226, 29);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1226, 46);
             this.flowLayoutPanel1.TabIndex = 3;
+            // 
+            // inputFolder
+            // 
+            this.inputFolder.Enabled = false;
+            this.inputFolder.Location = new System.Drawing.Point(3, 3);
+            this.inputFolder.Name = "inputFolder";
+            this.inputFolder.Size = new System.Drawing.Size(217, 21);
+            this.inputFolder.TabIndex = 3;
+            // 
+            // inputFolderBtn
+            // 
+            this.inputFolderBtn.Location = new System.Drawing.Point(226, 3);
+            this.inputFolderBtn.Name = "inputFolderBtn";
+            this.inputFolderBtn.Size = new System.Drawing.Size(75, 23);
+            this.inputFolderBtn.TabIndex = 4;
+            this.inputFolderBtn.Text = "选择文件夹";
+            this.inputFolderBtn.UseVisualStyleBackColor = true;
+            this.inputFolderBtn.Click += new System.EventHandler(this.InputFolderBtn_Click);
             // 
             // outPutFolder
             // 
             this.outPutFolder.Enabled = false;
-            this.outPutFolder.Location = new System.Drawing.Point(3, 3);
+            this.outPutFolder.Location = new System.Drawing.Point(307, 3);
             this.outPutFolder.Name = "outPutFolder";
             this.outPutFolder.Size = new System.Drawing.Size(217, 21);
             this.outPutFolder.TabIndex = 0;
@@ -1728,7 +1803,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(226, 3);
+            this.button2.Location = new System.Drawing.Point(530, 3);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 1;
@@ -1738,7 +1813,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(307, 3);
+            this.button1.Location = new System.Drawing.Point(611, 3);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 2;
@@ -1760,38 +1835,40 @@
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
-            // imageTab
+            // filename
             // 
-            this.imageTab.Controls.Add(this.ImageToTask);
-            this.imageTab.Controls.Add(this.ExtractImageCheckBox);
-            this.imageTab.Location = new System.Drawing.Point(4, 22);
-            this.imageTab.Name = "imageTab";
-            this.imageTab.Padding = new System.Windows.Forms.Padding(3);
-            this.imageTab.Size = new System.Drawing.Size(1015, 275);
-            this.imageTab.TabIndex = 5;
-            this.imageTab.Text = "图片";
-            this.imageTab.UseVisualStyleBackColor = true;
+            this.filename.DataPropertyName = "filename";
+            this.filename.HeaderText = "文件名";
+            this.filename.Name = "filename";
+            this.filename.ReadOnly = true;
             // 
-            // ExtractImageCheckBox
+            // filepath
             // 
-            this.ExtractImageCheckBox.AutoSize = true;
-            this.ExtractImageCheckBox.Location = new System.Drawing.Point(35, 35);
-            this.ExtractImageCheckBox.Name = "ExtractImageCheckBox";
-            this.ExtractImageCheckBox.Size = new System.Drawing.Size(96, 16);
-            this.ExtractImageCheckBox.TabIndex = 0;
-            this.ExtractImageCheckBox.Text = "提取文档图片";
-            this.ExtractImageCheckBox.UseVisualStyleBackColor = true;
+            this.filepath.DataPropertyName = "filepath";
+            this.filepath.HeaderText = "路径";
+            this.filepath.Name = "filepath";
+            this.filepath.ReadOnly = true;
             // 
-            // ImageToTask
+            // filesize
             // 
-            this.ImageToTask.AutoSize = true;
-            this.ImageToTask.Location = new System.Drawing.Point(865, 21);
-            this.ImageToTask.Name = "ImageToTask";
-            this.ImageToTask.Size = new System.Drawing.Size(120, 16);
-            this.ImageToTask.TabIndex = 42;
-            this.ImageToTask.Text = "添加到待处理任务";
-            this.ImageToTask.UseVisualStyleBackColor = true;
-            this.ImageToTask.CheckedChanged += new System.EventHandler(this.ImageToTask_CheckedChanged);
+            this.filesize.DataPropertyName = "filesize";
+            this.filesize.HeaderText = "大小";
+            this.filesize.Name = "filesize";
+            this.filesize.ReadOnly = true;
+            // 
+            // result
+            // 
+            this.result.DataPropertyName = "result";
+            this.result.HeaderText = "结果";
+            this.result.Name = "result";
+            this.result.ReadOnly = true;
+            // 
+            // PressImgCol
+            // 
+            this.PressImgCol.DataPropertyName = "PressImg";
+            this.PressImgCol.HeaderText = "进度条";
+            this.PressImgCol.Name = "PressImgCol";
+            this.PressImgCol.ReadOnly = true;
             // 
             // MainForm
             // 
@@ -1800,14 +1877,10 @@
             this.ClientSize = new System.Drawing.Size(1223, 688);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.splitContainer1);
-            this.Controls.Add(this.menuStrip1);
-            this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MainForm";
             this.Load += new System.EventHandler(this.MainForm_Load);
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -1845,6 +1918,9 @@
             this.groupBox6.PerformLayout();
             this.textReplaceTab.ResumeLayout(false);
             this.textReplaceTab.PerformLayout();
+            this.LinkReplacegroupBox.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ReplaceLinkGridView)).EndInit();
             this.groupBox9.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ReplaceTextGridView)).EndInit();
@@ -1856,22 +1932,17 @@
             this.groupBox10.PerformLayout();
             this.ParagraphGeneric.ResumeLayout(false);
             this.ParagraphGeneric.PerformLayout();
+            this.extractTab.ResumeLayout(false);
+            this.extractTab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fileGrid)).EndInit();
             this.tabControl2.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
-            this.imageTab.ResumeLayout(false);
-            this.imageTab.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem 文件ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 打开ToolStripMenuItem;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.ListBox todoTask;
         private System.Windows.Forms.SplitContainer splitContainer2;
@@ -1882,7 +1953,7 @@
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button startProcess;
+        private System.Windows.Forms.Button TaskProcessBtn;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.TextBox outPutFolder;
         private System.Windows.Forms.Button button2;
@@ -1898,10 +1969,6 @@
         private System.Windows.Forms.TextBox rightMargin;
         private System.Windows.Forms.CheckBox notSetMargin;
         private System.Windows.Forms.CheckBox pageAddToTask;
-        private System.Windows.Forms.DataGridViewTextBoxColumn filename;
-        private System.Windows.Forms.DataGridViewTextBoxColumn filepath;
-        private System.Windows.Forms.DataGridViewTextBoxColumn filesize;
-        private System.Windows.Forms.DataGridViewTextBoxColumn result;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox pageWidth;
@@ -1933,8 +2000,6 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.CheckBox clearFooter;
         private System.Windows.Forms.CheckBox clearHeader;
-        private System.Windows.Forms.ToolStripMenuItem 布局ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 页面设置ToolStripMenuItem;
         private System.Windows.Forms.Button footerFontBtn;
         private System.Windows.Forms.Button headerFontBtn;
         private System.Windows.Forms.FontDialog headerFontDialog;
@@ -2021,8 +2086,23 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.TextBox TextSpace;
         private System.Windows.Forms.Label label31;
-        private System.Windows.Forms.TabPage imageTab;
+        private System.Windows.Forms.TabPage extractTab;
         private System.Windows.Forms.CheckBox ImageToTask;
         private System.Windows.Forms.CheckBox ExtractImageCheckBox;
+        private System.Windows.Forms.CheckBox ExtractHyperLinkCheckBox;
+        private System.Windows.Forms.CheckBox ExtractTable;
+        private System.Windows.Forms.GroupBox LinkReplacegroupBox;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.DataGridView ReplaceLinkGridView;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.Button PdfExportBtn;
+        private System.Windows.Forms.TextBox inputFolder;
+        private System.Windows.Forms.Button inputFolderBtn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn filename;
+        private System.Windows.Forms.DataGridViewTextBoxColumn filepath;
+        private System.Windows.Forms.DataGridViewTextBoxColumn filesize;
+        private System.Windows.Forms.DataGridViewTextBoxColumn result;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PressImgCol;
     }
 }

@@ -8,6 +8,7 @@ namespace Docx.src
 {
     class ConstData
     {
+        internal const string DOCXPREF = ".docx";
         internal const float POUND = 28.35f;
         internal const string SUCCESS = "成功";
         internal const string FAIL = "失败";

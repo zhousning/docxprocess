@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -20,61 +21,30 @@ namespace Docx
 {
     public partial class MainForm : Form
     {
+        private MainFormService mainFormService;
         private PageSettingService pageSettingService;
         private HeaderFooterService headerFooterService;
         private DocInfoService docInfoService;
         private TextReplaceService textReplaceService;
         private ParagraphService paragraphService;
         private ImageService imageService;
+        private HyperLinkService hyperLinkService;
+        private TableService tableService;
+        private PdfService pdfService;
         public MainForm()
         {
             InitializeComponent();
+            this.mainFormService = new MainFormService();
             this.pageSettingService = new PageSettingService();
             this.headerFooterService = new HeaderFooterService();
             this.docInfoService = new DocInfoService();
             this.textReplaceService = new TextReplaceService();
             this.paragraphService = new ParagraphService();
             this.imageService = new ImageService();
+            this.hyperLinkService = new HyperLinkService();
+            this.tableService = new TableService();
+            this.pdfService = new PdfService();
         }
-
-        private void 打开ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FolderBrowserDialog dilog = new FolderBrowserDialog();
-            dilog.Description = "请选择文件夹";
-            if (dilog.ShowDialog() == DialogResult.OK || dilog.ShowDialog() == DialogResult.Yes)
-            {
-                String path = dilog.SelectedPath;
-                DirectoryInfo directoryInfo = new DirectoryInfo(path);
-                FileInfo[] files = directoryInfo.GetFiles();
-
-                DataSet ds = new DataSet();
-                DataTable dt = new DataTable();
-                dt.Columns.Add("filename", typeof(string));
-                dt.Columns.Add("filepath", typeof(string));
-                dt.Columns.Add("filesize", typeof(string));
-                dt.Columns.Add("result", typeof(string));
-                foreach (FileInfo f in files)
-                {
-                    string filename = f.Name;
-                    string filepath = f.FullName;
-                    string filesize = System.Math.Ceiling(f.Length / 1024.0) + " KB";
-
-                    string extension = Path.GetExtension(filepath);
-                    if (extension == ".docx")
-                    {
-                        DataRow row = dt.NewRow();
-                        row["filename"] = filename;
-                        row["filepath"] = filepath;
-                        row["filesize"] = filesize;
-                        row["result"] = "";
-                        dt.Rows.Add(row);
-                    }
-                }
-                ds.Tables.Add(dt);
-                fileGrid.DataSource = ds.Tables[0];
-            }
-        }
-
 
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -102,125 +72,98 @@ namespace Docx
                 return;
             }
 
-            startProcess.Text = "处理中...";
-            startProcess.Enabled = false;
-            string outputDirectory = outPutFolder.Text;
-            if (string.IsNullOrWhiteSpace(outputDirectory))
-            {
-                MessageBox.Show("请选择输出目录", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                startProcess.Enabled = true;
-                return;
-            }
-            DataSet ds = new DataSet();
-            DataTable dt = new DataTable();
-            dt.Columns.Add("filename", typeof(string));
-            dt.Columns.Add("filepath", typeof(string));
-            dt.Columns.Add("filesize", typeof(string));
-            dt.Columns.Add("result", typeof(string));
-            foreach (DataGridViewRow row in fileGrid.Rows)
-            {
-                string filepath = row.Cells["filepath"].Value.ToString();
-                string filename = row.Cells["filename"].Value.ToString();
-                string filesize = row.Cells["filesize"].Value.ToString();
-                string result = "";
-                try
-                {
-                    if (!String.IsNullOrWhiteSpace(filepath) && File.Exists(filepath))
-                    {
-                        string targetFile = outputDirectory + @"\" + filename;
-                        using (var document = DocX.Load(filepath))
-                        {
-                            foreach (string title in tasks)
-                            {
-                                if (title == pageSettingTab.Text)
-                                {
-                                    PageSet(document);
-                                }
-                                else if (title == headerFooterTab.Text)
-                                {
-                                    HeaderFooterSet(document);
-                                }
-                                else if (title == docInfoTab.Text)
-                                {
-                                    DocInfoSet(document);
-                                }
-                                else if (title == textReplaceTab.Text)
-                                {
-                                    TextReplaceSet(document);
-                                }
-                                else if (title == paragraphTab.Text)
-                                {
-                                    ParagraphSet(document);
-                                }
-                                else if (title == imageTab.Text)
-                                {
-                                    ImageSet(document, targetFile);
-                                }
-                            }
-
-                            document.SaveAs(targetFile);
-                            if (tasks.Contains(docInfoTab.Text))
-                            {
-                                this.docInfoService.UpdateFileTime(targetFile, CreateTimeCheckBox.Checked, DocCreateTime.Value, UpdateTimeCheckBox.Checked, DocUpdateTime.Value);
-
-                            }
-                            result = ConstData.SUCCESS;
-                        }
-                    }
-                    else
-                    {
-                        result = ConstData.WITHOUT_FILE;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex.Message);
-                    result = ConstData.FAIL;
-                }
-                finally
-                {
-                    DataRow dataRow = dt.NewRow();
-                    dataRow["filename"] = filename;
-                    dataRow["filepath"] = filepath;
-                    dataRow["filesize"] = filesize;
-                    dataRow["result"] = result;
-                    dt.Rows.Add(dataRow);
-                }
-            }
-            ds.Tables.Add(dt);
-            fileGrid.DataSource = ds.Tables[0];
-            startProcess.Text = "开始处理";
-            startProcess.Enabled = true;
-            //MessageBox.Show("处理完毕", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+            this.mainFormService.Process(tasks, ref fileGrid, outPutFolder, ref TaskProcessBtn, TaskProcess);
         }
 
-        private void ImageSet(DocX document, string output)
+        private void PdfExportBtn_Click(object sender, EventArgs e)
         {
-            this.imageService.ImageSet(document, output, ExtractImageCheckBox);
-            
+            this.mainFormService.Process(null, ref fileGrid, outPutFolder, ref PdfExportBtn, PDFConverterProcess);
+        }
+
+
+
+        private void TaskProcess(List<string> tasks, string filepath, string targetFile, ref string result)
+        {
+            targetFile += ConstData.DOCXPREF;
+            using (var document = DocX.Load(filepath))
+            {
+                foreach (string title in tasks)
+                {
+                    if (title == pageSettingTab.Text)
+                    {
+                        PageSet(document);
+                    }
+                    else if (title == headerFooterTab.Text)
+                    {
+                        HeaderFooterSet(document);
+                    }
+                    else if (title == docInfoTab.Text)
+                    {
+                        DocInfoSet(document);
+                    }
+                    else if (title == textReplaceTab.Text)
+                    {
+                        TextReplaceSet(document);
+                    }
+                    else if (title == paragraphTab.Text)
+                    {
+                        ParagraphSet(document);
+                    }
+                    else if (title == extractTab.Text)
+                    {
+                        ExtractSet(document, targetFile);
+                    }
+                }
+
+                document.SaveAs(targetFile);
+                if (tasks.Contains(docInfoTab.Text))
+                {
+                    this.docInfoService.UpdateFileTime(targetFile, CreateTimeCheckBox.Checked, DocCreateTime.Value, UpdateTimeCheckBox.Checked, DocUpdateTime.Value);
+
+                }
+                result = ConstData.SUCCESS;
+            }
+        }
+
+        private void PDFConverterProcess(List<string> tasks, string filepath, string targetFile, ref string result)
+        {
+            Boolean flag = this.pdfService.WordToPDF(filepath, targetFile);
+            if (flag)
+            {
+                result = ConstData.SUCCESS;
+            }
+            else
+            {
+                result = ConstData.FAIL;
+            }
+        }
+
+        private void ExtractSet(DocX document, string output)
+        {
+            if (ExtractImageCheckBox.Checked)
+            {
+                this.imageService.extractImages(document, output);
+            }
+            if (ExtractHyperLinkCheckBox.Checked)
+            {
+                this.hyperLinkService.extractHyperLink(document, output);
+            }
+            if (ExtractTable.Checked)
+            {
+                this.tableService.extractTable(document, output);
+            }
         }
 
         private void ParagraphSet(DocX document)
         {
             this.paragraphService.Set(document, SpaceBefore, SpaceAfter, SpaceLineVal, IndentationSpecialVal, IndentationBefore, IndentationAfter, TextSpace
-                ,ParagraphAlign, SpaceLineType, IndentationSpecial);
+                , ParagraphAlign, SpaceLineType, IndentationSpecial);
         }
 
         private void TextReplaceSet(DocX document)
         {
-            Dictionary<string, string> lists = new Dictionary<string, string>();
-            foreach(DataGridViewRow row in ReplaceTextGridView.Rows)
-            {
-                string source = row.Cells[0].Value == null? "" : row.Cells[0].Value.ToString();
-                string target = row.Cells[1].Value == null ? "" : row.Cells[1].Value.ToString();
-                if (source.Length == 0 && target.Length == 0)
-                {
-                    continue;
-                }
-                lists.Add(source, target);
-            }
-            this.textReplaceService.TextReplaceSet(document, lists);
+            this.textReplaceService.TextReplaceSet(document, ReplaceTextGridView);
+            this.textReplaceService.HyperLinkReplaceSet(document, ReplaceLinkGridView);
         }
         private void PageSet(DocX document)
         {
@@ -399,9 +342,24 @@ namespace Docx
 
         }
 
+        //进度条图片属性
+        public Image PressImg
+        {
+            get
+            {
+                Bitmap bmp = new Bitmap(104, 30); //这里给104是为了左边和右边空出2个像素，剩余的100就是百分比的值
+                Graphics g = Graphics.FromImage(bmp);
+                g.Clear(Color.White); //背景填白色
+                //g.FillRectangle(Brushes.Red, 2, 2, this.Press, 26);  //普通效果
+                //填充渐变效果
+                g.FillRectangle(new LinearGradientBrush(new Point(30, 2), new Point(30, 30), Color.Black, Color.Gray), 2, 2, 20, 26);
+                return bmp;
+            }
+        }
+
         private void FileGrid_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
-            if (e.RowIndex > -1)
+            /*if (e.RowIndex > -1)
             {
                 string result = fileGrid.Rows[e.RowIndex].Cells["result"].Value.ToString();
 
@@ -415,7 +373,7 @@ namespace Docx
                     fileGrid.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Orange;
                     fileGrid.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.White;
                 }
-            }
+            }*/
         }
 
         private void GroupBox2_Enter(object sender, EventArgs e)
@@ -641,10 +599,11 @@ namespace Docx
 
         private void Button1_Click_2(object sender, EventArgs e)
         {
-            this.pageSettingService.test();
+            this.pdfService.WordToPDF(@"C:\Users\周宁\Desktop\新建文件夹 (2)\最终版 28版.docx", @"C:\Users\周宁\Desktop\新建文件夹 (2)\最终版 28");
+            //this.pageSettingService.test();
         }
 
-        
+
 
         private void TabPage1_Click_1(object sender, EventArgs e)
         {
@@ -778,7 +737,7 @@ namespace Docx
 
         private void TextBox3_TextChanged_1(object sender, EventArgs e)
         {
-                    }
+        }
 
         private void TextBox2_TextChanged(object sender, EventArgs e)
         {
@@ -803,6 +762,53 @@ namespace Docx
         private void ImageToTask_CheckedChanged(object sender, EventArgs e)
         {
             addToTaskCheck(ImageToTask);
+        }
+
+        private void ExtractTable_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ReplaceLinkGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void InputFolderBtn_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog dilog = new FolderBrowserDialog();
+            dilog.Description = "请选择文件夹";
+            if (dilog.ShowDialog() == DialogResult.OK || dilog.ShowDialog() == DialogResult.Yes)
+            {
+                String path = dilog.SelectedPath;
+                inputFolder.Text = path;
+                DirectoryInfo directoryInfo = new DirectoryInfo(path);
+                FileInfo[] files = directoryInfo.GetFiles("*.docx", SearchOption.AllDirectories);
+
+                DataSet ds = new DataSet();
+                DataTable dt = new DataTable();
+                dt.Columns.Add("filename", typeof(string));
+                dt.Columns.Add("filepath", typeof(string));
+                dt.Columns.Add("filesize", typeof(string));
+                dt.Columns.Add("result", typeof(string));
+                foreach (FileInfo f in files)
+                {
+                    string filename = f.Name.Substring(0, f.Name.LastIndexOf("."));
+                    string filepath = f.FullName;
+                    string filesize = System.Math.Ceiling(f.Length / 1024.0) + " KB";
+                    if ((f.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden)
+                    {
+                        DataRow row = dt.NewRow();
+                        row["filename"] = filename;
+                        row["filepath"] = filepath;
+                        row["filesize"] = filesize;
+                        row["result"] = "";
+                        dt.Rows.Add(row);
+                    }
+                }
+                ds.Tables.Add(dt);
+                fileGrid.DataSource = ds.Tables[0];
+            }
         }
 
 
