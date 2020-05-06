@@ -34,5 +34,7 @@ namespace Docx.src
         internal const string INDENT_FIRST = "首行";
         internal const string INDENT_HANG = "悬挂";
         internal const string NOT_SET = "不设置";
+        internal const string START_PRC = "开始处理";
+        internal const string PDF_EXPORT = "转换PDF";
     }
 }

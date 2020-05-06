@@ -65,20 +65,27 @@ namespace Docx
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            List<string> tasks = todoTask.Items.Cast<string>().ToList();
-            if (tasks.Count == 0)
-            {
-                MessageBox.Show("当前没有待处理任务", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            this.mainFormService.Process(tasks, ref fileGrid, outPutFolder, ref TaskProcessBtn, TaskProcess);
+            TaskProcessBtn.Enabled = false;
+            PdfExportBtn.Enabled = false;
+            StopWork.Enabled = true;
+            fileGrid.AllowUserToDeleteRows = false;
+            string title = TaskProcessBtn.Text;
+            this.backgroundWorker1.RunWorkerAsync(title);
         }
+
+       
 
         private void PdfExportBtn_Click(object sender, EventArgs e)
         {
-            this.mainFormService.Process(null, ref fileGrid, outPutFolder, ref PdfExportBtn, PDFConverterProcess);
+            TaskProcessBtn.Enabled = false;
+            PdfExportBtn.Enabled = false;
+            StopWork.Enabled = true;
+            fileGrid.AllowUserToDeleteRows = false;
+            string title = PdfExportBtn.Text;
+            this.backgroundWorker1.RunWorkerAsync(title);
         }
+
+
 
 
 
@@ -167,8 +174,8 @@ namespace Docx
         }
         private void PageSet(DocX document)
         {
-            pageSettingService.marginSetting(document, notSetMargin.Checked, topMargin.Text, bottomMargin.Text, leftMargin.Text, rightMargin.Text);
-            pageSettingService.pageSizeSetting(document, notSetPageSize.Checked, pageWidth.Text, pageHeight.Text);
+            pageSettingService.marginSetting(document, notSetMargin.Checked, topMargin.Value.ToString(), bottomMargin.Value.ToString(), leftMargin.Value.ToString(), rightMargin.Value.ToString());
+            pageSettingService.pageSizeSetting(document, notSetPageSize.Checked, pageWidth.Value.ToString(), pageHeight.Value.ToString());
             pageSettingService.pageOrientation(document, pageSetOrientation.Text);
         }
 
@@ -342,24 +349,9 @@ namespace Docx
 
         }
 
-        //进度条图片属性
-        public Image PressImg
-        {
-            get
-            {
-                Bitmap bmp = new Bitmap(104, 30); //这里给104是为了左边和右边空出2个像素，剩余的100就是百分比的值
-                Graphics g = Graphics.FromImage(bmp);
-                g.Clear(Color.White); //背景填白色
-                //g.FillRectangle(Brushes.Red, 2, 2, this.Press, 26);  //普通效果
-                //填充渐变效果
-                g.FillRectangle(new LinearGradientBrush(new Point(30, 2), new Point(30, 30), Color.Black, Color.Gray), 2, 2, 20, 26);
-                return bmp;
-            }
-        }
-
         private void FileGrid_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
-            /*if (e.RowIndex > -1)
+            if (e.RowIndex > -1)
             {
                 string result = fileGrid.Rows[e.RowIndex].Cells["result"].Value.ToString();
 
@@ -373,7 +365,7 @@ namespace Docx
                     fileGrid.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Orange;
                     fileGrid.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.White;
                 }
-            }*/
+            }
         }
 
         private void GroupBox2_Enter(object sender, EventArgs e)
@@ -809,6 +801,86 @@ namespace Docx
                 ds.Tables.Add(dt);
                 fileGrid.DataSource = ds.Tables[0];
             }
+        }
+        private void TaskProcessAsync(BackgroundWorker bw)
+        {
+            List<string> tasks = todoTask.Items.Cast<string>().ToList();
+            if (tasks.Count == 0)
+            {
+                MessageBox.Show("当前没有待处理任务", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            this.mainFormService.Process(bw, tasks, ref fileGrid, outPutFolder, ref TaskProcessBtn, TaskProcess);
+        }
+        private void PdfExportAsync(BackgroundWorker bw)
+        {
+            this.mainFormService.Process(bw, null, ref fileGrid, outPutFolder, ref PdfExportBtn, PDFConverterProcess);
+        }
+
+        private void Button3_Click(object sender, EventArgs e)
+        {
+            new PageSettingForm().Show();
+        }
+
+       
+        private void BackgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            
+            BackgroundWorker bw = sender as BackgroundWorker;
+
+            foreach (DataGridViewRow row in fileGrid.Rows)
+            {
+                row.Cells["result"].Value = "";
+            }
+            string title = (string)e.Argument;
+
+            //e.Result = TimeConsumingOperation(bw, arg);
+            if (title == ConstData.START_PRC)
+            {
+                TaskProcessAsync(bw);
+            }
+            else if (title == ConstData.PDF_EXPORT)
+            {
+                PdfExportAsync(bw);
+            }
+
+            if (bw.CancellationPending)
+            {
+                e.Cancel = true;
+            }
+        }
+
+        private void BackgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            TaskProcessBtn.Enabled = true;
+            PdfExportBtn.Enabled = true;
+            StopWork.Enabled = false;
+            fileGrid.AllowUserToDeleteRows = true;
+            if (e.Cancelled)
+            {
+                MessageBox.Show("已停止处理");
+            }
+            else if (e.Error != null)
+            {
+                string msg = String.Format("An error occurred: {0}", e.Error.Message);
+                MessageBox.Show(msg);
+            }
+            else
+            {
+                //string msg = String.Format("处理成功");
+                //MessageBox.Show(msg);
+            }
+        }
+
+        private void StopWork_Click(object sender, EventArgs e)
+        {
+            this.backgroundWorker1.CancelAsync();
+        }
+
+        private void FlowLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
 
 

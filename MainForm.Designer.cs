@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.StopWork = new System.Windows.Forms.Button();
             this.PdfExportBtn = new System.Windows.Forms.Button();
             this.TaskProcessBtn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -41,21 +42,15 @@
             this.pageSetOrientation = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.pageWidth = new System.Windows.Forms.TextBox();
             this.notSetPageSize = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.pageHeight = new System.Windows.Forms.TextBox();
             this.pageAddToTask = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.topMargin = new System.Windows.Forms.TextBox();
             this.notSetMargin = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.rightMargin = new System.Windows.Forms.TextBox();
-            this.bottomMargin = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.leftMargin = new System.Windows.Forms.TextBox();
             this.headerFooterTab = new System.Windows.Forms.TabPage();
             this.headerFooterToTask = new System.Windows.Forms.CheckBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
@@ -168,6 +163,10 @@
             this.ImageToTask = new System.Windows.Forms.CheckBox();
             this.ExtractImageCheckBox = new System.Windows.Forms.CheckBox();
             this.fileGrid = new System.Windows.Forms.DataGridView();
+            this.filename = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.filepath = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.filesize = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.result = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
@@ -177,6 +176,7 @@
             this.outPutFolder = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             this.headerFontDialog = new System.Windows.Forms.FontDialog();
             this.footerFontDialog = new System.Windows.Forms.FontDialog();
             this.headerColorDialog = new System.Windows.Forms.ColorDialog();
@@ -185,11 +185,12 @@
             this.footerImageDialog = new System.Windows.Forms.OpenFileDialog();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.filename = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.filepath = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.filesize = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.result = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PressImgCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.topMargin = new System.Windows.Forms.NumericUpDown();
+            this.bottomMargin = new System.Windows.Forms.NumericUpDown();
+            this.leftMargin = new System.Windows.Forms.NumericUpDown();
+            this.rightMargin = new System.Windows.Forms.NumericUpDown();
+            this.pageWidth = new System.Windows.Forms.NumericUpDown();
+            this.pageHeight = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -227,6 +228,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.fileGrid)).BeginInit();
             this.tabControl2.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.topMargin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bottomMargin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.leftMargin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rightMargin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pageWidth)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pageHeight)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -236,6 +243,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.StopWork);
             this.splitContainer1.Panel1.Controls.Add(this.PdfExportBtn);
             this.splitContainer1.Panel1.Controls.Add(this.TaskProcessBtn);
             this.splitContainer1.Panel1.Controls.Add(this.label1);
@@ -249,6 +257,17 @@
             this.splitContainer1.Size = new System.Drawing.Size(1244, 641);
             this.splitContainer1.SplitterDistance = 199;
             this.splitContainer1.TabIndex = 2;
+            // 
+            // StopWork
+            // 
+            this.StopWork.Enabled = false;
+            this.StopWork.Location = new System.Drawing.Point(3, 564);
+            this.StopWork.Name = "StopWork";
+            this.StopWork.Size = new System.Drawing.Size(191, 36);
+            this.StopWork.TabIndex = 4;
+            this.StopWork.Text = "停止";
+            this.StopWork.UseVisualStyleBackColor = true;
+            this.StopWork.Click += new System.EventHandler(this.StopWork_Click);
             // 
             // PdfExportBtn
             // 
@@ -367,11 +386,11 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.pageWidth);
+            this.groupBox2.Controls.Add(this.label6);
+            this.groupBox2.Controls.Add(this.pageHeight);
             this.groupBox2.Controls.Add(this.notSetPageSize);
             this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Controls.Add(this.pageHeight);
             this.groupBox2.Location = new System.Drawing.Point(6, 92);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(407, 50);
@@ -389,15 +408,6 @@
             this.label6.TabIndex = 16;
             this.label6.Text = "宽度(厘米)";
             // 
-            // pageWidth
-            // 
-            this.pageWidth.Enabled = false;
-            this.pageWidth.Location = new System.Drawing.Point(195, 18);
-            this.pageWidth.Name = "pageWidth";
-            this.pageWidth.Size = new System.Drawing.Size(44, 21);
-            this.pageWidth.TabIndex = 17;
-            this.pageWidth.Text = "21";
-            // 
             // notSetPageSize
             // 
             this.notSetPageSize.AutoSize = true;
@@ -414,20 +424,11 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(262, 22);
+            this.label7.Location = new System.Drawing.Point(256, 22);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(65, 12);
             this.label7.TabIndex = 18;
             this.label7.Text = "高度(厘米)";
-            // 
-            // pageHeight
-            // 
-            this.pageHeight.Enabled = false;
-            this.pageHeight.Location = new System.Drawing.Point(338, 18);
-            this.pageHeight.Name = "pageHeight";
-            this.pageHeight.Size = new System.Drawing.Size(44, 21);
-            this.pageHeight.TabIndex = 19;
-            this.pageHeight.Text = "29.7";
             // 
             // pageAddToTask
             // 
@@ -442,15 +443,15 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.rightMargin);
+            this.groupBox1.Controls.Add(this.leftMargin);
+            this.groupBox1.Controls.Add(this.bottomMargin);
             this.groupBox1.Controls.Add(this.topMargin);
+            this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.notSetMargin);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.rightMargin);
-            this.groupBox1.Controls.Add(this.bottomMargin);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.leftMargin);
             this.groupBox1.Location = new System.Drawing.Point(6, 36);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(694, 50);
@@ -468,16 +469,6 @@
             this.label2.TabIndex = 16;
             this.label2.Text = "上(厘米)";
             // 
-            // topMargin
-            // 
-            this.topMargin.Enabled = false;
-            this.topMargin.Location = new System.Drawing.Point(195, 18);
-            this.topMargin.Name = "topMargin";
-            this.topMargin.Size = new System.Drawing.Size(44, 21);
-            this.topMargin.TabIndex = 17;
-            this.topMargin.Text = "2";
-            this.topMargin.TextChanged += new System.EventHandler(this.TopMargin_TextChanged);
-            // 
             // notSetMargin
             // 
             this.notSetMargin.AutoSize = true;
@@ -494,34 +485,16 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(262, 22);
+            this.label3.Location = new System.Drawing.Point(260, 22);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(53, 12);
             this.label3.TabIndex = 18;
             this.label3.Text = "下(厘米)";
             // 
-            // rightMargin
-            // 
-            this.rightMargin.Enabled = false;
-            this.rightMargin.Location = new System.Drawing.Point(624, 18);
-            this.rightMargin.Name = "rightMargin";
-            this.rightMargin.Size = new System.Drawing.Size(44, 21);
-            this.rightMargin.TabIndex = 23;
-            this.rightMargin.Text = "2.6";
-            // 
-            // bottomMargin
-            // 
-            this.bottomMargin.Enabled = false;
-            this.bottomMargin.Location = new System.Drawing.Point(338, 18);
-            this.bottomMargin.Name = "bottomMargin";
-            this.bottomMargin.Size = new System.Drawing.Size(44, 21);
-            this.bottomMargin.TabIndex = 19;
-            this.bottomMargin.Text = "2";
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(548, 22);
+            this.label5.Location = new System.Drawing.Point(542, 22);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(53, 12);
             this.label5.TabIndex = 22;
@@ -530,20 +503,11 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(405, 22);
+            this.label4.Location = new System.Drawing.Point(401, 22);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(53, 12);
             this.label4.TabIndex = 20;
             this.label4.Text = "左(厘米)";
-            // 
-            // leftMargin
-            // 
-            this.leftMargin.Enabled = false;
-            this.leftMargin.Location = new System.Drawing.Point(481, 18);
-            this.leftMargin.Name = "leftMargin";
-            this.leftMargin.Size = new System.Drawing.Size(44, 21);
-            this.leftMargin.TabIndex = 21;
-            this.leftMargin.Text = "2.6";
             // 
             // headerFooterTab
             // 
@@ -1718,8 +1682,7 @@
             this.filename,
             this.filepath,
             this.filesize,
-            this.result,
-            this.PressImgCol});
+            this.result});
             this.fileGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fileGrid.Location = new System.Drawing.Point(0, 0);
             this.fileGrid.Name = "fileGrid";
@@ -1730,6 +1693,34 @@
             this.fileGrid.TabIndex = 1;
             this.fileGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.FileGrid_CellContentClick);
             this.fileGrid.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.FileGrid_CellPainting);
+            // 
+            // filename
+            // 
+            this.filename.DataPropertyName = "filename";
+            this.filename.HeaderText = "文件名";
+            this.filename.Name = "filename";
+            this.filename.ReadOnly = true;
+            // 
+            // filepath
+            // 
+            this.filepath.DataPropertyName = "filepath";
+            this.filepath.HeaderText = "路径";
+            this.filepath.Name = "filepath";
+            this.filepath.ReadOnly = true;
+            // 
+            // filesize
+            // 
+            this.filesize.DataPropertyName = "filesize";
+            this.filesize.HeaderText = "大小";
+            this.filesize.Name = "filesize";
+            this.filesize.ReadOnly = true;
+            // 
+            // result
+            // 
+            this.result.DataPropertyName = "result";
+            this.result.HeaderText = "结果";
+            this.result.Name = "result";
+            this.result.ReadOnly = true;
             // 
             // tabControl2
             // 
@@ -1769,10 +1760,12 @@
             this.flowLayoutPanel1.Controls.Add(this.outPutFolder);
             this.flowLayoutPanel1.Controls.Add(this.button2);
             this.flowLayoutPanel1.Controls.Add(this.button1);
+            this.flowLayoutPanel1.Controls.Add(this.button3);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, -2);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(1226, 46);
             this.flowLayoutPanel1.TabIndex = 3;
+            this.flowLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.FlowLayoutPanel1_Paint);
             // 
             // inputFolder
             // 
@@ -1821,6 +1814,16 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.Button1_Click_2);
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(692, 3);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 4;
+            this.button3.Text = "button3";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.Button3_Click);
+            // 
             // headerImageDialog
             // 
             this.headerImageDialog.FileName = "headerImageDialog";
@@ -1830,45 +1833,124 @@
             this.footerImageDialog.FileName = "footerImageDialog";
             this.footerImageDialog.Filter = "图片文件|*.jpg|*.jpeg|*.png";
             // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.WorkerSupportsCancellation = true;
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorker1_DoWork);
+            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BackgroundWorker1_RunWorkerCompleted);
+            // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
-            // filename
+            // topMargin
             // 
-            this.filename.DataPropertyName = "filename";
-            this.filename.HeaderText = "文件名";
-            this.filename.Name = "filename";
-            this.filename.ReadOnly = true;
+            this.topMargin.DecimalPlaces = 1;
+            this.topMargin.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.topMargin.Location = new System.Drawing.Point(192, 18);
+            this.topMargin.Name = "topMargin";
+            this.topMargin.Size = new System.Drawing.Size(48, 21);
+            this.topMargin.TabIndex = 26;
+            this.topMargin.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
             // 
-            // filepath
+            // bottomMargin
             // 
-            this.filepath.DataPropertyName = "filepath";
-            this.filepath.HeaderText = "路径";
-            this.filepath.Name = "filepath";
-            this.filepath.ReadOnly = true;
+            this.bottomMargin.DecimalPlaces = 1;
+            this.bottomMargin.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.bottomMargin.Location = new System.Drawing.Point(333, 18);
+            this.bottomMargin.Name = "bottomMargin";
+            this.bottomMargin.Size = new System.Drawing.Size(48, 21);
+            this.bottomMargin.TabIndex = 27;
+            this.bottomMargin.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
             // 
-            // filesize
+            // leftMargin
             // 
-            this.filesize.DataPropertyName = "filesize";
-            this.filesize.HeaderText = "大小";
-            this.filesize.Name = "filesize";
-            this.filesize.ReadOnly = true;
+            this.leftMargin.DecimalPlaces = 1;
+            this.leftMargin.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.leftMargin.Location = new System.Drawing.Point(474, 18);
+            this.leftMargin.Name = "leftMargin";
+            this.leftMargin.Size = new System.Drawing.Size(48, 21);
+            this.leftMargin.TabIndex = 28;
+            this.leftMargin.Value = new decimal(new int[] {
+            26,
+            0,
+            0,
+            65536});
             // 
-            // result
+            // rightMargin
             // 
-            this.result.DataPropertyName = "result";
-            this.result.HeaderText = "结果";
-            this.result.Name = "result";
-            this.result.ReadOnly = true;
+            this.rightMargin.DecimalPlaces = 1;
+            this.rightMargin.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.rightMargin.Location = new System.Drawing.Point(615, 18);
+            this.rightMargin.Name = "rightMargin";
+            this.rightMargin.Size = new System.Drawing.Size(48, 21);
+            this.rightMargin.TabIndex = 29;
+            this.rightMargin.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
             // 
-            // PressImgCol
+            // pageWidth
             // 
-            this.PressImgCol.DataPropertyName = "PressImg";
-            this.PressImgCol.HeaderText = "进度条";
-            this.PressImgCol.Name = "PressImgCol";
-            this.PressImgCol.ReadOnly = true;
+            this.pageWidth.DecimalPlaces = 1;
+            this.pageWidth.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.pageWidth.Location = new System.Drawing.Point(192, 18);
+            this.pageWidth.Name = "pageWidth";
+            this.pageWidth.Size = new System.Drawing.Size(48, 21);
+            this.pageWidth.TabIndex = 30;
+            this.pageWidth.Value = new decimal(new int[] {
+            21,
+            0,
+            0,
+            0});
+            // 
+            // pageHeight
+            // 
+            this.pageHeight.DecimalPlaces = 1;
+            this.pageHeight.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.pageHeight.Location = new System.Drawing.Point(333, 18);
+            this.pageHeight.Name = "pageHeight";
+            this.pageHeight.Size = new System.Drawing.Size(48, 21);
+            this.pageHeight.TabIndex = 31;
+            this.pageHeight.Value = new decimal(new int[] {
+            297,
+            0,
+            0,
+            65536});
             // 
             // MainForm
             // 
@@ -1880,6 +1962,7 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MainForm";
+            this.TransparencyKey = System.Drawing.Color.Blue;
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
@@ -1938,6 +2021,12 @@
             this.tabControl2.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.topMargin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bottomMargin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.leftMargin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rightMargin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pageWidth)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pageHeight)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1960,21 +2049,15 @@
         private System.Windows.Forms.DataGridView fileGrid;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox topMargin;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox bottomMargin;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox leftMargin;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox rightMargin;
         private System.Windows.Forms.CheckBox notSetMargin;
         private System.Windows.Forms.CheckBox pageAddToTask;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox pageWidth;
         private System.Windows.Forms.CheckBox notSetPageSize;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox pageHeight;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.ComboBox pageSetOrientation;
         private System.Windows.Forms.CheckBox headerFooterToTask;
@@ -2103,6 +2186,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn filepath;
         private System.Windows.Forms.DataGridViewTextBoxColumn filesize;
         private System.Windows.Forms.DataGridViewTextBoxColumn result;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PressImgCol;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button StopWork;
+        private System.Windows.Forms.NumericUpDown pageWidth;
+        private System.Windows.Forms.NumericUpDown pageHeight;
+        private System.Windows.Forms.NumericUpDown rightMargin;
+        private System.Windows.Forms.NumericUpDown leftMargin;
+        private System.Windows.Forms.NumericUpDown bottomMargin;
+        private System.Windows.Forms.NumericUpDown topMargin;
     }
 }
