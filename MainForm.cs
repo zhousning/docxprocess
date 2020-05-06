@@ -34,6 +34,7 @@ namespace Docx
         public MainForm()
         {
             InitializeComponent();
+            CheckForIllegalCrossThreadCalls = false;
             this.mainFormService = new MainFormService();
             this.pageSettingService = new PageSettingService();
             this.headerFooterService = new HeaderFooterService();
@@ -62,28 +63,6 @@ namespace Docx
         }
 
 
-
-        private void Button1_Click(object sender, EventArgs e)
-        {
-            TaskProcessBtn.Enabled = false;
-            PdfExportBtn.Enabled = false;
-            StopWork.Enabled = true;
-            fileGrid.AllowUserToDeleteRows = false;
-            string title = TaskProcessBtn.Text;
-            this.backgroundWorker1.RunWorkerAsync(title);
-        }
-
-       
-
-        private void PdfExportBtn_Click(object sender, EventArgs e)
-        {
-            TaskProcessBtn.Enabled = false;
-            PdfExportBtn.Enabled = false;
-            StopWork.Enabled = true;
-            fileGrid.AllowUserToDeleteRows = false;
-            string title = PdfExportBtn.Text;
-            this.backgroundWorker1.RunWorkerAsync(title);
-        }
 
 
 
@@ -253,7 +232,7 @@ namespace Docx
 
 
 
-        private void Button2_Click(object sender, EventArgs e)
+        private void Button2_Click_1(object sender, EventArgs e)
         {
             FolderBrowserDialog dilog = new FolderBrowserDialog();
             dilog.Description = "请选择文件夹";
@@ -678,7 +657,7 @@ namespace Docx
 
         private void Tabcontrol_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+           
         }
 
         private void DocPrct_CheckedChanged(object sender, EventArgs e)
@@ -766,7 +745,7 @@ namespace Docx
 
         }
 
-        private void InputFolderBtn_Click(object sender, EventArgs e)
+        private void InputFolderBtn_Click_1(object sender, EventArgs e)
         {
             FolderBrowserDialog dilog = new FolderBrowserDialog();
             dilog.Description = "请选择文件夹";
@@ -873,15 +852,50 @@ namespace Docx
             }
         }
 
-        private void StopWork_Click(object sender, EventArgs e)
+
+        private void ToolStripStatusLabel1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SplitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+            
+        }
+
+        private void GroupBox12_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TaskProcessBtn_Click(object sender, EventArgs e)
+        {
+            TaskProcessBtn.Enabled = false;
+            PdfExportBtn.Enabled = false;
+            StopWork.Enabled = true;
+            fileGrid.AllowUserToDeleteRows = false;
+            string title = TaskProcessBtn.Text;
+            this.backgroundWorker1.RunWorkerAsync(title);
+        }
+
+        private void PdfExportBtn_Click_1(object sender, EventArgs e)
+        {
+            TaskProcessBtn.Enabled = false;
+            PdfExportBtn.Enabled = false;
+            StopWork.Enabled = true;
+            fileGrid.AllowUserToDeleteRows = false;
+            string title = PdfExportBtn.Text;
+            this.backgroundWorker1.RunWorkerAsync(title);
+        }
+
+        private void StopWork_Click_1(object sender, EventArgs e)
         {
             this.backgroundWorker1.CancelAsync();
         }
 
-        private void FlowLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
 
-        }
+
+
 
 
 
