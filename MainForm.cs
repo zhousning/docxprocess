@@ -893,6 +893,11 @@ namespace Docx
             this.backgroundWorker1.CancelAsync();
         }
 
+        private void PictureBox2_Click(object sender, EventArgs e)
+        {
+
+        }
+
 
 
 

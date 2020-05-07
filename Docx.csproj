@@ -127,5 +127,29 @@
   <ItemGroup>
     <None Include="Resources\微信图片_20200506211531.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buy-webhosting-step2-server-security.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buy-webhosting-step2-server-security %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\step1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\step1 %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\step2 %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\step3 %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add-folder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow-alt-from-botto.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

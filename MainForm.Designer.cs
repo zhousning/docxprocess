@@ -29,7 +29,13 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.StopWork = new System.Windows.Forms.Button();
+            this.PdfExportBtn = new System.Windows.Forms.Button();
+            this.TaskProcessBtn = new System.Windows.Forms.Button();
+            this.todoTask = new System.Windows.Forms.ListBox();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.tabcontrol = new System.Windows.Forms.TabControl();
             this.textReplaceTab = new System.Windows.Forms.TabPage();
@@ -42,6 +48,7 @@
             this.ReplaceTextGridView = new System.Windows.Forms.DataGridView();
             this.sourceText = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.targetText = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.button1 = new System.Windows.Forms.Button();
             this.headerFooterTab = new System.Windows.Forms.TabPage();
             this.headerFooterToTask = new System.Windows.Forms.CheckBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
@@ -183,21 +190,25 @@
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.panel1 = new System.Windows.Forms.Panel();
             this.inputFolder = new System.Windows.Forms.TextBox();
-            this.inputFolderBtn = new System.Windows.Forms.Button();
             this.outPutFolder = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.groupBox12 = new System.Windows.Forms.GroupBox();
-            this.StopWork = new System.Windows.Forms.Button();
-            this.PdfExportBtn = new System.Windows.Forms.Button();
-            this.TaskProcessBtn = new System.Windows.Forms.Button();
-            this.todoTask = new System.Windows.Forms.ListBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.inputFolderBtn = new System.Windows.Forms.Button();
+            this.pictureBox6 = new System.Windows.Forms.PictureBox();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox7 = new System.Windows.Forms.PictureBox();
+            this.pictureBox8 = new System.Windows.Forms.PictureBox();
+            this.label33 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.groupBox12.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
@@ -237,9 +248,14 @@
             this.panel3.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.groupBox12.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -251,6 +267,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.label33);
             this.splitContainer1.Panel1.Controls.Add(this.groupBox12);
             this.splitContainer1.Panel1.Controls.Add(this.pictureBox1);
             this.splitContainer1.Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.SplitContainer1_Panel1_Paint_1);
@@ -263,6 +280,73 @@
             this.splitContainer1.SplitterDistance = 199;
             this.splitContainer1.TabIndex = 2;
             this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.SplitContainer1_SplitterMoved);
+            // 
+            // groupBox12
+            // 
+            this.groupBox12.Controls.Add(this.StopWork);
+            this.groupBox12.Controls.Add(this.PdfExportBtn);
+            this.groupBox12.Controls.Add(this.TaskProcessBtn);
+            this.groupBox12.Controls.Add(this.todoTask);
+            this.groupBox12.Location = new System.Drawing.Point(8, 3);
+            this.groupBox12.Name = "groupBox12";
+            this.groupBox12.Size = new System.Drawing.Size(188, 413);
+            this.groupBox12.TabIndex = 11;
+            this.groupBox12.TabStop = false;
+            this.groupBox12.Text = "待处理任务";
+            this.groupBox12.Enter += new System.EventHandler(this.GroupBox12_Enter);
+            // 
+            // StopWork
+            // 
+            this.StopWork.BackColor = System.Drawing.Color.Transparent;
+            this.StopWork.Enabled = false;
+            this.StopWork.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.StopWork.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.StopWork.Location = new System.Drawing.Point(12, 362);
+            this.StopWork.Name = "StopWork";
+            this.StopWork.Size = new System.Drawing.Size(166, 36);
+            this.StopWork.TabIndex = 12;
+            this.StopWork.Text = "停止";
+            this.StopWork.UseVisualStyleBackColor = false;
+            this.StopWork.Click += new System.EventHandler(this.StopWork_Click_1);
+            // 
+            // PdfExportBtn
+            // 
+            this.PdfExportBtn.BackColor = System.Drawing.Color.DarkOrange;
+            this.PdfExportBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.PdfExportBtn.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.PdfExportBtn.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.PdfExportBtn.Location = new System.Drawing.Point(12, 320);
+            this.PdfExportBtn.Name = "PdfExportBtn";
+            this.PdfExportBtn.Size = new System.Drawing.Size(166, 36);
+            this.PdfExportBtn.TabIndex = 11;
+            this.PdfExportBtn.Text = "Word转PDF";
+            this.PdfExportBtn.UseVisualStyleBackColor = false;
+            this.PdfExportBtn.Click += new System.EventHandler(this.PdfExportBtn_Click_1);
+            // 
+            // TaskProcessBtn
+            // 
+            this.TaskProcessBtn.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.TaskProcessBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.TaskProcessBtn.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.TaskProcessBtn.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.TaskProcessBtn.Location = new System.Drawing.Point(12, 278);
+            this.TaskProcessBtn.Name = "TaskProcessBtn";
+            this.TaskProcessBtn.Size = new System.Drawing.Size(166, 36);
+            this.TaskProcessBtn.TabIndex = 10;
+            this.TaskProcessBtn.Text = "开始处理";
+            this.TaskProcessBtn.UseVisualStyleBackColor = false;
+            this.TaskProcessBtn.Click += new System.EventHandler(this.TaskProcessBtn_Click);
+            // 
+            // todoTask
+            // 
+            this.todoTask.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.todoTask.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.todoTask.FormattingEnabled = true;
+            this.todoTask.ItemHeight = 20;
+            this.todoTask.Location = new System.Drawing.Point(12, 22);
+            this.todoTask.Name = "todoTask";
+            this.todoTask.Size = new System.Drawing.Size(166, 244);
+            this.todoTask.TabIndex = 9;
             // 
             // splitContainer2
             // 
@@ -360,12 +444,16 @@
             // textReplacetoTask
             // 
             this.textReplacetoTask.AutoSize = true;
-            this.textReplacetoTask.Location = new System.Drawing.Point(873, 11);
+            this.textReplacetoTask.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.textReplacetoTask.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textReplacetoTask.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.textReplacetoTask.Location = new System.Drawing.Point(827, 11);
             this.textReplacetoTask.Name = "textReplacetoTask";
-            this.textReplacetoTask.Size = new System.Drawing.Size(120, 16);
+            this.textReplacetoTask.Padding = new System.Windows.Forms.Padding(10);
+            this.textReplacetoTask.Size = new System.Drawing.Size(175, 40);
             this.textReplacetoTask.TabIndex = 31;
             this.textReplacetoTask.Text = "添加到待处理任务";
-            this.textReplacetoTask.UseVisualStyleBackColor = true;
+            this.textReplacetoTask.UseVisualStyleBackColor = false;
             this.textReplacetoTask.CheckedChanged += new System.EventHandler(this.TextReplacetoTask_CheckedChanged);
             // 
             // groupBox9
@@ -405,6 +493,16 @@
             this.targetText.HeaderText = "替换为";
             this.targetText.Name = "targetText";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(421, 200);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
+            // 
             // headerFooterTab
             // 
             this.headerFooterTab.Controls.Add(this.headerFooterToTask);
@@ -424,12 +522,16 @@
             // headerFooterToTask
             // 
             this.headerFooterToTask.AutoSize = true;
-            this.headerFooterToTask.Location = new System.Drawing.Point(873, 11);
+            this.headerFooterToTask.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.headerFooterToTask.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.headerFooterToTask.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.headerFooterToTask.Location = new System.Drawing.Point(827, 11);
             this.headerFooterToTask.Name = "headerFooterToTask";
-            this.headerFooterToTask.Size = new System.Drawing.Size(120, 16);
+            this.headerFooterToTask.Padding = new System.Windows.Forms.Padding(10);
+            this.headerFooterToTask.Size = new System.Drawing.Size(175, 40);
             this.headerFooterToTask.TabIndex = 29;
             this.headerFooterToTask.Text = "添加到待处理任务";
-            this.headerFooterToTask.UseVisualStyleBackColor = true;
+            this.headerFooterToTask.UseVisualStyleBackColor = false;
             this.headerFooterToTask.CheckedChanged += new System.EventHandler(this.headerFooterToTask_CheckedChanged);
             // 
             // groupBox5
@@ -438,7 +540,7 @@
             this.groupBox5.Controls.Add(this.clearHeader);
             this.groupBox5.Controls.Add(this.oddEvenHeaderFooter);
             this.groupBox5.Controls.Add(this.firstHeaderFooter);
-            this.groupBox5.Location = new System.Drawing.Point(655, 107);
+            this.groupBox5.Location = new System.Drawing.Point(644, 107);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(176, 122);
             this.groupBox5.TabIndex = 26;
@@ -491,7 +593,7 @@
             // 
             this.groupBox4.Controls.Add(this.pageNumberComBox);
             this.groupBox4.Controls.Add(this.label19);
-            this.groupBox4.Location = new System.Drawing.Point(655, 11);
+            this.groupBox4.Location = new System.Drawing.Point(644, 11);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(176, 84);
             this.groupBox4.TabIndex = 26;
@@ -535,7 +637,7 @@
             this.footerGroupBox.Controls.Add(this.label14);
             this.footerGroupBox.Controls.Add(this.pageFooter);
             this.footerGroupBox.Controls.Add(this.label15);
-            this.footerGroupBox.Location = new System.Drawing.Point(336, 11);
+            this.footerGroupBox.Location = new System.Drawing.Point(331, 11);
             this.footerGroupBox.Name = "footerGroupBox";
             this.footerGroupBox.Size = new System.Drawing.Size(298, 220);
             this.footerGroupBox.TabIndex = 26;
@@ -906,12 +1008,16 @@
             // ImageToTask
             // 
             this.ImageToTask.AutoSize = true;
-            this.ImageToTask.Location = new System.Drawing.Point(873, 11);
+            this.ImageToTask.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.ImageToTask.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.ImageToTask.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.ImageToTask.Location = new System.Drawing.Point(827, 11);
             this.ImageToTask.Name = "ImageToTask";
-            this.ImageToTask.Size = new System.Drawing.Size(120, 16);
+            this.ImageToTask.Padding = new System.Windows.Forms.Padding(10);
+            this.ImageToTask.Size = new System.Drawing.Size(175, 40);
             this.ImageToTask.TabIndex = 42;
             this.ImageToTask.Text = "添加到待处理任务";
-            this.ImageToTask.UseVisualStyleBackColor = true;
+            this.ImageToTask.UseVisualStyleBackColor = false;
             this.ImageToTask.CheckedChanged += new System.EventHandler(this.ImageToTask_CheckedChanged);
             // 
             // ExtractImageCheckBox
@@ -1048,12 +1154,16 @@
             // pageAddToTask
             // 
             this.pageAddToTask.AutoSize = true;
-            this.pageAddToTask.Location = new System.Drawing.Point(873, 11);
+            this.pageAddToTask.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.pageAddToTask.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.pageAddToTask.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.pageAddToTask.Location = new System.Drawing.Point(827, 11);
             this.pageAddToTask.Name = "pageAddToTask";
-            this.pageAddToTask.Size = new System.Drawing.Size(120, 16);
+            this.pageAddToTask.Padding = new System.Windows.Forms.Padding(10);
+            this.pageAddToTask.Size = new System.Drawing.Size(175, 40);
             this.pageAddToTask.TabIndex = 25;
             this.pageAddToTask.Text = "添加到待处理任务";
-            this.pageAddToTask.UseVisualStyleBackColor = true;
+            this.pageAddToTask.UseVisualStyleBackColor = false;
             this.pageAddToTask.CheckedChanged += new System.EventHandler(this.PageAddToTask_CheckedChanged);
             // 
             // groupBox1
@@ -1214,12 +1324,16 @@
             // pageInfoToTask
             // 
             this.pageInfoToTask.AutoSize = true;
-            this.pageInfoToTask.Location = new System.Drawing.Point(873, 11);
+            this.pageInfoToTask.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.pageInfoToTask.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.pageInfoToTask.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.pageInfoToTask.Location = new System.Drawing.Point(827, 11);
             this.pageInfoToTask.Name = "pageInfoToTask";
-            this.pageInfoToTask.Size = new System.Drawing.Size(120, 16);
+            this.pageInfoToTask.Padding = new System.Windows.Forms.Padding(10);
+            this.pageInfoToTask.Size = new System.Drawing.Size(175, 40);
             this.pageInfoToTask.TabIndex = 30;
             this.pageInfoToTask.Text = "添加到待处理任务";
-            this.pageInfoToTask.UseVisualStyleBackColor = true;
+            this.pageInfoToTask.UseVisualStyleBackColor = false;
             this.pageInfoToTask.CheckedChanged += new System.EventHandler(this.PageInfoToTask_CheckedChanged);
             // 
             // groupBox8
@@ -1474,12 +1588,16 @@
             // ParagraphToTask
             // 
             this.ParagraphToTask.AutoSize = true;
-            this.ParagraphToTask.Location = new System.Drawing.Point(873, 11);
+            this.ParagraphToTask.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.ParagraphToTask.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.ParagraphToTask.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.ParagraphToTask.Location = new System.Drawing.Point(827, 11);
             this.ParagraphToTask.Name = "ParagraphToTask";
-            this.ParagraphToTask.Size = new System.Drawing.Size(120, 16);
+            this.ParagraphToTask.Padding = new System.Windows.Forms.Padding(10);
+            this.ParagraphToTask.Size = new System.Drawing.Size(175, 40);
             this.ParagraphToTask.TabIndex = 41;
             this.ParagraphToTask.Text = "添加到待处理任务";
-            this.ParagraphToTask.UseVisualStyleBackColor = true;
+            this.ParagraphToTask.UseVisualStyleBackColor = false;
             this.ParagraphToTask.CheckedChanged += new System.EventHandler(this.ParagraphCheckBox_CheckedChanged);
             // 
             // groupBox11
@@ -1833,8 +1951,8 @@
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1,
-            this.toolStripProgressBar1});
+            this.toolStripProgressBar1,
+            this.toolStripStatusLabel1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 7);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1222, 26);
@@ -1845,8 +1963,7 @@
             // 
             this.toolStripStatusLabel1.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(1105, 21);
-            this.toolStripStatusLabel1.Spring = true;
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(135, 21);
             this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Click += new System.EventHandler(this.ToolStripStatusLabel1_Click);
             // 
@@ -1857,6 +1974,14 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.pictureBox8);
+            this.panel1.Controls.Add(this.pictureBox7);
+            this.panel1.Controls.Add(this.pictureBox6);
+            this.panel1.Controls.Add(this.label32);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.pictureBox5);
+            this.panel1.Controls.Add(this.pictureBox4);
+            this.panel1.Controls.Add(this.pictureBox3);
             this.panel1.Controls.Add(this.pictureBox2);
             this.panel1.Controls.Add(this.inputFolder);
             this.panel1.Controls.Add(this.inputFolderBtn);
@@ -1871,127 +1996,160 @@
             // 
             this.inputFolder.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.inputFolder.Enabled = false;
-            this.inputFolder.Location = new System.Drawing.Point(8, 5);
+            this.inputFolder.Location = new System.Drawing.Point(53, 4);
             this.inputFolder.Multiline = true;
             this.inputFolder.Name = "inputFolder";
-            this.inputFolder.Size = new System.Drawing.Size(217, 36);
+            this.inputFolder.Size = new System.Drawing.Size(200, 36);
             this.inputFolder.TabIndex = 8;
-            // 
-            // inputFolderBtn
-            // 
-            this.inputFolderBtn.Location = new System.Drawing.Point(231, 5);
-            this.inputFolderBtn.Name = "inputFolderBtn";
-            this.inputFolderBtn.Size = new System.Drawing.Size(75, 36);
-            this.inputFolderBtn.TabIndex = 9;
-            this.inputFolderBtn.Text = "选择文件夹";
-            this.inputFolderBtn.UseVisualStyleBackColor = true;
-            this.inputFolderBtn.Click += new System.EventHandler(this.InputFolderBtn_Click_1);
             // 
             // outPutFolder
             // 
             this.outPutFolder.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.outPutFolder.Enabled = false;
-            this.outPutFolder.Location = new System.Drawing.Point(312, 5);
+            this.outPutFolder.Location = new System.Drawing.Point(464, 4);
             this.outPutFolder.Multiline = true;
             this.outPutFolder.Name = "outPutFolder";
-            this.outPutFolder.Size = new System.Drawing.Size(217, 36);
+            this.outPutFolder.Size = new System.Drawing.Size(200, 36);
             this.outPutFolder.TabIndex = 5;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(535, 5);
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.button2.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.button2.Location = new System.Drawing.Point(674, 4);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 36);
+            this.button2.Size = new System.Drawing.Size(101, 36);
             this.button2.TabIndex = 6;
             this.button2.Text = "输出文件夹";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.Button2_Click_1);
             // 
-            // button1
+            // label1
             // 
-            this.button1.Location = new System.Drawing.Point(421, 200);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Visible = false;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Location = new System.Drawing.Point(875, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(152, 27);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "添加待处理任务";
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label32.Location = new System.Drawing.Point(1127, 9);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(92, 27);
+            this.label32.TabIndex = 15;
+            this.label32.Text = "开始处理";
+            // 
+            // inputFolderBtn
+            // 
+            this.inputFolderBtn.BackColor = System.Drawing.SystemColors.Window;
+            this.inputFolderBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.inputFolderBtn.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.inputFolderBtn.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.inputFolderBtn.Location = new System.Drawing.Point(263, 4);
+            this.inputFolderBtn.Name = "inputFolderBtn";
+            this.inputFolderBtn.Size = new System.Drawing.Size(101, 36);
+            this.inputFolderBtn.TabIndex = 9;
+            this.inputFolderBtn.Text = "选择文件夹";
+            this.inputFolderBtn.UseVisualStyleBackColor = false;
+            this.inputFolderBtn.Click += new System.EventHandler(this.InputFolderBtn_Click_1);
+            // 
+            // pictureBox6
+            // 
+            this.pictureBox6.Image = global::Docx.Properties.Resources.arrow_alt_from_botto;
+            this.pictureBox6.Location = new System.Drawing.Point(374, 5);
+            this.pictureBox6.Name = "pictureBox6";
+            this.pictureBox6.Size = new System.Drawing.Size(35, 35);
+            this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox6.TabIndex = 16;
+            this.pictureBox6.TabStop = false;
+            // 
+            // pictureBox5
+            // 
+            this.pictureBox5.Image = global::Docx.Properties.Resources.step3__1_;
+            this.pictureBox5.Location = new System.Drawing.Point(830, 5);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(35, 35);
+            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox5.TabIndex = 13;
+            this.pictureBox5.TabStop = false;
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Image = global::Docx.Properties.Resources.buy_webhosting_step2_server_security__1_;
+            this.pictureBox4.Location = new System.Drawing.Point(1082, 5);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(35, 35);
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox4.TabIndex = 12;
+            this.pictureBox4.TabStop = false;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::Docx.Properties.Resources.step1__1_;
+            this.pictureBox3.Location = new System.Drawing.Point(8, 5);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(35, 35);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox3.TabIndex = 11;
+            this.pictureBox3.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::Docx.Properties.Resources.step2__1_;
+            this.pictureBox2.Location = new System.Drawing.Point(419, 5);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(35, 35);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 10;
+            this.pictureBox2.TabStop = false;
+            this.pictureBox2.Click += new System.EventHandler(this.PictureBox2_Click);
             // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::Docx.Properties.Resources.微信图片_20200506211531;
-            this.pictureBox1.Location = new System.Drawing.Point(21, 431);
+            this.pictureBox1.Location = new System.Drawing.Point(27, 422);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(152, 152);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 10;
             this.pictureBox1.TabStop = false;
             // 
-            // groupBox12
+            // pictureBox7
             // 
-            this.groupBox12.Controls.Add(this.StopWork);
-            this.groupBox12.Controls.Add(this.PdfExportBtn);
-            this.groupBox12.Controls.Add(this.TaskProcessBtn);
-            this.groupBox12.Controls.Add(this.todoTask);
-            this.groupBox12.Location = new System.Drawing.Point(8, 3);
-            this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(188, 413);
-            this.groupBox12.TabIndex = 11;
-            this.groupBox12.TabStop = false;
-            this.groupBox12.Text = "待处理任务";
-            this.groupBox12.Enter += new System.EventHandler(this.GroupBox12_Enter);
+            this.pictureBox7.Image = global::Docx.Properties.Resources.arrow_alt_from_botto;
+            this.pictureBox7.Location = new System.Drawing.Point(785, 5);
+            this.pictureBox7.Name = "pictureBox7";
+            this.pictureBox7.Size = new System.Drawing.Size(35, 35);
+            this.pictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox7.TabIndex = 16;
+            this.pictureBox7.TabStop = false;
             // 
-            // StopWork
+            // pictureBox8
             // 
-            this.StopWork.Enabled = false;
-            this.StopWork.Location = new System.Drawing.Point(12, 362);
-            this.StopWork.Name = "StopWork";
-            this.StopWork.Size = new System.Drawing.Size(166, 36);
-            this.StopWork.TabIndex = 12;
-            this.StopWork.Text = "停止";
-            this.StopWork.UseVisualStyleBackColor = true;
-            this.StopWork.Click += new System.EventHandler(this.StopWork_Click_1);
+            this.pictureBox8.Image = global::Docx.Properties.Resources.arrow_alt_from_botto;
+            this.pictureBox8.Location = new System.Drawing.Point(1037, 5);
+            this.pictureBox8.Name = "pictureBox8";
+            this.pictureBox8.Size = new System.Drawing.Size(35, 35);
+            this.pictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox8.TabIndex = 16;
+            this.pictureBox8.TabStop = false;
             // 
-            // PdfExportBtn
+            // label33
             // 
-            this.PdfExportBtn.Location = new System.Drawing.Point(12, 320);
-            this.PdfExportBtn.Name = "PdfExportBtn";
-            this.PdfExportBtn.Size = new System.Drawing.Size(166, 36);
-            this.PdfExportBtn.TabIndex = 11;
-            this.PdfExportBtn.Text = "转换PDF";
-            this.PdfExportBtn.UseVisualStyleBackColor = true;
-            this.PdfExportBtn.Click += new System.EventHandler(this.PdfExportBtn_Click_1);
-            // 
-            // TaskProcessBtn
-            // 
-            this.TaskProcessBtn.Location = new System.Drawing.Point(12, 278);
-            this.TaskProcessBtn.Name = "TaskProcessBtn";
-            this.TaskProcessBtn.Size = new System.Drawing.Size(166, 36);
-            this.TaskProcessBtn.TabIndex = 10;
-            this.TaskProcessBtn.Text = "开始处理";
-            this.TaskProcessBtn.UseVisualStyleBackColor = true;
-            this.TaskProcessBtn.Click += new System.EventHandler(this.TaskProcessBtn_Click);
-            // 
-            // todoTask
-            // 
-            this.todoTask.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.todoTask.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.todoTask.FormattingEnabled = true;
-            this.todoTask.ItemHeight = 27;
-            this.todoTask.Location = new System.Drawing.Point(12, 22);
-            this.todoTask.Name = "todoTask";
-            this.todoTask.Size = new System.Drawing.Size(166, 247);
-            this.todoTask.TabIndex = 9;
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Image = global::Docx.Properties.Resources.logo_top_e3b63a0b1b;
-            this.pictureBox2.Location = new System.Drawing.Point(634, 5);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(580, 35);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 10;
-            this.pictureBox2.TabStop = false;
+            this.label33.AutoSize = true;
+            this.label33.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label33.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label33.Location = new System.Drawing.Point(69, 579);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(72, 16);
+            this.label33.TabIndex = 2;
+            this.label33.Text = "技术支持";
             // 
             // MainForm
             // 
@@ -2002,17 +2160,20 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.splitContainer1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Docx-Word批量处理器";
+            this.Text = "疾风Word批量处理器";
             this.TransparencyKey = System.Drawing.Color.GhostWhite;
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.groupBox12.ResumeLayout(false);
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
@@ -2073,9 +2234,14 @@
             this.statusStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.groupBox12.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2246,5 +2412,14 @@
         private System.Windows.Forms.Button TaskProcessBtn;
         private System.Windows.Forms.ListBox todoTask;
         private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox pictureBox5;
+        private System.Windows.Forms.PictureBox pictureBox4;
+        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.PictureBox pictureBox6;
+        private System.Windows.Forms.PictureBox pictureBox8;
+        private System.Windows.Forms.PictureBox pictureBox7;
+        private System.Windows.Forms.Label label33;
     }
 }
