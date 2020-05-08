@@ -71,6 +71,7 @@
     <Compile Include="src\docxprocess\PageSetting.cs" />
     <Compile Include="src\model\BaseOption.cs" />
     <Compile Include="src\model\DocInfoOption.cs" />
+    <Compile Include="src\model\FormValOption.cs" />
     <Compile Include="src\model\HeaderFooterOption.cs" />
     <Compile Include="src\model\MainFormOption.cs" />
     <Compile Include="src\model\ParagraphOption.cs" />

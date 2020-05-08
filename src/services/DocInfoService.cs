@@ -40,7 +40,7 @@ namespace Docx.src.services
         {
             if (editProtect)
             {
-                document.RemoveProtection();
+                //document.RemoveProtection();
                 document.AddPasswordProtection(EditRestrictions.readOnly, password);
             }
         }

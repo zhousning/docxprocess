@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using Docx.src.model;
@@ -17,10 +18,89 @@ namespace Docx.src.controllers
 
         public MainController()
         {
-            
+
         }
 
-        
+        public FormValOption formValOption(MainFormOption mainFormOption)
+        {
+            List<string> tasks = mainFormOption.TodoTask.Items.Cast<string>().ToList();
+
+            FormValOption formValOption = new FormValOption(
+                mainFormOption.OutPutFolder.Text.ToString(),
+                mainFormOption.ExtractImageCheckBox.Checked,
+                mainFormOption.ExtractHyperLinkCheckBox.Checked,
+                mainFormOption.ExtractTable.Checked,
+                mainFormOption.NotSetMargin.Checked,
+                mainFormOption.NotSetPageSize.Checked,
+                mainFormOption.TopMargin.Value.ToString(),
+                mainFormOption.BottomMargin.Value.ToString(),
+                mainFormOption.LeftMargin.Value.ToString(),
+                mainFormOption.RightMargin.Value.ToString(),
+                mainFormOption.PageWidth.Value.ToString(),
+                mainFormOption.PageHeight.Value.ToString(),
+                mainFormOption.PageSetOrientation.Text.ToString(),
+                mainFormOption.ClearHeader.Checked,
+                mainFormOption.ClearFooter.Checked,
+                mainFormOption.FirstHeaderFooter.Checked,
+                mainFormOption.OddEvenHeaderFooter.Checked,
+                mainFormOption.NotSetHeader.Checked,
+                mainFormOption.NotSetFooter.Checked,
+                mainFormOption.HeaderFontDialog.Font,
+                mainFormOption.HeaderAlignComBox.Text.ToString(),
+                mainFormOption.HeaderColorDialog.Color,
+                mainFormOption.PageHeader.Text.ToString(),
+                mainFormOption.FirstHeader.Text.ToString(),
+                mainFormOption.OddHeader.Text.ToString(),
+                mainFormOption.EvenHeader.Text.ToString(),
+                mainFormOption.HeaderImagePath.Text.ToString(),
+                mainFormOption.HeaderLine.Checked,
+                mainFormOption.FooterFontDialog.Font,
+                mainFormOption.FooterAlignComBox.Text.ToString(),
+                mainFormOption.FooterColorDialog.Color,
+                mainFormOption.PageFooter.Text.ToString(),
+                mainFormOption.FirstFooter.Text.ToString(),
+                mainFormOption.OddFooter.Text.ToString(),
+                mainFormOption.EvenFooter.Text.ToString(),
+                mainFormOption.FooterImagePath.Text.ToString(),
+                mainFormOption.FooterLine.Checked,
+                mainFormOption.PageNumberComBox.Text.ToString(),
+                mainFormOption.DocTitle.Text.ToString(),
+                mainFormOption.DocSubject.Text.ToString(),
+                mainFormOption.DocCategory.Text.ToString(),
+                mainFormOption.DocDescription.Text.ToString(),
+                mainFormOption.DocCreator.Text.ToString(),
+                mainFormOption.DocVersion.Text.ToString(),
+                mainFormOption.DocEditPrctCheckBox.Checked,
+                mainFormOption.DocEditPrctRemove.Checked,
+                mainFormOption.DocEditPassword.Text.ToString(),
+                getTextList(mainFormOption.FileGrid),
+                tasks,
+                getTextList(mainFormOption.ReplaceTextGridView),
+                getTextList(mainFormOption.ReplaceLinkGridView),
+                mainFormOption.CreateTimeCheckBox.Checked,
+                mainFormOption.DocCreateTime.Value,
+                mainFormOption.UpdateTimeCheckBox.Checked,
+                mainFormOption.DocUpdateTime.Value
+            );
+            return formValOption;
+        }
+
+        public static Dictionary<string, string> getTextList(DataGridView ReplaceTextGridView)
+        {
+            Dictionary<string, string> lists = new Dictionary<string, string>();
+
+            foreach (DataGridViewRow row in ReplaceTextGridView.Rows)
+            {
+                string source = row.Cells[0].Value == null ? "" : row.Cells[0].Value.ToString();
+                string target = row.Cells[1].Value == null ? "" : row.Cells[1].Value.ToString();
+                if (source.Length == 0 && target.Length == 0)
+                {
+                    continue;
+                }
+                lists.Add(source, target);
+            }
+            return lists;
+        }
 
         public void InputFolderBtnEvent(TextBox inputFolder, DataGridView fileGrid)
         {
@@ -81,7 +161,7 @@ namespace Docx.src.controllers
             }
         }
 
-        public void NotSetMarginEvent(CheckBox notSetMargin, NumericUpDown topMargin, 
+        public void NotSetMarginEvent(CheckBox notSetMargin, NumericUpDown topMargin,
             NumericUpDown bottomMargin, NumericUpDown leftMargin, NumericUpDown rightMargin)
         {
             if (notSetMargin.Checked)
@@ -115,6 +195,6 @@ namespace Docx.src.controllers
         }
 
 
-        
+
     }
 }

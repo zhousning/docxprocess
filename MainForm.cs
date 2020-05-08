@@ -18,6 +18,7 @@ namespace Docx
     {
         private MainController mainController;
         private BackgroundWorker bgWorker;
+        MainFormOption mainFormOption;
 
         public MainForm()
         {
@@ -27,11 +28,11 @@ namespace Docx
 
         private void InitializeData()
         {
-            MainFormOption mainFormOption = new MainFormOption(outPutFolder, ExtractImageCheckBox, ExtractHyperLinkCheckBox, ExtractTable, ReplaceLinkGridView, notSetMargin, notSetPageSize, topMargin, bottomMargin, leftMargin, rightMargin, pageWidth, pageHeight, pageSetOrientation, clearHeader, clearFooter, firstHeaderFooter, oddEvenHeaderFooter,
+            mainFormOption = new MainFormOption(outPutFolder, ExtractImageCheckBox, ExtractHyperLinkCheckBox, ExtractTable, ReplaceLinkGridView, notSetMargin, notSetPageSize, topMargin, bottomMargin, leftMargin, rightMargin, pageWidth, pageHeight, pageSetOrientation, clearHeader, clearFooter, firstHeaderFooter, oddEvenHeaderFooter,
              notSetHeader, notSetFooter, headerFontDialog, headerAlignComBox, headerColorDialog,
              pageHeader, firstHeader, oddHeader, evenHeader, headerImagePath, headerLine, footerFontDialog, footerAlignComBox, footerColorDialog,
              pageFooter, firstFooter, oddFooter, evenFooter, footerImagePath, footerLine, pageNumberComBox, DocTitle, DocSubject, DocCategory,
-             DocDescription, DocCreator, DocVersion, DocEditPrctRemove,
+             DocDescription, DocCreator, DocVersion, DocEditPrctCheckBox,
              DocEditPrctRemove, DocEditPassword, TaskProcessBtn, PdfExportBtn, OutputFolderBtn, inputFolderBtn, StopWork, fileGrid, toolStripProgressBar, todoTask,
              ReplaceTextGridView, CreateTimeCheckBox, DocCreateTime, UpdateTimeCheckBox, DocUpdateTime);
             this.mainController = new MainController();
@@ -423,6 +424,11 @@ namespace Docx
             inputFolderBtn.Enabled = false;
             StopWork.Enabled = true;
             fileGrid.AllowUserToDeleteRows = false;
+
+            foreach (DataGridViewRow row in mainFormOption.FileGrid.Rows)
+            {
+                row.Cells["result"].Value = "";
+            }
         }
 
       
@@ -439,8 +445,16 @@ namespace Docx
                 return;
             }
             startChangeBtn();
-            string title = TaskProcessBtn.Text;
-            this.bgWorker.RunWorkerAsync(title);
+            FormValOption formValOption = this.mainController.formValOption(this.mainFormOption);
+            formValOption.ProcessTitle = TaskProcessBtn.Text;
+            if (bgWorker.IsBusy)
+            {
+                MessageBox.Show("系统正忙，请稍后再试", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                this.bgWorker.RunWorkerAsync(formValOption);
+            }
         }
 
         private void PdfExportBtn_Click_1(object sender, EventArgs e)
@@ -451,8 +465,17 @@ namespace Docx
                 return;
             }
             startChangeBtn();
-            string title = PdfExportBtn.Text;
-            this.bgWorker.RunWorkerAsync(title);
+            FormValOption formValOption = this.mainController.formValOption(this.mainFormOption);
+            formValOption.ProcessTitle = TaskProcessBtn.Text;
+            if (bgWorker.IsBusy)
+            {
+                MessageBox.Show("系统正忙，请稍后再试", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+            }
+            else
+            {
+                this.bgWorker.RunWorkerAsync(formValOption);
+            }
         }
 
         private void StopWork_Click_1(object sender, EventArgs e)

@@ -23,15 +23,12 @@ namespace Docx.src.workers
         private HyperLinkService hyperLinkService;
         private TableService tableService;
         private PdfService pdfService;
-        
-
         private MainFormOption mainFormOption;
-        public delegate void TaskProcess(List<string> tasks, string filepath, string targetFile, ref string result);
+        
+        public delegate void TaskProcess(FormValOption formValOption, string filepath, string targetFile, ref string result);
 
         public BackWorker(MainFormOption mainFormOption)
         {
-            this.mainFormOption = mainFormOption;
-
             this.pageSettingService = new PageSettingService();
             this.headerFooterService = new HeaderFooterService();
             this.docInfoService = new DocInfoService();
@@ -41,6 +38,7 @@ namespace Docx.src.workers
             this.hyperLinkService = new HyperLinkService();
             this.tableService = new TableService();
             this.pdfService = new PdfService();
+            this.mainFormOption = mainFormOption;
         }
 
         public BackgroundWorker getWorker()
@@ -59,20 +57,16 @@ namespace Docx.src.workers
         private void DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker bw = sender as BackgroundWorker;
-             
-            foreach (DataGridViewRow row in this.mainFormOption.FileGrid.Rows)
-            {
-                row.Cells["result"].Value = "";
-            }
-            string title = (string)e.Argument;
+            FormValOption formValOption = (FormValOption)e.Argument;
+            string title = formValOption.ProcessTitle;
 
             if (title == ConstData.START_PRC)
             {
-                e.Result = TaskProcessAsync(bw);
+                e.Result = TaskProcessAsync(bw, formValOption);
             }
             else if (title == ConstData.PDF_EXPORT)
             {
-                e.Result = PdfExportAsync(bw);
+                e.Result = PdfExportAsync(bw, formValOption);
             }
 
             if (bw.CancellationPending)
@@ -108,39 +102,33 @@ namespace Docx.src.workers
 
         private void ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
+            string[] arr = e.UserState.ToString().Split(',');
+            int i = int.Parse(arr[0]);
+            string result = arr[1];
+            this.mainFormOption.FileGrid.Rows[i].Cells["result"].Value = result;
             this.mainFormOption.ToolStripProgressBar.Value = e.ProgressPercentage;
         }
 
-        private int TaskProcessAsync(BackgroundWorker bw)
+        private int TaskProcessAsync(BackgroundWorker bw, FormValOption formValOption)
         {
-            List<string> tasks = this.mainFormOption.TodoTask.Items.Cast<string>().ToList();
-            if (tasks.Count == 0)
+            if (formValOption.TodoTask.Count == 0)
             {
                 MessageBox.Show("当前没有待处理任务", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return ConstData.STOP_PROCESS;
             }
 
-            return Process(bw, tasks, mainFormOption, ToDoTaskProcess);
+            return Process(bw, formValOption, ToDoTaskProcess);
         }
-        private int PdfExportAsync(BackgroundWorker bw)
+        private int PdfExportAsync(BackgroundWorker bw, FormValOption formValOption)
         {
-            return Process(bw, null, mainFormOption, PDFConverterProcess);
-        }
-
-        private void stopChangeBtn(MainFormOption mainFormOption)
-        {
-            mainFormOption.TaskProcessBtn.Enabled = true;
-            mainFormOption.PdfExportBtn.Enabled = true;
-            mainFormOption.OutputFolderBtn.Enabled = true;
-            mainFormOption.InputFolderBtn.Enabled = true;
-            mainFormOption.StopWork.Enabled = false;
-            mainFormOption.FileGrid.AllowUserToDeleteRows = true;
+            return Process(bw, formValOption, PDFConverterProcess);
         }
 
 
-        public int Process(BackgroundWorker bw, List<string> tasks, MainFormOption mainFormOption, TaskProcess taskProcess)
+
+        public int Process(BackgroundWorker bw, FormValOption formValOption, TaskProcess taskProcess)
         {
-            string outputDirectory = mainFormOption.OutPutFolder.Text;
+            string outputDirectory = formValOption.OutPutFolder;
             if (string.IsNullOrWhiteSpace(outputDirectory))
             {
                 MessageBox.Show("请选择输出目录", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -159,23 +147,25 @@ namespace Docx.src.workers
             {
                 return ConstData.STOP_PROCESS;
             }
-            int count = mainFormOption.FileGrid.Rows.Count;
-            for (int i = 0; i < count; i++)
+            Dictionary<string, string> rows = formValOption.FileGrid;
+            int count = rows.Count;
+            int i = 0;
+            foreach(KeyValuePair<string, string> kv in rows)
             {
-                DataGridViewRow row = mainFormOption.FileGrid.Rows[i];
                 if (!bw.CancellationPending)
                 {
-                    string filepath = row.Cells["filepath"].Value.ToString();
-                    string filename = row.Cells["filename"].Value.ToString();
+                    i++;
+                    string filename = kv.Key;
+                    string filepath = kv.Value;
                     string result = "";
                     try
                     {
                         if (!String.IsNullOrWhiteSpace(filepath) && File.Exists(filepath))
                         {
                             string targetFile = outputDirectory + @"\" + filename;
-                            taskProcess(tasks, filepath, targetFile, ref result);
+                            taskProcess(formValOption, filepath, targetFile, ref result);
                             Thread.Sleep(1000);
-                            bw.ReportProgress((i + 1) * 100 / count);
+                            result = ConstData.SUCCESS;
                         }
                         else
                         {
@@ -188,35 +178,39 @@ namespace Docx.src.workers
                     }
                     finally
                     {
-                        row.Cells["result"].Value = result;
+                        string data = (i-1) + "," + result;
+                        bw.ReportProgress(i * 100 / count, data);
                     }
                 }
             }
             return ConstData.FINISH_PROCESS;
         }
 
-        private void ToDoTaskProcess(List<string> tasks, string filepath, string targetFile, ref string result)
+        private void ToDoTaskProcess(FormValOption formValOption, string filepath, string targetFile, ref string result)
         {
             targetFile += ConstData.DOCXPREF;
+            formValOption.OutPutFolder = targetFile;
+
             using (var document = DocX.Load(filepath))
             {
+                List<string> tasks = formValOption.TodoTask;
                 foreach (string title in tasks)
                 {
                     if (title == ConstData.pageSettingTabText)
                     {
-                        ProcessWorker.PageSet(document, pageSettingService, mainFormOption);
+                        ProcessWorker.PageSet(document, pageSettingService, formValOption);
                     }
                     else if (title == ConstData.headerFooterTabText)
                     {
-                        ProcessWorker.HeaderFooterSet(document,headerFooterService, mainFormOption);
+                        ProcessWorker.HeaderFooterSet(document,headerFooterService, formValOption);
                     }
                     else if (title == ConstData.docInfoTabText)
                     {
-                        ProcessWorker.DocInfoSet(document,docInfoService,mainFormOption);
+                        ProcessWorker.DocInfoSet(document,docInfoService, formValOption);
                     }
                     else if (title == ConstData.textReplaceTabText)
                     {
-                        ProcessWorker.TextReplaceSet(document,textReplaceService,mainFormOption);
+                        ProcessWorker.TextReplaceSet(document,textReplaceService, formValOption);
                     }
                     else if (title == ConstData.paragraphTabText)
                     {
@@ -224,20 +218,20 @@ namespace Docx.src.workers
                     }
                     else if (title == ConstData.extractTabText)
                     {
-                        ProcessWorker.ExtractSet(document, imageService, hyperLinkService,tableService, mainFormOption);
+                        ProcessWorker.ExtractSet(document, imageService, hyperLinkService,tableService, formValOption);
                     }
                 }
 
                 document.SaveAs(targetFile);
                 if (tasks.Contains(ConstData.docInfoTabText))
                 {
-                    ProcessWorker.UpdateFileTime(docInfoService, targetFile, mainFormOption);
+                    ProcessWorker.UpdateFileTime(docInfoService, targetFile, formValOption);
                 }
                 result = ConstData.SUCCESS;
             }
         }
 
-        private void PDFConverterProcess(List<string> tasks, string filepath, string targetFile, ref string result)
+        private void PDFConverterProcess(FormValOption formValOption, string filepath, string targetFile, ref string result)
         {
             Boolean flag = this.pdfService.WordToPDF(filepath, targetFile);
             if (flag)
@@ -250,6 +244,17 @@ namespace Docx.src.workers
             }
         }
 
-       
+
+        private void stopChangeBtn(MainFormOption mainFormOption)
+        {
+            mainFormOption.TaskProcessBtn.Enabled = true;
+            mainFormOption.PdfExportBtn.Enabled = true;
+            mainFormOption.OutputFolderBtn.Enabled = true;
+            mainFormOption.InputFolderBtn.Enabled = true;
+            mainFormOption.StopWork.Enabled = false;
+            mainFormOption.FileGrid.AllowUserToDeleteRows = true;
+        }
+
+
     }
 }
