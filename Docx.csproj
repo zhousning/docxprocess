@@ -62,22 +62,17 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="PageSettingForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="PageSettingForm.Designer.cs">
-      <DependentUpon>PageSettingForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\ConstData.cs" />
+    <Compile Include="src\controllers\MainController.cs" />
     <Compile Include="src\docxprocess\DocInfoSetting.cs" />
     <Compile Include="src\docxprocess\HeaderFooterSetting.cs" />
     <Compile Include="src\docxprocess\PageSetting.cs" />
-    <Compile Include="src\interfaces\IMainForm.cs" />
     <Compile Include="src\model\BaseOption.cs" />
     <Compile Include="src\model\DocInfoOption.cs" />
     <Compile Include="src\model\HeaderFooterOption.cs" />
+    <Compile Include="src\model\MainFormOption.cs" />
     <Compile Include="src\model\ParagraphOption.cs" />
     <Compile Include="src\model\TextReplaceOption.cs" />
     <Compile Include="src\services\BaseService.cs" />
@@ -91,11 +86,10 @@
     <Compile Include="src\services\PdfService.cs" />
     <Compile Include="src\services\TableService.cs" />
     <Compile Include="src\services\TextReplaceService.cs" />
+    <Compile Include="src\workers\BackWorker.cs" />
+    <Compile Include="src\workers\ProcessWorker.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PageSettingForm.resx">
-      <DependentUpon>PageSettingForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -151,5 +145,6 @@
   <ItemGroup>
     <None Include="Resources\arrow-alt-from-botto.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

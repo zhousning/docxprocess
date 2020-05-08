@@ -31,11 +31,13 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.label33 = new System.Windows.Forms.Label();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.StopWork = new System.Windows.Forms.Button();
             this.PdfExportBtn = new System.Windows.Forms.Button();
             this.TaskProcessBtn = new System.Windows.Forms.Button();
             this.todoTask = new System.Windows.Forms.ListBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.tabcontrol = new System.Windows.Forms.TabControl();
             this.textReplaceTab = new System.Windows.Forms.TabPage();
@@ -182,33 +184,31 @@
             this.footerColorDialog = new System.Windows.Forms.ColorDialog();
             this.headerImageDialog = new System.Windows.Forms.OpenFileDialog();
             this.footerImageDialog = new System.Windows.Forms.OpenFileDialog();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.panel3 = new System.Windows.Forms.Panel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
+            this.toolStripProgressBar = new System.Windows.Forms.ToolStripProgressBar();
+            this.progressPercent = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.inputFolder = new System.Windows.Forms.TextBox();
-            this.outPutFolder = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label32 = new System.Windows.Forms.Label();
-            this.inputFolderBtn = new System.Windows.Forms.Button();
+            this.pictureBox8 = new System.Windows.Forms.PictureBox();
+            this.pictureBox7 = new System.Windows.Forms.PictureBox();
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pictureBox7 = new System.Windows.Forms.PictureBox();
-            this.pictureBox8 = new System.Windows.Forms.PictureBox();
-            this.label33 = new System.Windows.Forms.Label();
+            this.inputFolder = new System.Windows.Forms.TextBox();
+            this.inputFolderBtn = new System.Windows.Forms.Button();
+            this.outPutFolder = new System.Windows.Forms.TextBox();
+            this.OutputFolderBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.groupBox12.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
@@ -248,14 +248,13 @@
             this.panel3.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -270,7 +269,6 @@
             this.splitContainer1.Panel1.Controls.Add(this.label33);
             this.splitContainer1.Panel1.Controls.Add(this.groupBox12);
             this.splitContainer1.Panel1.Controls.Add(this.pictureBox1);
-            this.splitContainer1.Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.SplitContainer1_Panel1_Paint_1);
             // 
             // splitContainer1.Panel2
             // 
@@ -279,7 +277,17 @@
             this.splitContainer1.Size = new System.Drawing.Size(1244, 600);
             this.splitContainer1.SplitterDistance = 199;
             this.splitContainer1.TabIndex = 2;
-            this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.SplitContainer1_SplitterMoved);
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label33.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label33.Location = new System.Drawing.Point(69, 579);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(72, 16);
+            this.label33.TabIndex = 2;
+            this.label33.Text = "技术支持";
             // 
             // groupBox12
             // 
@@ -293,7 +301,6 @@
             this.groupBox12.TabIndex = 11;
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "待处理任务";
-            this.groupBox12.Enter += new System.EventHandler(this.GroupBox12_Enter);
             // 
             // StopWork
             // 
@@ -347,6 +354,16 @@
             this.todoTask.Name = "todoTask";
             this.todoTask.Size = new System.Drawing.Size(166, 244);
             this.todoTask.TabIndex = 9;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::Docx.Properties.Resources.微信图片_20200506211531;
+            this.pictureBox1.Location = new System.Drawing.Point(27, 422);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(152, 152);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 10;
+            this.pictureBox1.TabStop = false;
             // 
             // splitContainer2
             // 
@@ -691,7 +708,6 @@
             this.notSetFooter.TabIndex = 30;
             this.notSetFooter.Text = "不设置";
             this.notSetFooter.UseVisualStyleBackColor = true;
-            this.notSetFooter.CheckedChanged += new System.EventHandler(this.NotSetFooter_CheckedChanged);
             // 
             // footerAlignComBox
             // 
@@ -867,7 +883,6 @@
             this.notSetHeader.TabIndex = 30;
             this.notSetHeader.Text = "不设置";
             this.notSetHeader.UseVisualStyleBackColor = true;
-            this.notSetHeader.CheckedChanged += new System.EventHandler(this.NotSetHeader_CheckedChanged);
             // 
             // headerAlignComBox
             // 
@@ -1515,7 +1530,6 @@
             this.label18.Size = new System.Drawing.Size(29, 12);
             this.label18.TabIndex = 30;
             this.label18.Text = "版本";
-            this.label18.Click += new System.EventHandler(this.主题_Click);
             // 
             // DocSubject
             // 
@@ -1540,7 +1554,6 @@
             this.主题.Size = new System.Drawing.Size(29, 12);
             this.主题.TabIndex = 30;
             this.主题.Text = "主题";
-            this.主题.Click += new System.EventHandler(this.主题_Click);
             // 
             // label17
             // 
@@ -1929,12 +1942,6 @@
             this.footerImageDialog.FileName = "footerImageDialog";
             this.footerImageDialog.Filter = "图片文件|*.jpg|*.jpeg|*.png";
             // 
-            // backgroundWorker1
-            // 
-            this.backgroundWorker1.WorkerSupportsCancellation = true;
-            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorker1_DoWork);
-            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BackgroundWorker1_RunWorkerCompleted);
-            // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Name = "contextMenuStrip1";
@@ -1951,26 +1958,26 @@
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripProgressBar1,
-            this.toolStripStatusLabel1});
+            this.toolStripProgressBar,
+            this.progressPercent});
             this.statusStrip1.Location = new System.Drawing.Point(0, 7);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1222, 26);
             this.statusStrip1.TabIndex = 0;
             this.statusStrip1.Text = "statusStrip1";
             // 
-            // toolStripStatusLabel1
+            // toolStripProgressBar
             // 
-            this.toolStripStatusLabel1.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(135, 21);
-            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Click += new System.EventHandler(this.ToolStripStatusLabel1_Click);
+            this.toolStripProgressBar.Name = "toolStripProgressBar";
+            this.toolStripProgressBar.Size = new System.Drawing.Size(100, 20);
+            this.toolStripProgressBar.Click += new System.EventHandler(this.ToolStripProgressBar1_Click);
             // 
-            // toolStripProgressBar1
+            // progressPercent
             // 
-            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
-            this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 20);
+            this.progressPercent.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+            this.progressPercent.Name = "progressPercent";
+            this.progressPercent.Size = new System.Drawing.Size(4, 21);
+            this.progressPercent.Click += new System.EventHandler(this.ToolStripStatusLabel1_Click);
             // 
             // panel1
             // 
@@ -1986,54 +1993,41 @@
             this.panel1.Controls.Add(this.inputFolder);
             this.panel1.Controls.Add(this.inputFolderBtn);
             this.panel1.Controls.Add(this.outPutFolder);
-            this.panel1.Controls.Add(this.button2);
+            this.panel1.Controls.Add(this.OutputFolderBtn);
             this.panel1.Location = new System.Drawing.Point(0, -1);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1222, 45);
             this.panel1.TabIndex = 5;
             // 
-            // inputFolder
+            // pictureBox8
             // 
-            this.inputFolder.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.inputFolder.Enabled = false;
-            this.inputFolder.Location = new System.Drawing.Point(53, 4);
-            this.inputFolder.Multiline = true;
-            this.inputFolder.Name = "inputFolder";
-            this.inputFolder.Size = new System.Drawing.Size(200, 36);
-            this.inputFolder.TabIndex = 8;
+            this.pictureBox8.Image = global::Docx.Properties.Resources.arrow_alt_from_botto;
+            this.pictureBox8.Location = new System.Drawing.Point(1037, 5);
+            this.pictureBox8.Name = "pictureBox8";
+            this.pictureBox8.Size = new System.Drawing.Size(35, 35);
+            this.pictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox8.TabIndex = 16;
+            this.pictureBox8.TabStop = false;
             // 
-            // outPutFolder
+            // pictureBox7
             // 
-            this.outPutFolder.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.outPutFolder.Enabled = false;
-            this.outPutFolder.Location = new System.Drawing.Point(464, 4);
-            this.outPutFolder.Multiline = true;
-            this.outPutFolder.Name = "outPutFolder";
-            this.outPutFolder.Size = new System.Drawing.Size(200, 36);
-            this.outPutFolder.TabIndex = 5;
+            this.pictureBox7.Image = global::Docx.Properties.Resources.arrow_alt_from_botto;
+            this.pictureBox7.Location = new System.Drawing.Point(785, 5);
+            this.pictureBox7.Name = "pictureBox7";
+            this.pictureBox7.Size = new System.Drawing.Size(35, 35);
+            this.pictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox7.TabIndex = 16;
+            this.pictureBox7.TabStop = false;
             // 
-            // button2
+            // pictureBox6
             // 
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button2.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.button2.Location = new System.Drawing.Point(674, 4);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(101, 36);
-            this.button2.TabIndex = 6;
-            this.button2.Text = "输出文件夹";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.Button2_Click_1);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(875, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(152, 27);
-            this.label1.TabIndex = 14;
-            this.label1.Text = "添加待处理任务";
+            this.pictureBox6.Image = global::Docx.Properties.Resources.arrow_alt_from_botto;
+            this.pictureBox6.Location = new System.Drawing.Point(374, 5);
+            this.pictureBox6.Name = "pictureBox6";
+            this.pictureBox6.Size = new System.Drawing.Size(35, 35);
+            this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox6.TabIndex = 16;
+            this.pictureBox6.TabStop = false;
             // 
             // label32
             // 
@@ -2045,29 +2039,15 @@
             this.label32.TabIndex = 15;
             this.label32.Text = "开始处理";
             // 
-            // inputFolderBtn
+            // label1
             // 
-            this.inputFolderBtn.BackColor = System.Drawing.SystemColors.Window;
-            this.inputFolderBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.inputFolderBtn.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.inputFolderBtn.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.inputFolderBtn.Location = new System.Drawing.Point(263, 4);
-            this.inputFolderBtn.Name = "inputFolderBtn";
-            this.inputFolderBtn.Size = new System.Drawing.Size(101, 36);
-            this.inputFolderBtn.TabIndex = 9;
-            this.inputFolderBtn.Text = "选择文件夹";
-            this.inputFolderBtn.UseVisualStyleBackColor = false;
-            this.inputFolderBtn.Click += new System.EventHandler(this.InputFolderBtn_Click_1);
-            // 
-            // pictureBox6
-            // 
-            this.pictureBox6.Image = global::Docx.Properties.Resources.arrow_alt_from_botto;
-            this.pictureBox6.Location = new System.Drawing.Point(374, 5);
-            this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.Size = new System.Drawing.Size(35, 35);
-            this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox6.TabIndex = 16;
-            this.pictureBox6.TabStop = false;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Location = new System.Drawing.Point(875, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(152, 27);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "添加待处理任务";
             // 
             // pictureBox5
             // 
@@ -2110,46 +2090,52 @@
             this.pictureBox2.TabStop = false;
             this.pictureBox2.Click += new System.EventHandler(this.PictureBox2_Click);
             // 
-            // pictureBox1
+            // inputFolder
             // 
-            this.pictureBox1.Image = global::Docx.Properties.Resources.微信图片_20200506211531;
-            this.pictureBox1.Location = new System.Drawing.Point(27, 422);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(152, 152);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 10;
-            this.pictureBox1.TabStop = false;
+            this.inputFolder.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.inputFolder.Enabled = false;
+            this.inputFolder.Location = new System.Drawing.Point(53, 4);
+            this.inputFolder.Multiline = true;
+            this.inputFolder.Name = "inputFolder";
+            this.inputFolder.Size = new System.Drawing.Size(200, 36);
+            this.inputFolder.TabIndex = 8;
             // 
-            // pictureBox7
+            // inputFolderBtn
             // 
-            this.pictureBox7.Image = global::Docx.Properties.Resources.arrow_alt_from_botto;
-            this.pictureBox7.Location = new System.Drawing.Point(785, 5);
-            this.pictureBox7.Name = "pictureBox7";
-            this.pictureBox7.Size = new System.Drawing.Size(35, 35);
-            this.pictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox7.TabIndex = 16;
-            this.pictureBox7.TabStop = false;
+            this.inputFolderBtn.BackColor = System.Drawing.SystemColors.Window;
+            this.inputFolderBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.inputFolderBtn.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.inputFolderBtn.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.inputFolderBtn.Location = new System.Drawing.Point(263, 4);
+            this.inputFolderBtn.Name = "inputFolderBtn";
+            this.inputFolderBtn.Size = new System.Drawing.Size(101, 36);
+            this.inputFolderBtn.TabIndex = 9;
+            this.inputFolderBtn.Text = "选择文件夹";
+            this.inputFolderBtn.UseVisualStyleBackColor = false;
+            this.inputFolderBtn.Click += new System.EventHandler(this.InputFolderBtn_Click_1);
             // 
-            // pictureBox8
+            // outPutFolder
             // 
-            this.pictureBox8.Image = global::Docx.Properties.Resources.arrow_alt_from_botto;
-            this.pictureBox8.Location = new System.Drawing.Point(1037, 5);
-            this.pictureBox8.Name = "pictureBox8";
-            this.pictureBox8.Size = new System.Drawing.Size(35, 35);
-            this.pictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox8.TabIndex = 16;
-            this.pictureBox8.TabStop = false;
+            this.outPutFolder.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.outPutFolder.Enabled = false;
+            this.outPutFolder.Location = new System.Drawing.Point(464, 4);
+            this.outPutFolder.Multiline = true;
+            this.outPutFolder.Name = "outPutFolder";
+            this.outPutFolder.Size = new System.Drawing.Size(200, 36);
+            this.outPutFolder.TabIndex = 5;
             // 
-            // label33
+            // OutputFolderBtn
             // 
-            this.label33.AutoSize = true;
-            this.label33.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label33.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label33.Location = new System.Drawing.Point(69, 579);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(72, 16);
-            this.label33.TabIndex = 2;
-            this.label33.Text = "技术支持";
+            this.OutputFolderBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.OutputFolderBtn.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.OutputFolderBtn.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.OutputFolderBtn.Location = new System.Drawing.Point(674, 4);
+            this.OutputFolderBtn.Name = "OutputFolderBtn";
+            this.OutputFolderBtn.Size = new System.Drawing.Size(101, 36);
+            this.OutputFolderBtn.TabIndex = 6;
+            this.OutputFolderBtn.Text = "输出文件夹";
+            this.OutputFolderBtn.UseVisualStyleBackColor = true;
+            this.OutputFolderBtn.Click += new System.EventHandler(this.Button2_Click_1);
             // 
             // MainForm
             // 
@@ -2174,6 +2160,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.groupBox12.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
@@ -2234,14 +2221,13 @@
             this.statusStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2258,12 +2244,11 @@
         private System.Windows.Forms.ColorDialog footerColorDialog;
         private System.Windows.Forms.OpenFileDialog headerImageDialog;
         private System.Windows.Forms.OpenFileDialog footerImageDialog;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-        private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
+        private System.Windows.Forms.ToolStripStatusLabel progressPercent;
+        private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar;
         private System.Windows.Forms.TabControl tabcontrol;
         private System.Windows.Forms.TabPage textReplaceTab;
         private System.Windows.Forms.GroupBox LinkReplacegroupBox;
@@ -2403,7 +2388,7 @@
         private System.Windows.Forms.TextBox inputFolder;
         private System.Windows.Forms.Button inputFolderBtn;
         private System.Windows.Forms.TextBox outPutFolder;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button OutputFolderBtn;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.GroupBox groupBox12;

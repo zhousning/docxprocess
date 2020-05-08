@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Docx.src
+﻿namespace Docx.src
 {
     class ConstData
     {
@@ -36,5 +30,17 @@ namespace Docx.src
         internal const string NOT_SET = "不设置";
         internal const string START_PRC = "开始处理";
         internal const string PDF_EXPORT = "Word转PDF";
+        internal const int STOP_PROCESS = 0;
+        internal const int START_PROCESS = 1;
+        internal const int FINISH_PROCESS = 2;
+        internal const string pageSettingTabText = "页面设置";
+        internal const string headerFooterTabText = "页眉页脚";
+        internal const string docInfoTabText = "文档信息";
+        internal const string textReplaceTabText = "文字替换";
+        internal const string paragraphTabText = "段落格式";
+        internal const string extractTabText = "文档内容提取";
+
+        
+
     }
 }

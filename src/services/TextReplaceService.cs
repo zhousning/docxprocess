@@ -16,9 +16,8 @@ namespace Docx.src.services
         private Dictionary<string, DocumentElement> _replaceLinkPatterns;
 
 
-        public void TextReplaceSet(DocX document, DataGridView ReplaceTextGridView)
+        public void TextReplaceSet(DocX document, Dictionary<string, string> lists)
         {
-            Dictionary<string, string> lists = getTextList(ReplaceTextGridView);
 
             if (lists.Count > 0)
             {
@@ -71,22 +70,7 @@ namespace Docx.src.services
             return new Uri(path);
         }
 
-        private Dictionary<string, string> getTextList(DataGridView ReplaceTextGridView)
-        {
-            Dictionary<string, string> lists = new Dictionary<string, string>();
-
-            foreach (DataGridViewRow row in ReplaceTextGridView.Rows)
-            {
-                string source = row.Cells[0].Value == null ? "" : row.Cells[0].Value.ToString();
-                string target = row.Cells[1].Value == null ? "" : row.Cells[1].Value.ToString();
-                if (source.Length == 0 && target.Length == 0)
-                {
-                    continue;
-                }
-                lists.Add(source, target);
-            }
-            return lists;
-        }
+        
 
         private string ReplaceTextHandler(string findStr)
         {

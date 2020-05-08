@@ -2,49 +2,41 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Diagnostics;
 using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 using Docx.src;
-using Docx.src.docxprocess;
+using Docx.src.controllers;
 using Docx.src.model;
-using Docx.src.services;
+using Docx.src.workers;
 using Xceed.Words.NET;
 
 namespace Docx
 {
     public partial class MainForm : Form
     {
-        private MainFormService mainFormService;
-        private PageSettingService pageSettingService;
-        private HeaderFooterService headerFooterService;
-        private DocInfoService docInfoService;
-        private TextReplaceService textReplaceService;
-        private ParagraphService paragraphService;
-        private ImageService imageService;
-        private HyperLinkService hyperLinkService;
-        private TableService tableService;
-        private PdfService pdfService;
+        private MainController mainController;
+        private BackgroundWorker bgWorker;
+
         public MainForm()
         {
             InitializeComponent();
-            CheckForIllegalCrossThreadCalls = false;
-            this.mainFormService = new MainFormService();
-            this.pageSettingService = new PageSettingService();
-            this.headerFooterService = new HeaderFooterService();
-            this.docInfoService = new DocInfoService();
-            this.textReplaceService = new TextReplaceService();
-            this.paragraphService = new ParagraphService();
-            this.imageService = new ImageService();
-            this.hyperLinkService = new HyperLinkService();
-            this.tableService = new TableService();
-            this.pdfService = new PdfService();
+            InitializeData();
+        }
+
+        private void InitializeData()
+        {
+            MainFormOption mainFormOption = new MainFormOption(outPutFolder, ExtractImageCheckBox, ExtractHyperLinkCheckBox, ExtractTable, ReplaceLinkGridView, notSetMargin, notSetPageSize, topMargin, bottomMargin, leftMargin, rightMargin, pageWidth, pageHeight, pageSetOrientation, clearHeader, clearFooter, firstHeaderFooter, oddEvenHeaderFooter,
+             notSetHeader, notSetFooter, headerFontDialog, headerAlignComBox, headerColorDialog,
+             pageHeader, firstHeader, oddHeader, evenHeader, headerImagePath, headerLine, footerFontDialog, footerAlignComBox, footerColorDialog,
+             pageFooter, firstFooter, oddFooter, evenFooter, footerImagePath, footerLine, pageNumberComBox, DocTitle, DocSubject, DocCategory,
+             DocDescription, DocCreator, DocVersion, DocEditPrctRemove,
+             DocEditPrctRemove, DocEditPassword, TaskProcessBtn, PdfExportBtn, OutputFolderBtn, inputFolderBtn, StopWork, fileGrid, toolStripProgressBar, todoTask,
+             ReplaceTextGridView, CreateTimeCheckBox, DocCreateTime, UpdateTimeCheckBox, DocUpdateTime);
+            this.mainController = new MainController();
+            BackWorker backWorker = new BackWorker(mainFormOption);
+            bgWorker = backWorker.getWorker();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -62,215 +54,21 @@ namespace Docx
             PageNumberComBox_Load();
         }
 
-
-
-
-
-
-
-        private void TaskProcess(List<string> tasks, string filepath, string targetFile, ref string result)
-        {
-            targetFile += ConstData.DOCXPREF;
-            using (var document = DocX.Load(filepath))
-            {
-                foreach (string title in tasks)
-                {
-                    if (title == pageSettingTab.Text)
-                    {
-                        PageSet(document);
-                    }
-                    else if (title == headerFooterTab.Text)
-                    {
-                        HeaderFooterSet(document);
-                    }
-                    else if (title == docInfoTab.Text)
-                    {
-                        DocInfoSet(document);
-                    }
-                    else if (title == textReplaceTab.Text)
-                    {
-                        TextReplaceSet(document);
-                    }
-                    else if (title == paragraphTab.Text)
-                    {
-                        ParagraphSet(document);
-                    }
-                    else if (title == extractTab.Text)
-                    {
-                        ExtractSet(document, targetFile);
-                    }
-                }
-
-                document.SaveAs(targetFile);
-                if (tasks.Contains(docInfoTab.Text))
-                {
-                    this.docInfoService.UpdateFileTime(targetFile, CreateTimeCheckBox.Checked, DocCreateTime.Value, UpdateTimeCheckBox.Checked, DocUpdateTime.Value);
-
-                }
-                result = ConstData.SUCCESS;
-            }
-        }
-
-        private void PDFConverterProcess(List<string> tasks, string filepath, string targetFile, ref string result)
-        {
-            Boolean flag = this.pdfService.WordToPDF(filepath, targetFile);
-            if (flag)
-            {
-                result = ConstData.SUCCESS;
-            }
-            else
-            {
-                result = ConstData.FAIL;
-            }
-        }
-
-        private void ExtractSet(DocX document, string output)
-        {
-            if (ExtractImageCheckBox.Checked)
-            {
-                this.imageService.extractImages(document, output);
-            }
-            if (ExtractHyperLinkCheckBox.Checked)
-            {
-                this.hyperLinkService.extractHyperLink(document, output);
-            }
-            if (ExtractTable.Checked)
-            {
-                this.tableService.extractTable(document, output);
-            }
-        }
-
-        private void ParagraphSet(DocX document)
-        {
-            this.paragraphService.Set(document, SpaceBefore, SpaceAfter, SpaceLineVal, IndentationSpecialVal, IndentationBefore, IndentationAfter, TextSpace
-                , ParagraphAlign, SpaceLineType, IndentationSpecial);
-        }
-
-        private void TextReplaceSet(DocX document)
-        {
-            this.textReplaceService.TextReplaceSet(document, ReplaceTextGridView);
-            this.textReplaceService.HyperLinkReplaceSet(document, ReplaceLinkGridView);
-        }
-        private void PageSet(DocX document)
-        {
-            pageSettingService.marginSetting(document, notSetMargin.Checked, topMargin.Value.ToString(), bottomMargin.Value.ToString(), leftMargin.Value.ToString(), rightMargin.Value.ToString());
-            pageSettingService.pageSizeSetting(document, notSetPageSize.Checked, pageWidth.Value.ToString(), pageHeight.Value.ToString());
-            pageSettingService.pageOrientation(document, pageSetOrientation.Text);
-        }
-
-        private void HeaderFooterSet(DocX document)
-        {
-            if (clearHeader.Checked)
-            {
-                headerFooterService.clearHeader(document);
-            }
-            if (clearFooter.Checked)
-            {
-                headerFooterService.clearFooter(document);
-            }
-
-            Boolean firstOption = firstHeaderFooter.Checked;
-            Boolean oddEvenOption = oddEvenHeaderFooter.Checked;
-            if (!notSetHeader.Checked && !clearHeader.Checked)
-            {
-                Font headerFont = headerFontDialog.Font;
-                string headerAlign = headerAlignComBox.Text;
-                Color headerColor = headerColorDialog.Color;
-                string pageHeaderText = pageHeader.Text;
-                string firstHeaderText = firstHeader.Text;
-                string oddHeaderText = oddHeader.Text;
-                string evenHeaderText = evenHeader.Text;
-                string headerImage = headerImagePath.Text;
-                Boolean headerLineBool = headerLine.Checked;
-
-                HeaderFooterOption headerOption = new HeaderFooterOption(headerFont, headerColor, headerAlign, pageHeaderText, firstHeaderText, oddHeaderText, evenHeaderText, headerImage, "", headerLineBool);
-
-                headerFooterService.addHeaders(document, headerOption, firstOption, oddEvenOption);
-            }
-
-            if (!notSetFooter.Checked && !clearFooter.Checked)
-            {
-                Font footerFont = footerFontDialog.Font;
-                string footerAlign = footerAlignComBox.Text;
-                Color footerColor = footerColorDialog.Color;
-                string pageFooterText = pageFooter.Text;
-                string firstFooterText = firstFooter.Text;
-                string oddFooterText = oddFooter.Text;
-                string evenFooterText = evenFooter.Text;
-                string footerImage = footerImagePath.Text;
-                string pageNumber = pageNumberComBox.Text;
-                Boolean footerLineBool = footerLine.Checked;
-                HeaderFooterOption footerOption = new HeaderFooterOption(footerFont, footerColor, footerAlign, pageFooterText, firstFooterText, oddFooterText, evenFooterText, footerImage, pageNumber, footerLineBool);
-
-                headerFooterService.addFooters(document, footerOption, firstOption, oddEvenOption);
-            }
-        }
-
-        private void DocInfoSet(DocX document)
-        {
-            string title = DocTitle.Text;
-            string subject = DocSubject.Text;
-            string category = DocCategory.Text;
-            string description = DocDescription.Text;
-            string creator = DocCreator.Text;
-            string version = DocVersion.Text;
-            Boolean editProtect = DocEditPrctCheckBox.Checked;
-            Boolean removeEditPrct = DocEditPrctRemove.Checked;
-            string editPassword = DocEditPassword.Text;
-
-            DocInfoOption option = new DocInfoOption(subject, title, creator, "", description, "", "", category, version, "", "");
-            this.docInfoService.addCoreProperties(document, option);
-            if (removeEditPrct)
-            {
-                this.docInfoService.DocRemoveProtect(document, removeEditPrct);
-            }
-            else if (editProtect)
-            {
-                this.docInfoService.DocProtect(document, editProtect, editPassword);
-            }
-        }
-
-
-
         private void Button2_Click_1(object sender, EventArgs e)
         {
-            FolderBrowserDialog dilog = new FolderBrowserDialog();
-            dilog.Description = "请选择文件夹";
-            if (dilog.ShowDialog() == DialogResult.OK || dilog.ShowDialog() == DialogResult.Yes)
-            {
-                outPutFolder.Text = dilog.SelectedPath;
-            }
+            mainController.OutputFolderBtnEvent(outPutFolder);
         }
-
 
         private void NotSetMargin_CheckedChanged(object sender, EventArgs e)
         {
-            if (notSetMargin.Checked)
-            {
-                topMargin.Enabled = false;
-                bottomMargin.Enabled = false;
-                leftMargin.Enabled = false;
-                rightMargin.Enabled = false;
-            }
-            else
-            {
-                topMargin.Enabled = true;
-                bottomMargin.Enabled = true;
-                leftMargin.Enabled = true;
-                rightMargin.Enabled = true;
-            }
+            mainController.NotSetMarginEvent(notSetMargin, topMargin,
+            bottomMargin, leftMargin, rightMargin);
         }
 
         private void PageAddToTask_CheckedChanged(object sender, EventArgs e)
         {
-            addToTaskCheck(pageAddToTask);
+            mainController.addToTaskCheck(todoTask, pageAddToTask);
         }
-
-        private void TextBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
 
         private void TabPage1_Click(object sender, EventArgs e)
         {
@@ -282,15 +80,6 @@ namespace Docx
 
         }
 
-
-        private void TopMargin_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-        private void SplitContainer1_Panel1_Paint_1(object sender, PaintEventArgs e)
-        {
-
-        }
 
         private void SplitContainer1_Panel2_Paint_1(object sender, PaintEventArgs e)
         {
@@ -309,16 +98,6 @@ namespace Docx
         }
 
         private void TabPage2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TodoTask_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
@@ -354,33 +133,15 @@ namespace Docx
 
         private void NotSetPageSize_CheckedChanged(object sender, EventArgs e)
         {
-            if (notSetPageSize.Checked)
-            {
-                pageWidth.Enabled = false;
-                pageHeight.Enabled = false;
-            }
-            else
-            {
-                pageWidth.Enabled = true;
-                pageHeight.Enabled = true;
-            }
+            mainController.NotSetPageSizeEvent(notSetPageSize, pageWidth, pageHeight);
+
         }
-
-
-
-        private void 页面设置ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            new PageSettingForm().Show();
-        }
-
 
 
         private void headerFooterToTask_CheckedChanged(object sender, EventArgs e)
         {
-            addToTaskCheck(headerFooterToTask);
+            mainController.addToTaskCheck(todoTask, headerFooterToTask);
         }
-
-
 
         private void CheckBox5_CheckedChanged(object sender, EventArgs e)
         {
@@ -418,17 +179,7 @@ namespace Docx
             }
         }
 
-        private void addToTaskCheck(CheckBox checkBox)
-        {
-            if (checkBox.Checked)
-            {
-                todoTask.Items.Add(checkBox.Parent.Text);
-            }
-            else
-            {
-                todoTask.Items.Remove(checkBox.Parent.Text);
-            }
-        }
+        
 
         private void HeaderFontBtn_Click(object sender, EventArgs e)
         {
@@ -448,74 +199,6 @@ namespace Docx
         private void FooterColorBtn_Click(object sender, EventArgs e)
         {
             footerColorDialog.ShowDialog();
-        }
-
-        private void NotSetHeader_CheckedChanged(object sender, EventArgs e)
-        {
-            /*if (notSetHeader.Checked)
-            {
-                foreach (Control col in headerGroupBox.Controls)
-                {
-                    if (col.Text != "不设置")
-                    {
-                        col.Enabled = false;
-                    }
-                }
-            }
-            else
-            {
-                if (firstHeaderFooter.Checked)
-                {
-                    firstHeader.Enabled = true;
-                }
-                if (oddEvenHeaderFooter.Checked)
-                {
-                    pageHeader.Enabled = false;
-                    oddHeader.Enabled = true;
-                    evenHeader.Enabled = true;
-                }
-                else
-                {
-                    pageHeader.Enabled = true;
-                }
-                headerFontBtn.Enabled = true;
-                headerAlignComBox.Enabled = true;
-                headerColorBtn.Enabled = true;
-            }*/
-        }
-
-        private void NotSetFooter_CheckedChanged(object sender, EventArgs e)
-        {
-            /*if (notSetFooter.Checked)
-            {
-                foreach (Control col in footerGroupBox.Controls)
-                {
-                    if (col.Text != "不设置")
-                    {
-                        col.Enabled = false;
-                    }
-                }
-            }
-            else
-            {
-                if (firstHeaderFooter.Checked)
-                {
-                    firstHeader.Enabled = true;
-                }
-                if (oddEvenHeaderFooter.Checked)
-                {
-                    pageFooter.Enabled = false;
-                    oddFooter.Enabled = true;
-                    evenFooter.Enabled = true;
-                }
-                else
-                {
-                    pageFooter.Enabled = true;
-                }
-                footerFontBtn.Enabled = true;
-                footerAlignComBox.Enabled = true;
-                footerColorBtn.Enabled = true;
-            }*/
         }
 
         private void HeaderImageBtn_Click(object sender, EventArgs e)
@@ -568,12 +251,6 @@ namespace Docx
             pageNumberComBox.SelectedIndex = 0;
         }
 
-        private void Button1_Click_2(object sender, EventArgs e)
-        {
-            this.pdfService.WordToPDF(@"C:\Users\周宁\Desktop\新建文件夹 (2)\最终版 28版.docx", @"C:\Users\周宁\Desktop\新建文件夹 (2)\最终版 28");
-            //this.pageSettingService.test();
-        }
-
 
 
         private void TabPage1_Click_1(object sender, EventArgs e)
@@ -598,10 +275,6 @@ namespace Docx
 
         }
 
-        private void 主题_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void GroupBox6_Enter_1(object sender, EventArgs e)
         {
@@ -625,7 +298,7 @@ namespace Docx
 
         private void PageInfoToTask_CheckedChanged(object sender, EventArgs e)
         {
-            addToTaskCheck(pageInfoToTask);
+            mainController.addToTaskCheck(todoTask, pageInfoToTask);
         }
 
         private void DocVersion_TextChanged(object sender, EventArgs e)
@@ -673,7 +346,7 @@ namespace Docx
 
         private void TextReplacetoTask_CheckedChanged(object sender, EventArgs e)
         {
-            addToTaskCheck(textReplacetoTask);
+            mainController.addToTaskCheck(todoTask, textReplacetoTask);
         }
 
         private void GroupBox10_Enter(object sender, EventArgs e)
@@ -706,10 +379,6 @@ namespace Docx
 
         }
 
-        private void TextBox3_TextChanged_1(object sender, EventArgs e)
-        {
-        }
-
         private void TextBox2_TextChanged(object sender, EventArgs e)
         {
 
@@ -717,7 +386,7 @@ namespace Docx
 
         private void ParagraphCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            addToTaskCheck(ParagraphToTask);
+            mainController.addToTaskCheck(todoTask, ParagraphToTask);
         }
 
         private void IndentationSpecial_SelectedIndexChanged(object sender, EventArgs e)
@@ -732,7 +401,7 @@ namespace Docx
 
         private void ImageToTask_CheckedChanged(object sender, EventArgs e)
         {
-            addToTaskCheck(ImageToTask);
+            mainController.addToTaskCheck(todoTask, ImageToTask);
         }
 
         private void ExtractTable_CheckedChanged(object sender, EventArgs e)
@@ -740,157 +409,55 @@ namespace Docx
 
         }
 
-        private void ReplaceLinkGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
 
         private void InputFolderBtn_Click_1(object sender, EventArgs e)
         {
-            FolderBrowserDialog dilog = new FolderBrowserDialog();
-            dilog.Description = "请选择文件夹";
-            if (dilog.ShowDialog() == DialogResult.OK || dilog.ShowDialog() == DialogResult.Yes)
-            {
-                String path = dilog.SelectedPath;
-                inputFolder.Text = path;
-                DirectoryInfo directoryInfo = new DirectoryInfo(path);
-                FileInfo[] files = directoryInfo.GetFiles("*.docx", SearchOption.AllDirectories);
-
-                DataSet ds = new DataSet();
-                DataTable dt = new DataTable();
-                dt.Columns.Add("filename", typeof(string));
-                dt.Columns.Add("filepath", typeof(string));
-                dt.Columns.Add("filesize", typeof(string));
-                dt.Columns.Add("result", typeof(string));
-                foreach (FileInfo f in files)
-                {
-                    string filename = f.Name.Substring(0, f.Name.LastIndexOf("."));
-                    string filepath = f.FullName;
-                    string filesize = System.Math.Ceiling(f.Length / 1024.0) + " KB";
-                    if ((f.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden)
-                    {
-                        DataRow row = dt.NewRow();
-                        row["filename"] = filename;
-                        row["filepath"] = filepath;
-                        row["filesize"] = filesize;
-                        row["result"] = "";
-                        dt.Rows.Add(row);
-                    }
-                }
-                ds.Tables.Add(dt);
-                fileGrid.DataSource = ds.Tables[0];
-            }
+            mainController.InputFolderBtnEvent(inputFolder, fileGrid);
         }
-        private void TaskProcessAsync(BackgroundWorker bw)
+
+        private void startChangeBtn()
         {
-            List<string> tasks = todoTask.Items.Cast<string>().ToList();
-            if (tasks.Count == 0)
+            TaskProcessBtn.Enabled = false;
+            PdfExportBtn.Enabled = false;
+            OutputFolderBtn.Enabled = false;
+            inputFolderBtn.Enabled = false;
+            StopWork.Enabled = true;
+            fileGrid.AllowUserToDeleteRows = false;
+        }
+
+      
+        private void TaskProcessBtn_Click(object sender, EventArgs e)
+        {
+            if (todoTask.Items.Count == 0)
             {
                 MessageBox.Show("当前没有待处理任务", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
-            this.mainFormService.Process(bw, tasks, ref fileGrid, outPutFolder, ref TaskProcessBtn, TaskProcess);
-        }
-        private void PdfExportAsync(BackgroundWorker bw)
-        {
-            this.mainFormService.Process(bw, null, ref fileGrid, outPutFolder, ref PdfExportBtn, PDFConverterProcess);
-        }
-
-        private void Button3_Click(object sender, EventArgs e)
-        {
-            new PageSettingForm().Show();
-        }
-
-       
-        private void BackgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
-        {
-            
-            BackgroundWorker bw = sender as BackgroundWorker;
-
-            foreach (DataGridViewRow row in fileGrid.Rows)
+            if (fileGrid.Rows.Count == 0)
             {
-                row.Cells["result"].Value = "";
+                MessageBox.Show("请添加文件", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
-            string title = (string)e.Argument;
-
-            //e.Result = TimeConsumingOperation(bw, arg);
-            if (title == ConstData.START_PRC)
-            {
-                TaskProcessAsync(bw);
-            }
-            else if (title == ConstData.PDF_EXPORT)
-            {
-                PdfExportAsync(bw);
-            }
-
-            if (bw.CancellationPending)
-            {
-                e.Cancel = true;
-            }
-        }
-
-        private void BackgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            TaskProcessBtn.Enabled = true;
-            PdfExportBtn.Enabled = true;
-            StopWork.Enabled = false;
-            fileGrid.AllowUserToDeleteRows = true;
-            if (e.Cancelled)
-            {
-                MessageBox.Show("已停止处理");
-            }
-            else if (e.Error != null)
-            {
-                string msg = String.Format("An error occurred: {0}", e.Error.Message);
-                MessageBox.Show(msg);
-            }
-            else
-            {
-                //string msg = String.Format("处理成功");
-                //MessageBox.Show(msg);
-            }
-        }
-
-
-        private void ToolStripStatusLabel1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void SplitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
-        {
-            
-        }
-
-        private void GroupBox12_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TaskProcessBtn_Click(object sender, EventArgs e)
-        {
-            TaskProcessBtn.Enabled = false;
-            PdfExportBtn.Enabled = false;
-            StopWork.Enabled = true;
-            fileGrid.AllowUserToDeleteRows = false;
+            startChangeBtn();
             string title = TaskProcessBtn.Text;
-            this.backgroundWorker1.RunWorkerAsync(title);
+            this.bgWorker.RunWorkerAsync(title);
         }
 
         private void PdfExportBtn_Click_1(object sender, EventArgs e)
         {
-            TaskProcessBtn.Enabled = false;
-            PdfExportBtn.Enabled = false;
-            StopWork.Enabled = true;
-            fileGrid.AllowUserToDeleteRows = false;
+            if (fileGrid.Rows.Count == 0)
+            {
+                MessageBox.Show("请添加文件", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            startChangeBtn();
             string title = PdfExportBtn.Text;
-            this.backgroundWorker1.RunWorkerAsync(title);
+            this.bgWorker.RunWorkerAsync(title);
         }
 
         private void StopWork_Click_1(object sender, EventArgs e)
         {
-            this.backgroundWorker1.CancelAsync();
+            this.bgWorker.CancelAsync();
         }
 
         private void PictureBox2_Click(object sender, EventArgs e)
@@ -898,13 +465,17 @@ namespace Docx
 
         }
 
+        private void ToolStripProgressBar1_Click(object sender, EventArgs e)
+        {
+
+        }
 
 
 
+        private void ToolStripStatusLabel1_Click(object sender, EventArgs e)
+        {
 
-
-
-
+        }
 
         /* todoTask listbox 多选右键删除，暂时先不用
         private void 删除ToolStripMenuItem_Click(object sender, EventArgs e)

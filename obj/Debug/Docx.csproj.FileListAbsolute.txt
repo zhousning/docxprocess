@@ -11,4 +11,3 @@ F:\ProgramFiles\visualstudiowork\Docx\obj\Debug\Docx.MainForm.resources
 F:\ProgramFiles\visualstudiowork\Docx\bin\Debug\Xceed.Document.NET.dll
 F:\ProgramFiles\visualstudiowork\Docx\bin\Debug\Xceed.Words.NET.dll
 F:\ProgramFiles\visualstudiowork\Docx\obj\Debug\Docx.csproj.CopyComplete
-F:\ProgramFiles\visualstudiowork\Docx\obj\Debug\Docx.PageSettingForm.resources
