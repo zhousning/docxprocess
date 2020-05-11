@@ -34,7 +34,7 @@ namespace Docx
              pageFooter, firstFooter, oddFooter, evenFooter, footerImagePath, footerLine, pageNumberComBox, DocTitle, DocSubject, DocCategory,
              DocDescription, DocCreator, DocVersion, DocEditPrctCheckBox,
              DocEditPrctRemove, DocEditPassword, TaskProcessBtn, PdfExportBtn, OutputFolderBtn, inputFolderBtn, StopWork, fileGrid, toolStripProgressBar, todoTask,
-             ReplaceTextGridView, CreateTimeCheckBox, DocCreateTime, UpdateTimeCheckBox, DocUpdateTime);
+             ReplaceTextGridView, CreateTimeCheckBox, DocCreateTime, UpdateTimeCheckBox, DocUpdateTime, exportFailFile);
             this.mainController = new MainController();
             BackWorker backWorker = new BackWorker(mainFormOption);
             bgWorker = backWorker.getWorker();
@@ -52,6 +52,8 @@ namespace Docx
             headerImageDialog.Filter = "(*.jpg,*.png,*.jpeg)|*.jpg;*.png;*.jpeg";
             footerImageDialog.Filter = "(*.jpg,*.png,*.jpeg)|*.jpg;*.png;*.jpeg";
 
+            paragraphTab.Parent = null;//隐藏段落tab
+            button1.Visible = false;//隐藏测试按钮
             PageNumberComBox_Load();
         }
 
@@ -114,7 +116,12 @@ namespace Docx
             {
                 string result = fileGrid.Rows[e.RowIndex].Cells["result"].Value.ToString();
 
-                if (result == ConstData.FAIL)
+                if (result == ConstData.SUCCESS)
+                {
+                    fileGrid.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.White;
+                    fileGrid.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.Black;
+                }
+                else if (result == ConstData.FAIL)
                 {
                     fileGrid.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Red;
                     fileGrid.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.White;
@@ -336,6 +343,14 @@ namespace Docx
 
         private void DocPrct_CheckedChanged(object sender, EventArgs e)
         {
+            if (DocEditPrctCheckBox.Checked)
+            {
+                DocEditPassword.Enabled = true;
+            }
+            else
+            {
+                DocEditPassword.Enabled = false;
+            }
 
         }
 
@@ -422,9 +437,11 @@ namespace Docx
             PdfExportBtn.Enabled = false;
             OutputFolderBtn.Enabled = false;
             inputFolderBtn.Enabled = false;
+            exportFailFile.Enabled = false;
             StopWork.Enabled = true;
             fileGrid.AllowUserToDeleteRows = false;
 
+    
             foreach (DataGridViewRow row in mainFormOption.FileGrid.Rows)
             {
                 row.Cells["result"].Value = "";
@@ -466,7 +483,7 @@ namespace Docx
             }
             startChangeBtn();
             FormValOption formValOption = this.mainController.formValOption(this.mainFormOption);
-            formValOption.ProcessTitle = TaskProcessBtn.Text;
+            formValOption.ProcessTitle = PdfExportBtn.Text;
             if (bgWorker.IsBusy)
             {
                 MessageBox.Show("系统正忙，请稍后再试", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -496,6 +513,26 @@ namespace Docx
 
 
         private void ToolStripStatusLabel1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            this.mainController.test();
+        }
+
+        private void ToolStripStatusLabel1_Click_1(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://www.bafangjie.cn");
+        }
+
+        private void ExportFailFile_Click(object sender, EventArgs e)
+        {
+            this.mainController.ExportFailFileBtnEvent(fileGrid);
+        }
+
+        private void FileGrid_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
 
         }

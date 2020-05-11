@@ -49,21 +49,7 @@ namespace Docx.src.services
             this.pageSetting.pageOrientation(document, orientation);
         }
 
-        public void test()
-        {
-            using (var document = DocX.Create(@"C:\Users\周宁\Desktop\新建文件夹 (3)\最终版 24版.docx"))
-            {
-                var h3 = document.AddHyperlink("hyperlink", new Uri("http://www.baidu.com"));
-                // Add a paragraph.
-                var p3 = document.InsertParagraph("An hyperlink pointing to a bookmark of this Document has been added at the end of this paragraph: ").Bold().FontSize(30d);
-                //document.ReplaceTextWithObject("hyperlink", h3);
-                string style = p3.StyleName;
-                p3.AppendHyperlink(h3);
-                document.Save();
-                Console.WriteLine("\tCreated: Mod ifyImage.docx\n");
-            }
-        }
-
+       
        
     }
 }

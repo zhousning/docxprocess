@@ -145,6 +145,7 @@ namespace Docx.src.docxprocess
 
         public void clearHeader(DocX document)
         {
+            Headers headers = document.Headers;
             if (document.DifferentFirstPage)
             {
                 Header firstHeader = document.Headers.First;

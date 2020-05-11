@@ -12,7 +12,7 @@ namespace Docx.src.services
 {
     class PdfService
     {
-        public bool WordToPDF(string sourcePath, string targetPath)
+       public bool WordToPDF(string sourcePath, string targetPath)
         {
             bool result = false;
             Application application = new Application();
@@ -33,7 +33,7 @@ namespace Docx.src.services
             {
                 document.Close(Missing.Value, Missing.Value, Missing.Value);
                 application.Quit(Missing.Value, Missing.Value, Missing.Value);
-            }          
+            }
             return result;
         }
 
@@ -58,4 +58,4 @@ namespace Docx.src.services
             return true;
         }*/
     }
-}
+    }

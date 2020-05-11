@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Threading;
 using System.Windows.Forms;
 using Docx.src.model;
 using Docx.src.services;
+using NLog;
 using Xceed.Words.NET;
 
 namespace Docx.src.workers
@@ -24,7 +26,8 @@ namespace Docx.src.workers
         private TableService tableService;
         private PdfService pdfService;
         private MainFormOption mainFormOption;
-        
+        private Logger logger;
+
         public delegate void TaskProcess(FormValOption formValOption, string filepath, string targetFile, ref string result);
 
         public BackWorker(MainFormOption mainFormOption)
@@ -39,6 +42,7 @@ namespace Docx.src.workers
             this.tableService = new TableService();
             this.pdfService = new PdfService();
             this.mainFormOption = mainFormOption;
+            this.logger = LogManager.GetCurrentClassLogger();
         }
 
         public BackgroundWorker getWorker()
@@ -150,7 +154,7 @@ namespace Docx.src.workers
             Dictionary<string, string> rows = formValOption.FileGrid;
             int count = rows.Count;
             int i = 0;
-            foreach(KeyValuePair<string, string> kv in rows)
+            foreach (KeyValuePair<string, string> kv in rows)
             {
                 if (!bw.CancellationPending)
                 {
@@ -164,7 +168,6 @@ namespace Docx.src.workers
                         {
                             string targetFile = outputDirectory + @"\" + filename;
                             taskProcess(formValOption, filepath, targetFile, ref result);
-                            Thread.Sleep(1000);
                             result = ConstData.SUCCESS;
                         }
                         else
@@ -174,12 +177,14 @@ namespace Docx.src.workers
                     }
                     catch (Exception ex)
                     {
+                        logger.Error("***" + filename +":  " + ex.Message);
                         result = ConstData.FAIL;
                     }
                     finally
                     {
-                        string data = (i-1) + "," + result;
+                        string data = (i - 1) + "," + result;
                         bw.ReportProgress(i * 100 / count, data);
+                        Thread.Sleep(1000);
                     }
                 }
             }
@@ -191,48 +196,56 @@ namespace Docx.src.workers
             targetFile += ConstData.DOCXPREF;
             formValOption.OutPutFolder = targetFile;
 
-            using (var document = DocX.Load(filepath))
+            using (var fs = new FileStream(filepath, FileMode.Open, FileAccess.Read, FileShare.None))
             {
-                List<string> tasks = formValOption.TodoTask;
-                foreach (string title in tasks)
+                using (var document = DocX.Load(fs))
                 {
-                    if (title == ConstData.pageSettingTabText)
+                    List<string> tasks = formValOption.TodoTask;
+                    foreach (string title in tasks)
                     {
-                        ProcessWorker.PageSet(document, pageSettingService, formValOption);
+                        if (title == ConstData.pageSettingTabText)
+                        {
+                            ProcessWorker.PageSet(document, pageSettingService, formValOption);
+                        }
+                        else if (title == ConstData.headerFooterTabText)
+                        {
+                            ProcessWorker.HeaderFooterSet(document, headerFooterService, formValOption);
+                        }
+                        else if (title == ConstData.docInfoTabText)
+                        {
+                            ProcessWorker.DocInfoSet(document, docInfoService, formValOption);
+                        }
+                        else if (title == ConstData.textReplaceTabText)
+                        {
+                            ProcessWorker.TextReplaceSet(document, textReplaceService, formValOption);
+                        }
+                        else if (title == ConstData.paragraphTabText)
+                        {
+                            //ProcessWorker.ParagraphSet(document,);
+                        }
+                        else if (title == ConstData.extractTabText)
+                        {
+                            ProcessWorker.ExtractSet(document, imageService, hyperLinkService, tableService, formValOption);
+                        }
                     }
-                    else if (title == ConstData.headerFooterTabText)
-                    {
-                        ProcessWorker.HeaderFooterSet(document,headerFooterService, formValOption);
-                    }
-                    else if (title == ConstData.docInfoTabText)
-                    {
-                        ProcessWorker.DocInfoSet(document,docInfoService, formValOption);
-                    }
-                    else if (title == ConstData.textReplaceTabText)
-                    {
-                        ProcessWorker.TextReplaceSet(document,textReplaceService, formValOption);
-                    }
-                    else if (title == ConstData.paragraphTabText)
-                    {
-                        //ProcessWorker.ParagraphSet(document,);
-                    }
-                    else if (title == ConstData.extractTabText)
-                    {
-                        ProcessWorker.ExtractSet(document, imageService, hyperLinkService,tableService, formValOption);
-                    }
-                }
 
-                document.SaveAs(targetFile);
-                if (tasks.Contains(ConstData.docInfoTabText))
-                {
-                    ProcessWorker.UpdateFileTime(docInfoService, targetFile, formValOption);
+                    if (!(tasks.Contains(ConstData.extractTabText) && tasks.Count == 1))
+                    {
+                        document.SaveAs(targetFile);
+                    }
+                    if (tasks.Contains(ConstData.docInfoTabText))
+                    {
+                        ProcessWorker.UpdateFileTime(docInfoService, targetFile, formValOption);
+                    }
+                    result = ConstData.SUCCESS;
                 }
-                result = ConstData.SUCCESS;
             }
         }
 
         private void PDFConverterProcess(FormValOption formValOption, string filepath, string targetFile, ref string result)
         {
+            targetFile += ConstData.PDFPREF;
+
             Boolean flag = this.pdfService.WordToPDF(filepath, targetFile);
             if (flag)
             {
@@ -251,6 +264,7 @@ namespace Docx.src.workers
             mainFormOption.PdfExportBtn.Enabled = true;
             mainFormOption.OutputFolderBtn.Enabled = true;
             mainFormOption.InputFolderBtn.Enabled = true;
+            mainFormOption.ExportFailFile.Enabled = true;
             mainFormOption.StopWork.Enabled = false;
             mainFormOption.FileGrid.AllowUserToDeleteRows = true;
         }

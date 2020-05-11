@@ -189,6 +189,8 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.progressPercent = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox8 = new System.Windows.Forms.PictureBox();
             this.pictureBox7 = new System.Windows.Forms.PictureBox();
@@ -203,6 +205,8 @@
             this.inputFolderBtn = new System.Windows.Forms.Button();
             this.outPutFolder = new System.Windows.Forms.TextBox();
             this.OutputFolderBtn = new System.Windows.Forms.Button();
+            this.exportFailFile = new System.Windows.Forms.Button();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -380,6 +384,7 @@
             // 
             // splitContainer2.Panel2
             // 
+            this.splitContainer2.Panel2.Controls.Add(this.exportFailFile);
             this.splitContainer2.Panel2.Controls.Add(this.fileGrid);
             this.splitContainer2.Panel2.Controls.Add(this.tabControl2);
             this.splitContainer2.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.SplitContainer2_Panel2_Paint);
@@ -512,13 +517,13 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(421, 200);
+            this.button1.Location = new System.Drawing.Point(804, 127);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 7;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Visible = false;
+            this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // headerFooterTab
             // 
@@ -1213,10 +1218,10 @@
             this.rightMargin.Size = new System.Drawing.Size(48, 21);
             this.rightMargin.TabIndex = 29;
             this.rightMargin.Value = new decimal(new int[] {
-            2,
+            26,
             0,
             0,
-            0});
+            65536});
             // 
             // leftMargin
             // 
@@ -1359,7 +1364,7 @@
             this.groupBox8.Controls.Add(this.DocEditPrctCheckBox);
             this.groupBox8.Location = new System.Drawing.Point(341, 117);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(298, 90);
+            this.groupBox8.Size = new System.Drawing.Size(298, 55);
             this.groupBox8.TabIndex = 27;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "文档保护";
@@ -1368,12 +1373,13 @@
             // DocEditPrctRemove
             // 
             this.DocEditPrctRemove.AutoSize = true;
-            this.DocEditPrctRemove.Location = new System.Drawing.Point(16, 55);
+            this.DocEditPrctRemove.Location = new System.Drawing.Point(16, 45);
             this.DocEditPrctRemove.Name = "DocEditPrctRemove";
             this.DocEditPrctRemove.Size = new System.Drawing.Size(96, 16);
             this.DocEditPrctRemove.TabIndex = 35;
             this.DocEditPrctRemove.Text = "清除编辑密码";
             this.DocEditPrctRemove.UseVisualStyleBackColor = true;
+            this.DocEditPrctRemove.Visible = false;
             // 
             // label21
             // 
@@ -1387,6 +1393,7 @@
             // 
             // DocEditPassword
             // 
+            this.DocEditPassword.Enabled = false;
             this.DocEditPassword.Location = new System.Drawing.Point(137, 20);
             this.DocEditPassword.Name = "DocEditPassword";
             this.DocEditPassword.Size = new System.Drawing.Size(145, 21);
@@ -1864,20 +1871,22 @@
             this.filepath,
             this.filesize,
             this.result});
-            this.fileGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fileGrid.Location = new System.Drawing.Point(0, 0);
+            this.fileGrid.Location = new System.Drawing.Point(0, 35);
             this.fileGrid.Name = "fileGrid";
             this.fileGrid.ReadOnly = true;
             this.fileGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.fileGrid.RowTemplate.Height = 23;
-            this.fileGrid.Size = new System.Drawing.Size(1041, 331);
-            this.fileGrid.TabIndex = 1;
-            this.fileGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.FileGrid_CellContentClick);
+            this.fileGrid.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.fileGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.fileGrid.Size = new System.Drawing.Size(1023, 294);
+            this.fileGrid.TabIndex = 2;
+            this.fileGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.FileGrid_CellContentClick_1);
             this.fileGrid.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.FileGrid_CellPainting);
             // 
             // filename
             // 
             this.filename.DataPropertyName = "filename";
+            this.filename.FillWeight = 40F;
             this.filename.HeaderText = "文件名";
             this.filename.Name = "filename";
             this.filename.ReadOnly = true;
@@ -1885,6 +1894,7 @@
             // filepath
             // 
             this.filepath.DataPropertyName = "filepath";
+            this.filepath.FillWeight = 30F;
             this.filepath.HeaderText = "路径";
             this.filepath.Name = "filepath";
             this.filepath.ReadOnly = true;
@@ -1892,6 +1902,7 @@
             // filesize
             // 
             this.filesize.DataPropertyName = "filesize";
+            this.filesize.FillWeight = 15F;
             this.filesize.HeaderText = "大小";
             this.filesize.Name = "filesize";
             this.filesize.ReadOnly = true;
@@ -1899,6 +1910,7 @@
             // result
             // 
             this.result.DataPropertyName = "result";
+            this.result.FillWeight = 15F;
             this.result.HeaderText = "结果";
             this.result.Name = "result";
             this.result.ReadOnly = true;
@@ -1959,7 +1971,9 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripProgressBar,
-            this.progressPercent});
+            this.progressPercent,
+            this.toolStripStatusLabel1,
+            this.toolStripStatusLabel2});
             this.statusStrip1.Location = new System.Drawing.Point(0, 7);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1222, 26);
@@ -1978,6 +1992,23 @@
             this.progressPercent.Name = "progressPercent";
             this.progressPercent.Size = new System.Drawing.Size(4, 21);
             this.progressPercent.Click += new System.EventHandler(this.ToolStripStatusLabel1_Click);
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.BackColor = System.Drawing.SystemColors.Control;
+            this.toolStripStatusLabel1.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+            this.toolStripStatusLabel1.IsLink = true;
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(264, 21);
+            this.toolStripStatusLabel1.Text = "天启一方人工智能应用软件有限公司©版权所有";
+            this.toolStripStatusLabel1.Click += new System.EventHandler(this.ToolStripStatusLabel1_Click_1);
+            // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.BackColor = System.Drawing.SystemColors.Control;
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(108, 21);
+            this.toolStripStatusLabel2.Text = "www.bafangjie.cn";
             // 
             // panel1
             // 
@@ -2137,6 +2168,19 @@
             this.OutputFolderBtn.UseVisualStyleBackColor = true;
             this.OutputFolderBtn.Click += new System.EventHandler(this.Button2_Click_1);
             // 
+            // exportFailFile
+            // 
+            this.exportFailFile.BackColor = System.Drawing.Color.OrangeRed;
+            this.exportFailFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.exportFailFile.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.exportFailFile.Location = new System.Drawing.Point(917, -3);
+            this.exportFailFile.Name = "exportFailFile";
+            this.exportFailFile.Size = new System.Drawing.Size(99, 32);
+            this.exportFailFile.TabIndex = 13;
+            this.exportFailFile.Text = "导出失败文件";
+            this.exportFailFile.UseVisualStyleBackColor = false;
+            this.exportFailFile.Click += new System.EventHandler(this.ExportFailFile_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -2148,7 +2192,6 @@
             this.Controls.Add(this.splitContainer1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "疾风Word批量处理器";
@@ -2379,11 +2422,6 @@
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.ComboBox ParagraphAlign;
-        private System.Windows.Forms.DataGridView fileGrid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn filename;
-        private System.Windows.Forms.DataGridViewTextBoxColumn filepath;
-        private System.Windows.Forms.DataGridViewTextBoxColumn filesize;
-        private System.Windows.Forms.DataGridViewTextBoxColumn result;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox inputFolder;
         private System.Windows.Forms.Button inputFolderBtn;
@@ -2406,5 +2444,14 @@
         private System.Windows.Forms.PictureBox pictureBox8;
         private System.Windows.Forms.PictureBox pictureBox7;
         private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
+        private System.Windows.Forms.DataGridView fileGrid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn filename;
+        private System.Windows.Forms.DataGridViewTextBoxColumn filepath;
+        private System.Windows.Forms.DataGridViewTextBoxColumn filesize;
+        private System.Windows.Forms.DataGridViewTextBoxColumn result;
+        private System.Windows.Forms.Button exportFailFile;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }

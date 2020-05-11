@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -15,10 +16,12 @@ namespace Docx.src.controllers
 {
     class MainController
     {
+        public TestService testService;
+
 
         public MainController()
         {
-
+            testService = new TestService();
         }
 
         public FormValOption formValOption(MainFormOption mainFormOption)
@@ -139,6 +142,27 @@ namespace Docx.src.controllers
             }
         }
 
+        public void ExportFailFileBtnEvent(DataGridView fileGrid)
+        {
+            FolderBrowserDialog dilog = new FolderBrowserDialog();
+            dilog.Description = "请选择文件夹";
+            if (dilog.ShowDialog() == DialogResult.OK || dilog.ShowDialog() == DialogResult.Yes)
+            {
+                DataTable dt = ((DataTable)fileGrid.DataSource).Copy();
+                DataView dv = dt.DefaultView;
+                dv.RowFilter = string.Format("result = '{0}'", ConstData.FAIL);
+                DataTable dataTable = dv.ToTable();
+                foreach (DataRow row in dataTable.Rows)
+                {
+                    string pLocalFilePath = row["filepath"].ToString();
+                    string pSaveFilePath = dilog.SelectedPath + @"\" + Path.GetFileName(pLocalFilePath);
+                    File.Copy(pLocalFilePath, pSaveFilePath, true);
+                }
+                System.Diagnostics.Process.Start("explorer.exe", dilog.SelectedPath);
+            }
+        }
+
+
         public void OutputFolderBtnEvent(TextBox outPutFolder)
         {
             FolderBrowserDialog dilog = new FolderBrowserDialog();
@@ -151,13 +175,21 @@ namespace Docx.src.controllers
 
         public void addToTaskCheck(ListBox todoTask, CheckBox checkBox)
         {
+            string title = checkBox.Parent.Text;
             if (checkBox.Checked)
             {
-                todoTask.Items.Add(checkBox.Parent.Text);
+                if (title == ConstData.extractTabText)
+                {
+                    todoTask.Items.Insert(0, title);
+                }
+                else
+                {
+                    todoTask.Items.Add(title);
+                }
             }
             else
             {
-                todoTask.Items.Remove(checkBox.Parent.Text);
+                todoTask.Items.Remove(title);
             }
         }
 
@@ -192,6 +224,11 @@ namespace Docx.src.controllers
                 pageWidth.Enabled = true;
                 pageHeight.Enabled = true;
             }
+        }
+
+        public void test()
+        {
+            testService.test();
         }
 
 

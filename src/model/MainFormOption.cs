@@ -62,6 +62,7 @@ namespace Docx.src.model
         private Button outputFolderBtn;
         private Button inputFolderBtn;
         private Button stopWork;
+        private Button exportFailFile;
         private DataGridView fileGrid;
         private ToolStripProgressBar toolStripProgressBar;
         private ListBox todoTask;
@@ -73,8 +74,9 @@ namespace Docx.src.model
 
         public MainFormOption(TextBox outPutFolder, CheckBox extractImageCheckBox, CheckBox extractHyperLinkCheckBox, CheckBox extractTable, DataGridView replaceLinkGridView, CheckBox notSetMargin, CheckBox notSetPageSize, NumericUpDown topMargin, NumericUpDown bottomMargin, NumericUpDown leftMargin, NumericUpDown rightMargin, NumericUpDown pageWidth, NumericUpDown pageHeight, ComboBox pageSetOrientation, CheckBox clearHeader, CheckBox clearFooter, CheckBox firstHeaderFooter, CheckBox oddEvenHeaderFooter, CheckBox notSetHeader, CheckBox notSetFooter, FontDialog headerFontDialog, ComboBox headerAlignComBox, ColorDialog headerColorDialog, TextBox pageHeader, TextBox firstHeader, TextBox oddHeader, TextBox evenHeader, TextBox headerImagePath, CheckBox headerLine, FontDialog footerFontDialog, ComboBox footerAlignComBox, ColorDialog footerColorDialog, TextBox pageFooter, TextBox firstFooter, TextBox oddFooter, TextBox evenFooter, TextBox footerImagePath, CheckBox footerLine, ComboBox pageNumberComBox, TextBox docTitle, TextBox docSubject, TextBox docCategory, TextBox docDescription, TextBox docCreator, TextBox docVersion, CheckBox docEditPrctCheckBox, CheckBox docEditPrctRemove, TextBox docEditPassword
             , Button taskProcessBtn, Button pdfExportBtn, Button outputFolderBtn, Button inputFolderBtn, Button stopWork, DataGridView fileGrid, ToolStripProgressBar toolStripProgressBar, ListBox todoTask, DataGridView replaceTextGridView,
-            CheckBox createTimeCheckBox,DateTimePicker docCreateTime,CheckBox updateTimeCheckBox,DateTimePicker docUpdateTime)
+            CheckBox createTimeCheckBox,DateTimePicker docCreateTime,CheckBox updateTimeCheckBox,DateTimePicker docUpdateTime, Button exportFailFile)
         {
+            this.ExportFailFile = exportFailFile;
             this.CreateTimeCheckBox = createTimeCheckBox;
             this.DocCreateTime = docCreateTime;
             this.UpdateTimeCheckBox = updateTimeCheckBox;
@@ -199,5 +201,6 @@ namespace Docx.src.model
         public DateTimePicker DocCreateTime { get => docCreateTime; set => docCreateTime = value; }
         public CheckBox UpdateTimeCheckBox { get => updateTimeCheckBox; set => updateTimeCheckBox = value; }
         public DateTimePicker DocUpdateTime { get => docUpdateTime; set => docUpdateTime = value; }
+        public Button ExportFailFile { get => exportFailFile; set => exportFailFile = value; }
     }
 }
