@@ -93,8 +93,8 @@ namespace Docx.src.docxprocess
 
         private void footerSet(DocX document, Paragraph paragraph, string title, HeaderFooterOption option)
         {
-            PAppendImage(document, paragraph, option);
-            pageNumber(paragraph, option);
+            pageNumber(paragraph, option);//pagenumber 要放在image之前，不然图片会被插入两次
+            PAppendImage(document, paragraph, option);         
             footerLineOption(paragraph, option);
             Options(paragraph.Append(title), option);
         }
@@ -107,7 +107,7 @@ namespace Docx.src.docxprocess
                     Options(paragraph.AppendPageNumber(PageNumberFormat.normal), option);
                     break;
                 case ConstData.PAGENUMBER2:
-                    Options(paragraph.Append("/"), option);
+                    Options(paragraph.Append(" / "), option);
                     paragraph.InsertPageNumber(PageNumberFormat.normal, 0);
                     paragraph.InsertPageCount(PageNumberFormat.normal, 2);
                     break;
@@ -124,7 +124,7 @@ namespace Docx.src.docxprocess
                     Options(paragraph.AppendPageNumber(PageNumberFormat.roman), option);
                     break;
                 case ConstData.PAGENUMBER6:
-                    Options(paragraph.Append("/"), option);
+                    Options(paragraph.Append(" / "), option);
                     paragraph.InsertPageNumber(PageNumberFormat.roman, 0);
                     paragraph.InsertPageCount(PageNumberFormat.roman, 2);
                     break;

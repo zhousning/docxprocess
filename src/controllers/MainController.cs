@@ -144,13 +144,18 @@ namespace Docx.src.controllers
 
         public void ExportFailFileBtnEvent(DataGridView fileGrid)
         {
+            if (fileGrid.DataSource == null || fileGrid.Rows.Count == 0)
+            {
+                return;
+            }
             FolderBrowserDialog dilog = new FolderBrowserDialog();
             dilog.Description = "请选择文件夹";
             if (dilog.ShowDialog() == DialogResult.OK || dilog.ShowDialog() == DialogResult.Yes)
             {
                 DataTable dt = ((DataTable)fileGrid.DataSource).Copy();
                 DataView dv = dt.DefaultView;
-                dv.RowFilter = string.Format("result = '{0}'", ConstData.FAIL);
+                string filterString = string.Format("result in ('{0}','{1}','{2}')", ConstData.FAIL, ConstData.protectDocuemnt, ConstData.blankDocuemnt);
+                dv.RowFilter = filterString;
                 DataTable dataTable = dv.ToTable();
                 foreach (DataRow row in dataTable.Rows)
                 {

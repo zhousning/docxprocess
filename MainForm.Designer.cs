@@ -170,6 +170,7 @@
             this.label31 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.ParagraphAlign = new System.Windows.Forms.ComboBox();
+            this.exportFailFile = new System.Windows.Forms.Button();
             this.fileGrid = new System.Windows.Forms.DataGridView();
             this.filename = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.filepath = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -205,7 +206,6 @@
             this.inputFolderBtn = new System.Windows.Forms.Button();
             this.outPutFolder = new System.Windows.Forms.TextBox();
             this.OutputFolderBtn = new System.Windows.Forms.Button();
-            this.exportFailFile = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -301,7 +301,7 @@
             this.groupBox12.Controls.Add(this.todoTask);
             this.groupBox12.Location = new System.Drawing.Point(8, 3);
             this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(188, 413);
+            this.groupBox12.Size = new System.Drawing.Size(188, 380);
             this.groupBox12.TabIndex = 11;
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "待处理任务";
@@ -312,7 +312,7 @@
             this.StopWork.Enabled = false;
             this.StopWork.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.StopWork.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.StopWork.Location = new System.Drawing.Point(12, 362);
+            this.StopWork.Location = new System.Drawing.Point(12, 322);
             this.StopWork.Name = "StopWork";
             this.StopWork.Size = new System.Drawing.Size(166, 36);
             this.StopWork.TabIndex = 12;
@@ -326,12 +326,13 @@
             this.PdfExportBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.PdfExportBtn.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.PdfExportBtn.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.PdfExportBtn.Location = new System.Drawing.Point(12, 320);
+            this.PdfExportBtn.Location = new System.Drawing.Point(12, 364);
             this.PdfExportBtn.Name = "PdfExportBtn";
             this.PdfExportBtn.Size = new System.Drawing.Size(166, 36);
             this.PdfExportBtn.TabIndex = 11;
             this.PdfExportBtn.Text = "Word转PDF";
             this.PdfExportBtn.UseVisualStyleBackColor = false;
+            this.PdfExportBtn.Visible = false;
             this.PdfExportBtn.Click += new System.EventHandler(this.PdfExportBtn_Click_1);
             // 
             // TaskProcessBtn
@@ -409,9 +410,8 @@
             // 
             // textReplaceTab
             // 
-            this.textReplaceTab.Controls.Add(this.LinkReplacegroupBox);
-            this.textReplaceTab.Controls.Add(this.textReplacetoTask);
             this.textReplaceTab.Controls.Add(this.groupBox9);
+            this.textReplaceTab.Controls.Add(this.textReplacetoTask);
             this.textReplaceTab.Controls.Add(this.button1);
             this.textReplaceTab.Location = new System.Drawing.Point(4, 22);
             this.textReplaceTab.Name = "textReplaceTab";
@@ -425,7 +425,7 @@
             // LinkReplacegroupBox
             // 
             this.LinkReplacegroupBox.Controls.Add(this.ReplaceLinkGridView);
-            this.LinkReplacegroupBox.Location = new System.Drawing.Point(391, 11);
+            this.LinkReplacegroupBox.Location = new System.Drawing.Point(616, 35);
             this.LinkReplacegroupBox.Name = "LinkReplacegroupBox";
             this.LinkReplacegroupBox.Size = new System.Drawing.Size(357, 183);
             this.LinkReplacegroupBox.TabIndex = 32;
@@ -481,9 +481,10 @@
             // groupBox9
             // 
             this.groupBox9.Controls.Add(this.ReplaceTextGridView);
+            this.groupBox9.Controls.Add(this.LinkReplacegroupBox);
             this.groupBox9.Location = new System.Drawing.Point(19, 11);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(357, 224);
+            this.groupBox9.Size = new System.Drawing.Size(801, 224);
             this.groupBox9.TabIndex = 2;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "文字替换";
@@ -500,7 +501,7 @@
             this.ReplaceTextGridView.Location = new System.Drawing.Point(6, 24);
             this.ReplaceTextGridView.Name = "ReplaceTextGridView";
             this.ReplaceTextGridView.RowTemplate.Height = 23;
-            this.ReplaceTextGridView.Size = new System.Drawing.Size(345, 194);
+            this.ReplaceTextGridView.Size = new System.Drawing.Size(789, 194);
             this.ReplaceTextGridView.TabIndex = 1;
             // 
             // sourceText
@@ -517,7 +518,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(804, 127);
+            this.button1.Location = new System.Drawing.Point(856, 126);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 7;
@@ -1152,8 +1153,6 @@
             // notSetPageSize
             // 
             this.notSetPageSize.AutoSize = true;
-            this.notSetPageSize.Checked = true;
-            this.notSetPageSize.CheckState = System.Windows.Forms.CheckState.Checked;
             this.notSetPageSize.Location = new System.Drawing.Point(29, 21);
             this.notSetPageSize.Name = "notSetPageSize";
             this.notSetPageSize.Size = new System.Drawing.Size(60, 16);
@@ -1289,8 +1288,6 @@
             // notSetMargin
             // 
             this.notSetMargin.AutoSize = true;
-            this.notSetMargin.Checked = true;
-            this.notSetMargin.CheckState = System.Windows.Forms.CheckState.Checked;
             this.notSetMargin.Location = new System.Drawing.Point(29, 21);
             this.notSetMargin.Name = "notSetMargin";
             this.notSetMargin.Size = new System.Drawing.Size(60, 16);
@@ -1858,6 +1855,19 @@
             this.ParagraphAlign.TabIndex = 37;
             this.ParagraphAlign.SelectedIndexChanged += new System.EventHandler(this.ComboBox1_SelectedIndexChanged);
             // 
+            // exportFailFile
+            // 
+            this.exportFailFile.BackColor = System.Drawing.Color.OrangeRed;
+            this.exportFailFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.exportFailFile.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.exportFailFile.Location = new System.Drawing.Point(917, -3);
+            this.exportFailFile.Name = "exportFailFile";
+            this.exportFailFile.Size = new System.Drawing.Size(99, 32);
+            this.exportFailFile.TabIndex = 13;
+            this.exportFailFile.Text = "导出失败文件";
+            this.exportFailFile.UseVisualStyleBackColor = false;
+            this.exportFailFile.Click += new System.EventHandler(this.ExportFailFile_Click);
+            // 
             // fileGrid
             // 
             this.fileGrid.AllowUserToAddRows = false;
@@ -1886,7 +1896,7 @@
             // filename
             // 
             this.filename.DataPropertyName = "filename";
-            this.filename.FillWeight = 40F;
+            this.filename.FillWeight = 30F;
             this.filename.HeaderText = "文件名";
             this.filename.Name = "filename";
             this.filename.ReadOnly = true;
@@ -1910,7 +1920,7 @@
             // result
             // 
             this.result.DataPropertyName = "result";
-            this.result.FillWeight = 15F;
+            this.result.FillWeight = 25F;
             this.result.HeaderText = "结果";
             this.result.Name = "result";
             this.result.ReadOnly = true;
@@ -2167,19 +2177,6 @@
             this.OutputFolderBtn.Text = "输出文件夹";
             this.OutputFolderBtn.UseVisualStyleBackColor = true;
             this.OutputFolderBtn.Click += new System.EventHandler(this.Button2_Click_1);
-            // 
-            // exportFailFile
-            // 
-            this.exportFailFile.BackColor = System.Drawing.Color.OrangeRed;
-            this.exportFailFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.exportFailFile.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.exportFailFile.Location = new System.Drawing.Point(917, -3);
-            this.exportFailFile.Name = "exportFailFile";
-            this.exportFailFile.Size = new System.Drawing.Size(99, 32);
-            this.exportFailFile.TabIndex = 13;
-            this.exportFailFile.Text = "导出失败文件";
-            this.exportFailFile.UseVisualStyleBackColor = false;
-            this.exportFailFile.Click += new System.EventHandler(this.ExportFailFile_Click);
             // 
             // MainForm
             // 
@@ -2447,11 +2444,11 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.DataGridView fileGrid;
+        private System.Windows.Forms.Button exportFailFile;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.DataGridViewTextBoxColumn filename;
         private System.Windows.Forms.DataGridViewTextBoxColumn filepath;
         private System.Windows.Forms.DataGridViewTextBoxColumn filesize;
         private System.Windows.Forms.DataGridViewTextBoxColumn result;
-        private System.Windows.Forms.Button exportFailFile;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }

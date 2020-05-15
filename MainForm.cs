@@ -53,6 +53,7 @@ namespace Docx
             footerImageDialog.Filter = "(*.jpg,*.png,*.jpeg)|*.jpg;*.png;*.jpeg";
 
             paragraphTab.Parent = null;//隐藏段落tab
+            docInfoTab.Parent = null;
             button1.Visible = false;//隐藏测试按钮
             PageNumberComBox_Load();
         }
@@ -120,6 +121,16 @@ namespace Docx
                 {
                     fileGrid.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.White;
                     fileGrid.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.Black;
+                }
+                else if (result == ConstData.protectDocuemnt)
+                {
+                    fileGrid.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Blue;
+                    fileGrid.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.White;
+                }
+                else if (result == ConstData.blankDocuemnt)
+                {
+                    fileGrid.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Azure;
+                    fileGrid.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.White;
                 }
                 else if (result == ConstData.FAIL)
                 {
@@ -247,13 +258,14 @@ namespace Docx
 
         private void PageNumberComBox_Load()
         {
+            //“/” 这个格式不能用
             pageNumberComBox.Items.Add(ConstData.PAGENUMBERNO);
             pageNumberComBox.Items.Add(ConstData.PAGENUMBER1);
-            pageNumberComBox.Items.Add(ConstData.PAGENUMBER2);
+            //pageNumberComBox.Items.Add(ConstData.PAGENUMBER2);
             pageNumberComBox.Items.Add(ConstData.PAGENUMBER3);
             pageNumberComBox.Items.Add(ConstData.PAGENUMBER4);
             pageNumberComBox.Items.Add(ConstData.PAGENUMBER5);
-            pageNumberComBox.Items.Add(ConstData.PAGENUMBER6);
+            //pageNumberComBox.Items.Add(ConstData.PAGENUMBER6);
             pageNumberComBox.Items.Add(ConstData.PAGENUMBER7);
             pageNumberComBox.Items.Add(ConstData.PAGENUMBER8);
             pageNumberComBox.SelectedIndex = 0;

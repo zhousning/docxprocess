@@ -100,7 +100,7 @@ namespace Docx.src.workers
                     System.Diagnostics.Process.Start("explorer.exe", v_OpenFolderPath);
                 }
             }
-            Thread.Sleep(2000);
+            Thread.Sleep(1000);
             this.mainFormOption.ToolStripProgressBar.Value = 0;
         }
 
@@ -169,6 +169,7 @@ namespace Docx.src.workers
                             string targetFile = outputDirectory + @"\" + filename;
                             taskProcess(formValOption, filepath, targetFile, ref result);
                             result = ConstData.SUCCESS;
+
                         }
                         else
                         {
@@ -177,7 +178,7 @@ namespace Docx.src.workers
                     }
                     catch (Exception ex)
                     {
-                        logger.Error("***" + filename +":  " + ex.Message);
+                        logger.Error("***" + filename + ":  " + ex.Message);
                         result = ConstData.FAIL;
                     }
                     finally
@@ -206,18 +207,22 @@ namespace Docx.src.workers
                         if (title == ConstData.pageSettingTabText)
                         {
                             ProcessWorker.PageSet(document, pageSettingService, formValOption);
+
                         }
                         else if (title == ConstData.headerFooterTabText)
                         {
                             ProcessWorker.HeaderFooterSet(document, headerFooterService, formValOption);
+
                         }
                         else if (title == ConstData.docInfoTabText)
                         {
                             ProcessWorker.DocInfoSet(document, docInfoService, formValOption);
+
                         }
                         else if (title == ConstData.textReplaceTabText)
                         {
                             ProcessWorker.TextReplaceSet(document, textReplaceService, formValOption);
+
                         }
                         else if (title == ConstData.paragraphTabText)
                         {
@@ -226,6 +231,7 @@ namespace Docx.src.workers
                         else if (title == ConstData.extractTabText)
                         {
                             ProcessWorker.ExtractSet(document, imageService, hyperLinkService, tableService, formValOption);
+
                         }
                     }
 
@@ -236,6 +242,7 @@ namespace Docx.src.workers
                     if (tasks.Contains(ConstData.docInfoTabText))
                     {
                         ProcessWorker.UpdateFileTime(docInfoService, targetFile, formValOption);
+
                     }
                     result = ConstData.SUCCESS;
                 }

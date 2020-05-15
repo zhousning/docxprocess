@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Microsoft.Office.Interop.Word;
+//using Microsoft.Office.Interop.Word;
 
 namespace Docx.src.services
 {
@@ -15,7 +15,7 @@ namespace Docx.src.services
        public bool WordToPDF(string sourcePath, string targetPath)
         {
             bool result = false;
-            Application application = new Application();
+            /*Application application = new Application();
             application.Visible = false;
             Document document = null;
             try
@@ -33,7 +33,7 @@ namespace Docx.src.services
             {
                 document.Close(Missing.Value, Missing.Value, Missing.Value);
                 application.Quit(Missing.Value, Missing.Value, Missing.Value);
-            }
+            }*/
             return result;
         }
 

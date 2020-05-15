@@ -40,8 +40,7 @@
         internal const string textReplaceTabText = "文字替换";
         internal const string paragraphTabText = "段落格式";
         internal const string extractTabText = "文档内容提取";
-
-        
-
+        internal const string blankDocuemnt = "空文档—不处理";
+        internal const string protectDocuemnt = "文档已加密";
     }
 }
