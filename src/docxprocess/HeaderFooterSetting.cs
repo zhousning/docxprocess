@@ -149,6 +149,7 @@ namespace Docx.src.docxprocess
             if (document.DifferentFirstPage)
             {
                 Header firstHeader = document.Headers.First;
+                
                 if (firstHeader != null)
                 {
                     int firstCount = firstHeader.Paragraphs.Count;
@@ -162,19 +163,49 @@ namespace Docx.src.docxprocess
             Header oddHeader = document.Headers.Odd;
             if (evenHeader != null)
             {
-                int evenCount = evenHeader.Paragraphs.Count;
-                for (int i = 0; i < evenCount; i++)
+                int pCount = evenHeader.Paragraphs.Count;
+                for (int i = 0; i < pCount; i++)
                 {
                     evenHeader.RemoveParagraphAt(i);
+                }
+                int tCount = evenHeader.Tables.Count;
+                for (int j=0; j<tCount; j++)
+                {
+                    evenHeader.Tables[j].Remove();
+                }
+                int iCount = evenHeader.Images.Count;
+                for(int k=0; k<iCount; k++)
+                {
+                    evenHeader.Images.RemoveAt(k);
+                }
+                int picCount = evenHeader.Images.Count;
+                for (int n = 0; n < picCount; n++)
+                {
+                    evenHeader.Pictures.RemoveAt(n);
                 }
             }
 
             if (oddHeader != null)
             {
-                int oddCount = oddHeader.Paragraphs.Count;
-                for (int i = 0; i < oddCount; i++)
+                int pCount = oddHeader.Paragraphs.Count;
+                for (int i = 0; i < pCount; i++)
                 {
                     oddHeader.RemoveParagraphAt(i);
+                }
+                int tCount = oddHeader.Tables.Count;
+                for (int j = 0; j < tCount; j++)
+                {
+                    oddHeader.Tables[j].Remove();
+                }
+                int iCount = oddHeader.Images.Count;
+                for (int k = 0; k < iCount; k++)
+                {
+                    oddHeader.Images.RemoveAt(k);
+                }
+                int picCount = oddHeader.Images.Count;
+                for (int n = 0; n < picCount; n++)
+                {
+                    oddHeader.Pictures.RemoveAt(n);
                 }
             }
         }
@@ -193,23 +224,53 @@ namespace Docx.src.docxprocess
                     }
                 }
             }
-            Footer evenFooter = document.Footers.Even;
+            Footer evenFooter = document.Footers.Even;           
             Footer oddFooter = document.Footers.Odd;
             if (evenFooter != null)
             {
-                int evenCount = evenFooter.Paragraphs.Count;
-                for (int i = 0; i < evenCount; i++)
+                int pCount = evenFooter.Paragraphs.Count;
+                for (int i = 0; i < pCount; i++)
                 {
                     evenFooter.RemoveParagraphAt(i);
+                }
+                int tCount = evenFooter.Tables.Count;
+                for (int j = 0; j < tCount; j++)
+                {
+                    evenFooter.Tables[j].Remove();
+                }
+                int iCount = evenFooter.Images.Count;
+                for (int k = 0; k < iCount; k++)
+                {
+                    evenFooter.Images.RemoveAt(k);
+                }
+                int picCount = evenFooter.Images.Count;
+                for (int n = 0; n < picCount; n++)
+                {
+                    evenFooter.Pictures.RemoveAt(n);
                 }
             }
 
             if (oddFooter != null)
             {
-                int oddCount = oddFooter.Paragraphs.Count;
-                for (int i = 0; i < oddCount; i++)
+                int pCount = oddFooter.Paragraphs.Count;
+                for (int i = 0; i < pCount; i++)
                 {
                     oddFooter.RemoveParagraphAt(i);
+                }
+                int tCount = oddFooter.Tables.Count;
+                for (int j = 0; j < tCount; j++)
+                {
+                    oddFooter.Tables[j].Remove();
+                }
+                int iCount = oddFooter.Images.Count;
+                for (int k = 0; k < iCount; k++)
+                {
+                    oddFooter.Images.RemoveAt(k);
+                }
+                int picCount = oddFooter.Images.Count;
+                for (int n = 0; n < picCount; n++)
+                {
+                    oddFooter.Pictures.RemoveAt(n);
                 }
             }
         }

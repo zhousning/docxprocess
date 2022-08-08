@@ -74,7 +74,7 @@ namespace Docx.src.workers
                 string headerImage = formValOption.HeaderImagePath;
                 Boolean headerLineBool = formValOption.HeaderLine;
                 HeaderFooterOption headerOption = new HeaderFooterOption(headerFont, headerColor, headerAlign, pageHeaderText, firstHeaderText, oddHeaderText, evenHeaderText, headerImage, "", headerLineBool);
-
+                headerFooterService.clearHeader(document);
                 headerFooterService.addHeaders(document, headerOption, firstOption, oddEvenOption);
             }
 
@@ -91,7 +91,7 @@ namespace Docx.src.workers
                 string pageNumber = formValOption.PageNumberComBox;
                 Boolean footerLineBool = formValOption.FooterLine;
                 HeaderFooterOption footerOption = new HeaderFooterOption(footerFont, footerColor, footerAlign, pageFooterText, firstFooterText, oddFooterText, evenFooterText, footerImage, pageNumber, footerLineBool);
-                
+                headerFooterService.clearFooter(document);
                 headerFooterService.addFooters(document, footerOption, firstOption, oddEvenOption);
             }
         }

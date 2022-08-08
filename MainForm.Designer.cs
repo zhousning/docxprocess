@@ -41,15 +41,15 @@
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.tabcontrol = new System.Windows.Forms.TabControl();
             this.textReplaceTab = new System.Windows.Forms.TabPage();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.ReplaceTextGridView = new System.Windows.Forms.DataGridView();
+            this.sourceText = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.targetText = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LinkReplacegroupBox = new System.Windows.Forms.GroupBox();
             this.ReplaceLinkGridView = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.textReplacetoTask = new System.Windows.Forms.CheckBox();
-            this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.ReplaceTextGridView = new System.Windows.Forms.DataGridView();
-            this.sourceText = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.targetText = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button1 = new System.Windows.Forms.Button();
             this.headerFooterTab = new System.Windows.Forms.TabPage();
             this.headerFooterToTask = new System.Windows.Forms.CheckBox();
@@ -219,10 +219,10 @@
             this.splitContainer2.SuspendLayout();
             this.tabcontrol.SuspendLayout();
             this.textReplaceTab.SuspendLayout();
-            this.LinkReplacegroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ReplaceLinkGridView)).BeginInit();
             this.groupBox9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ReplaceTextGridView)).BeginInit();
+            this.LinkReplacegroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ReplaceLinkGridView)).BeginInit();
             this.headerFooterTab.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -362,7 +362,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::Docx.Properties.Resources.微信图片_20200506211531;
+            this.pictureBox1.Image = global::Docx.Properties.Resources.微信图片_202005062115311;
             this.pictureBox1.Location = new System.Drawing.Point(27, 422);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(152, 152);
@@ -422,6 +422,44 @@
             this.textReplaceTab.UseVisualStyleBackColor = true;
             this.textReplaceTab.Click += new System.EventHandler(this.TextReplaceTab_Click);
             // 
+            // groupBox9
+            // 
+            this.groupBox9.Controls.Add(this.ReplaceTextGridView);
+            this.groupBox9.Controls.Add(this.LinkReplacegroupBox);
+            this.groupBox9.Location = new System.Drawing.Point(19, 11);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(801, 224);
+            this.groupBox9.TabIndex = 2;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "文字替换";
+            // 
+            // ReplaceTextGridView
+            // 
+            this.ReplaceTextGridView.AllowUserToOrderColumns = true;
+            this.ReplaceTextGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.ReplaceTextGridView.BackgroundColor = System.Drawing.SystemColors.Window;
+            this.ReplaceTextGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.ReplaceTextGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.sourceText,
+            this.targetText});
+            this.ReplaceTextGridView.Location = new System.Drawing.Point(6, 24);
+            this.ReplaceTextGridView.Name = "ReplaceTextGridView";
+            this.ReplaceTextGridView.RowTemplate.Height = 23;
+            this.ReplaceTextGridView.Size = new System.Drawing.Size(789, 194);
+            this.ReplaceTextGridView.TabIndex = 1;
+            // 
+            // sourceText
+            // 
+            this.sourceText.DataPropertyName = "sourceText";
+            this.sourceText.HeaderText = "文字";
+            this.sourceText.Name = "sourceText";
+            // 
+            // targetText
+            // 
+            this.targetText.DataPropertyName = "targetText";
+            this.targetText.HeaderText = "替换为";
+            this.targetText.Name = "targetText";
+            // 
             // LinkReplacegroupBox
             // 
             this.LinkReplacegroupBox.Controls.Add(this.ReplaceLinkGridView);
@@ -478,47 +516,9 @@
             this.textReplacetoTask.UseVisualStyleBackColor = false;
             this.textReplacetoTask.CheckedChanged += new System.EventHandler(this.TextReplacetoTask_CheckedChanged);
             // 
-            // groupBox9
-            // 
-            this.groupBox9.Controls.Add(this.ReplaceTextGridView);
-            this.groupBox9.Controls.Add(this.LinkReplacegroupBox);
-            this.groupBox9.Location = new System.Drawing.Point(19, 11);
-            this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(801, 224);
-            this.groupBox9.TabIndex = 2;
-            this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "文字替换";
-            // 
-            // ReplaceTextGridView
-            // 
-            this.ReplaceTextGridView.AllowUserToOrderColumns = true;
-            this.ReplaceTextGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.ReplaceTextGridView.BackgroundColor = System.Drawing.SystemColors.Window;
-            this.ReplaceTextGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.ReplaceTextGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.sourceText,
-            this.targetText});
-            this.ReplaceTextGridView.Location = new System.Drawing.Point(6, 24);
-            this.ReplaceTextGridView.Name = "ReplaceTextGridView";
-            this.ReplaceTextGridView.RowTemplate.Height = 23;
-            this.ReplaceTextGridView.Size = new System.Drawing.Size(789, 194);
-            this.ReplaceTextGridView.TabIndex = 1;
-            // 
-            // sourceText
-            // 
-            this.sourceText.DataPropertyName = "sourceText";
-            this.sourceText.HeaderText = "文字";
-            this.sourceText.Name = "sourceText";
-            // 
-            // targetText
-            // 
-            this.targetText.DataPropertyName = "targetText";
-            this.targetText.HeaderText = "替换为";
-            this.targetText.Name = "targetText";
-            // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(856, 126);
+            this.button1.Location = new System.Drawing.Point(892, 117);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 7;
@@ -565,7 +565,7 @@
             this.groupBox5.Controls.Add(this.firstHeaderFooter);
             this.groupBox5.Location = new System.Drawing.Point(644, 107);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(176, 122);
+            this.groupBox5.Size = new System.Drawing.Size(176, 71);
             this.groupBox5.TabIndex = 26;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "其他";
@@ -2009,16 +2009,16 @@
             this.toolStripStatusLabel1.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
             this.toolStripStatusLabel1.IsLink = true;
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(264, 21);
-            this.toolStripStatusLabel1.Text = "天启一方人工智能应用软件有限公司©版权所有";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(132, 21);
+            this.toolStripStatusLabel1.Text = "周宁开发者©版权所有";
             this.toolStripStatusLabel1.Click += new System.EventHandler(this.ToolStripStatusLabel1_Click_1);
             // 
             // toolStripStatusLabel2
             // 
             this.toolStripStatusLabel2.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(108, 21);
-            this.toolStripStatusLabel2.Text = "www.bafangjie.cn";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(198, 21);
+            this.toolStripStatusLabel2.Text = "仅支持批量处理docx格式word文件";
             // 
             // panel1
             // 
@@ -2140,6 +2140,7 @@
             this.inputFolder.Name = "inputFolder";
             this.inputFolder.Size = new System.Drawing.Size(200, 36);
             this.inputFolder.TabIndex = 8;
+            this.inputFolder.TextChanged += new System.EventHandler(this.inputFolder_TextChanged);
             // 
             // inputFolderBtn
             // 
@@ -2187,11 +2188,12 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.splitContainer1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "疾风Word批量处理器";
+            this.Text = "疾风Word Docx批量处理器";
             this.TransparencyKey = System.Drawing.Color.GhostWhite;
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -2208,10 +2210,10 @@
             this.tabcontrol.ResumeLayout(false);
             this.textReplaceTab.ResumeLayout(false);
             this.textReplaceTab.PerformLayout();
-            this.LinkReplacegroupBox.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.ReplaceLinkGridView)).EndInit();
             this.groupBox9.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ReplaceTextGridView)).EndInit();
+            this.LinkReplacegroupBox.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ReplaceLinkGridView)).EndInit();
             this.headerFooterTab.ResumeLayout(false);
             this.headerFooterTab.PerformLayout();
             this.groupBox5.ResumeLayout(false);

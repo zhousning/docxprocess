@@ -42,5 +42,8 @@
         internal const string extractTabText = "文档内容提取";
         internal const string blankDocuemnt = "空文档—不处理";
         internal const string protectDocuemnt = "文档已加密";
+        internal const int LIMIT_THREE = 3;
+        internal const bool LIMIT_STATE = false;
+
     }
 }

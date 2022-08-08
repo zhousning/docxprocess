@@ -55,6 +55,8 @@ namespace Docx
             paragraphTab.Parent = null;//隐藏段落tab
             docInfoTab.Parent = null;
             button1.Visible = false;//隐藏测试按钮
+            clearHeader.Visible = false;
+            clearFooter.Visible = false;
             PageNumberComBox_Load();
         }
 
@@ -545,6 +547,11 @@ namespace Docx
         }
 
         private void FileGrid_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void inputFolder_TextChanged(object sender, EventArgs e)
         {
 
         }

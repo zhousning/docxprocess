@@ -5,26 +5,28 @@ VisualStudioVersion = 16.0.29209.62
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Docx", "Docx.csproj", "{0193BC39-1CA6-46A2-9018-7AA5E89CE223}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xceed.Words.NET.Examples", "..\DocX-master\Xceed.Words.NET.Examples\Xceed.Words.NET.Examples.csproj", "{F3022BB7-0E40-4C80-A495-37FEAF3671AB}"
-EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "疾风Word批量处理器", "..\DocxSetup\DocxSetup.vdproj", "{839CC32B-1DB4-4BEE-8942-7204D64DA239}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "疾风word批量处理器", "..\疾风word批量处理器\疾风word批量处理器.vdproj", "{D838B167-8C68-48A6-AFFF-64E7D8F22B11}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{0193BC39-1CA6-46A2-9018-7AA5E89CE223}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0193BC39-1CA6-46A2-9018-7AA5E89CE223}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0193BC39-1CA6-46A2-9018-7AA5E89CE223}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0193BC39-1CA6-46A2-9018-7AA5E89CE223}.Debug|x86.Build.0 = Debug|Any CPU
 		{0193BC39-1CA6-46A2-9018-7AA5E89CE223}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0193BC39-1CA6-46A2-9018-7AA5E89CE223}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F3022BB7-0E40-4C80-A495-37FEAF3671AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F3022BB7-0E40-4C80-A495-37FEAF3671AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F3022BB7-0E40-4C80-A495-37FEAF3671AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F3022BB7-0E40-4C80-A495-37FEAF3671AB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{839CC32B-1DB4-4BEE-8942-7204D64DA239}.Debug|Any CPU.ActiveCfg = Debug
-		{839CC32B-1DB4-4BEE-8942-7204D64DA239}.Release|Any CPU.ActiveCfg = Release
+		{0193BC39-1CA6-46A2-9018-7AA5E89CE223}.Release|x86.ActiveCfg = Release|Any CPU
+		{0193BC39-1CA6-46A2-9018-7AA5E89CE223}.Release|x86.Build.0 = Release|Any CPU
+		{D838B167-8C68-48A6-AFFF-64E7D8F22B11}.Debug|Any CPU.ActiveCfg = Debug
+		{D838B167-8C68-48A6-AFFF-64E7D8F22B11}.Debug|x86.ActiveCfg = Debug
+		{D838B167-8C68-48A6-AFFF-64E7D8F22B11}.Release|Any CPU.ActiveCfg = Release
+		{D838B167-8C68-48A6-AFFF-64E7D8F22B11}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

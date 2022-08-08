@@ -115,7 +115,10 @@ namespace Docx.src.controllers
                 inputFolder.Text = path;
                 DirectoryInfo directoryInfo = new DirectoryInfo(path);
                 FileInfo[] files = directoryInfo.GetFiles("*.docx", SearchOption.AllDirectories);
-
+                if (ConstData.LIMIT_STATE)
+                {
+                    files = files.Skip(0).Take(ConstData.LIMIT_THREE).ToArray();
+                }
                 DataSet ds = new DataSet();
                 DataTable dt = new DataTable();
                 dt.Columns.Add("filename", typeof(string));
